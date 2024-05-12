@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,6 +9,11 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login - CodeStash",
+};
 
 export default function Login() {
   return (
@@ -53,7 +57,7 @@ export default function Login() {
           </div>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
-            <Link href="#" className="underline">
+            <Link href="/register" className="underline">
               Sign up
             </Link>
           </div>
