@@ -1,0 +1,10 @@
+- [ ] login page
+- [ ] register page
+- [ ] infinite scrolling posts/snippets in homepage
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
