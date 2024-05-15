@@ -1,2 +1,2 @@
-export const DB_NAME = "expense-tracker";
-export const PORT = process.env.PORT || 3000;
+export const DB_NAME = "CodeStash";
+export const PORT = process.env.PORT || 8000;

@@ -4,18 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -r dotenv/config src/index",
+    "dev": "tsx watch --clear-screen=false -r dotenv/config src/index | pino-pretty",
     "start": "node -r dotenv/config src/index"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "helmet": "^7.1.0",
-    "mongoose": "^8.3.5"
+    "mongoose": "^8.3.5",
+    "pino": "^9.1.0",
+    "pino-http": "^10.1.0"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.7",
