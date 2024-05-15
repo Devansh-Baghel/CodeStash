@@ -1,9 +1,9 @@
-- [ ] login page
-- [ ] register page
+- [x] login page
+- [x] register page
 - [ ] infinite scrolling posts/snippets in homepage
-- [ ]
-- [ ]
-- [ ]
+- [x] restructure project
+- [ ] write backend boilerplate
+- [ ] convert js boilerplate to ts
 - [ ]
 - [ ]
 - [ ]
