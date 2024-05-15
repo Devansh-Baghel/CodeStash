@@ -20,7 +20,6 @@ class ApiError extends Error {
     if (stack) {
       this.stack = stack;
     } else {
-      //@ts-expect-error
       Error.captureStackTrace(this, this.constructor);
     }
   }
