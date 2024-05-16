@@ -2,7 +2,7 @@ import mongoose, { Schema, Document, mongo } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export interface User extends Document {
+export interface UserTypes extends Document {
   username: string;
   email: string;
   password: string;
@@ -14,7 +14,7 @@ export interface User extends Document {
   isVerified: boolean;
 }
 
-const userSchema: Schema<User> = new Schema({
+const userSchema: Schema<UserTypes> = new Schema({
   username: {
     type: String,
     required: [true, "Username is required"],
@@ -99,4 +99,4 @@ userSchema.methods.generateRefreshToken = function () {
   );
 };
 
-export const User = mongoose.model<User>("User", userSchema);
+export const User = mongoose.model<UserTypes>("User", userSchema);
