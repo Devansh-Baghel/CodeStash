@@ -22,7 +22,9 @@ app.use(requestLogger());
 
 // Routes
 import healthCheckRouter from "./routes/healthCheck.routes";
+import userRouter from "./routes/user.routes";
 
 app.use("/api", healthCheckRouter);
+app.use("/api/users", userRouter);
 
 export default app;
