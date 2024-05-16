@@ -8,10 +8,13 @@ export interface UserTypes extends Document {
   password: string;
   firstName: string;
   lastName: string;
-  refershToken: string;
+  refreshToken: string;
   verifyCode: string;
   verifyCodeExpiry: Date;
   isVerified: boolean;
+  generateRefreshToken: () => string;
+  generateAccessToken: () => string;
+  isPasswordCorrect: (password: string) => Promise<boolean>;
 }
 
 const userSchema: Schema<UserTypes> = new Schema({
@@ -46,7 +49,7 @@ const userSchema: Schema<UserTypes> = new Schema({
     trim: true,
     index: true,
   },
-  refershToken: {
+  refreshToken: {
     type: String,
   },
   verifyCode: {

@@ -2,19 +2,15 @@ import { ApiError } from "../utils/apiError";
 import { asyncHandler } from "../utils/asyncHandler";
 import jwt from "jsonwebtoken";
 import { User } from "../models/user.model";
-import { Request, Response, NextFunction } from "express";
-import { UserTypes } from "../models/user.model";
+import { Response, NextFunction } from "express";
+import { UserRequest } from "../types/user";
 
 interface JwtPayload {
   _id: string;
 }
 
-interface VerifyUserRequest extends Request {
-  user?: UserTypes;
-}
-
 export const verifyJWT = asyncHandler(
-  async (req: VerifyUserRequest, res: Response, next: NextFunction) => {
+  async (req: UserRequest, res: Response, next: NextFunction) => {
     try {
       const token =
         req.cookies?.accessToken ||
