@@ -9,8 +9,8 @@ export interface UserTypes extends Document {
   firstName: string;
   lastName: string;
   refreshToken: string;
-  verifyCode: string;
-  verifyCodeExpiry: Date;
+  verifyCode?: string;
+  verifyCodeExpiry?: Date;
   isVerified: boolean;
   generateRefreshToken: () => string;
   generateAccessToken: () => string;
@@ -52,14 +52,15 @@ const userSchema: Schema<UserTypes> = new Schema({
   refreshToken: {
     type: String,
   },
-  verifyCode: {
-    type: String,
-    required: [true, "Verify code is required"],
-  },
-  verifyCodeExpiry: {
-    type: Date,
-    required: [true, "Verify code expiry is required"],
-  },
+  // TODO: Add this feature
+  // verifyCode: {
+  //   type: String,
+  //   required: [true, "Verify code is required"],
+  // },
+  // verifyCodeExpiry: {
+  //   type: Date,
+  //   required: [true, "Verify code expiry is required"],
+  // },
   isVerified: {
     type: Boolean,
     default: false,

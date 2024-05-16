@@ -5,6 +5,7 @@ import { User, UserTypes } from "../models/user.model";
 import { Response } from "express";
 import { UserRequest } from "../types/user";
 import { cookieOptions } from "../constants";
+import { generateUsername } from "unique-username-generator";
 
 const generateAccessAndRefreshTokens = async (userId: string) => {
   try {
@@ -26,17 +27,22 @@ const generateAccessAndRefreshTokens = async (userId: string) => {
 
 export const registerUser = asyncHandler(
   async (req: UserRequest, res: Response) => {
-    const { fullName, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
-    if (!fullName) throw new ApiError(400, "Fullname is required");
+    if (!firstName) throw new ApiError(400, "Firstname is required");
+    if (!lastName) throw new ApiError(400, "Lastname is required");
     if (!password) throw new ApiError(400, "Password is required");
     if (!email) throw new ApiError(400, "Email is required");
 
     const emailExists = await User.findOne({ email });
     if (emailExists) throw new ApiError(409, "Email has already been used");
 
+    const username = generateUsername("-", 0);
+
     const user = await User.create({
-      fullName,
+      firstName,
+      lastName,
+      username,
       email,
       password,
     });
@@ -53,7 +59,7 @@ export const registerUser = asyncHandler(
 
     return res
       .status(201)
-      .json(new ApiResponse(200, createdUser, "User registered sucessfully"));
+      .json(new ApiResponse(201, createdUser, "User registered sucessfully"));
   }
 );
 
