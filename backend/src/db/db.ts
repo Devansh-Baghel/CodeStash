@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { DB_NAME } from "../constants.ts";
-import logger from "../utils/logger.ts";
+import { DB_NAME } from "../constants";
+import logger from "../utils/logger";
 
 async function connectDB() {
   try {
@@ -14,7 +14,7 @@ async function connectDB() {
       `MongoDB connected - DB HOST: ${connectionInstance.connection.host}`
     );
   } catch (error) {
-    logger.error("MONGODB connection error: ", error);
+    logger.error("MONGODB connection error: ");
     throw error;
   }
 }

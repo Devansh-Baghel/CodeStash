@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
-import connectDB from "./db/db.ts";
-import app from "./app.ts";
-import { PORT } from "./constants.ts";
-import logger from "./utils/logger.ts";
+import connectDB from "./db/db";
+import app from "./app";
+import { PORT } from "./constants";
+import logger from "./utils/logger";
 
 dotenv.config({
   path: "../.env",
@@ -15,5 +15,6 @@ connectDB()
     });
   })
   .catch((err) => {
-    logger.error("MongoDB Connection failed !!!", err);
+    logger.error("MongoDB Connection failed !!!");
+    throw err;
   });

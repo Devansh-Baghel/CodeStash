@@ -1,9 +1,23 @@
 import mongoose, { Schema, Document } from "mongoose";
 
+const allowedLanguages = [
+  "javascript",
+  "python",
+  "typescript",
+  "ruby",
+  "java",
+  "csharp",
+  "cpp",
+  "go",
+  "php",
+  "swift",
+] as const;
+
+type Language = (typeof allowedLanguages)[number];
+
 export interface SnippetTypes extends Document {
   content: string;
-  // TODO: Make language an array of only selected langs ["JavaScript", "Python" ...]
-  language: string;
+  language: Language;
   title: string;
   upvotes: number;
   downvotes: number;
@@ -27,8 +41,7 @@ const snippetSchema: Schema<SnippetTypes> = new Schema(
     language: {
       type: String,
       required: true,
-      // FIXME: Add more langs here
-      enum: ["javascript", "python"],
+      enum: allowedLanguages,
     },
     title: { type: String, required: true },
     description: { type: String, required: true },
