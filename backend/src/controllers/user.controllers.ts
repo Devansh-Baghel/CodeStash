@@ -3,7 +3,7 @@ import { ApiError } from "../utils/apiError";
 import { ApiResponse } from "../utils/apiResponse";
 import { User, UserTypes } from "../models/user.model";
 import { Response } from "express";
-import { UserRequest } from "../types/user";
+import { UserRequest } from "../types/userTypes";
 import { cookieOptions } from "../constants";
 import { generateUsername } from "unique-username-generator";
 
@@ -63,44 +63,46 @@ export const registerUser = asyncHandler(
   }
 );
 
-export const loginUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+export const loginUser = asyncHandler(
+  async (req: UserRequest, res: Response) => {
+    const { email, password } = req.body;
 
-  if (!email) throw new ApiError(400, "Email required");
-  if (!password) throw new ApiError(400, "Password required");
+    if (!email) throw new ApiError(400, "Email required");
+    if (!password) throw new ApiError(400, "Password required");
 
-  const user = await User.findOne({ email });
+    const user = await User.findOne({ email });
 
-  if (!user) throw new ApiError(404, "User not found");
+    if (!user) throw new ApiError(404, "User not found");
 
-  const isPasswordValid = await user.isPasswordCorrect(password);
+    const isPasswordValid = await user.isPasswordCorrect(password);
 
-  if (!isPasswordValid) throw new ApiError(401, "Invalid Password");
+    if (!isPasswordValid) throw new ApiError(401, "Invalid Password");
 
-  const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
-    user._id
-  );
-
-  const loggedInUser = await User.findById(user._id).select(
-    "-password -refreshToken"
-  );
-
-  return res
-    .status(200)
-    .cookie("accessToken", accessToken, cookieOptions)
-    .cookie("refreshToken", refreshToken, cookieOptions)
-    .json(
-      new ApiResponse(
-        200,
-        {
-          user: loggedInUser,
-          accessToken,
-          refreshToken,
-        },
-        "User logged in successfully"
-      )
+    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
+      user._id
     );
-});
+
+    const loggedInUser = await User.findById(user._id).select(
+      "-password -refreshToken"
+    );
+
+    return res
+      .status(200)
+      .cookie("accessToken", accessToken, cookieOptions)
+      .cookie("refreshToken", refreshToken, cookieOptions)
+      .json(
+        new ApiResponse(
+          200,
+          {
+            user: loggedInUser,
+            accessToken,
+            refreshToken,
+          },
+          "User logged in successfully"
+        )
+      );
+  }
+);
 
 export const logoutUser = asyncHandler(
   async (req: UserRequest, res: Response) => {
