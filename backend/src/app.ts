@@ -21,8 +21,10 @@ app.use(helmet());
 // Routes
 import healthCheckRouter from "./routes/healthCheck.routes";
 import userRouter from "./routes/user.routes";
+import postRouter from "./routes/post.routes";
 
 app.use("/api", healthCheckRouter);
 app.use("/api/users", userRouter);
+app.use("/api/posts", postRouter);
 
 export default app;
