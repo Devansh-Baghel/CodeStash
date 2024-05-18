@@ -3,7 +3,7 @@ import { asyncHandler } from "../utils/asyncHandler";
 import jwt from "jsonwebtoken";
 import { User } from "../models/user.model";
 import { Response, NextFunction } from "express";
-import { UserRequest } from "../types/user";
+import { UserRequest } from "../types/userTypes";
 
 interface JwtPayload {
   _id: string;
