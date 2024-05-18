@@ -3,6 +3,8 @@ import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
+import ReactQueryProvider from "@/utils/providers/ReactQueryProvider";
+import axios from "axios";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -19,6 +21,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  axios.defaults.baseURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api`;
+  axios.defaults.withCredentials = true;
+
   return (
     <html lang="en">
       <body
@@ -33,7 +38,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <ReactQueryProvider>
+            <main>{children}</main>
+          </ReactQueryProvider>
         </ThemeProvider>
       </body>
     </html>
