@@ -1,4 +1,5 @@
 "use client";
+// FIXME: Make this a seperate component later
 import fetcher from "@/utils/axios";
 import { useQuery } from "@tanstack/react-query";
 

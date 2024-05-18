@@ -21,9 +21,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  axios.defaults.baseURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api`;
-  axios.defaults.withCredentials = true;
-
   return (
     <html lang="en">
       <body
