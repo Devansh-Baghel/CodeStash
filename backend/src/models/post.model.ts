@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { CommentTypes } from "./comment.model";
 
 const allowedLanguages = [
   "javascript",
@@ -15,7 +16,7 @@ const allowedLanguages = [
 
 type Language = (typeof allowedLanguages)[number];
 
-export interface SnippetTypes extends Document {
+export interface PostTypes extends Document {
   content: string;
   language: Language;
   title: string;
@@ -23,11 +24,10 @@ export interface SnippetTypes extends Document {
   downvotes: number;
   description: string;
   madeBy: Schema.Types.ObjectId;
-  // TODO: Add comments in snippets
-  // comments: Comment[];
+  comments?: CommentTypes[];
 }
 
-const snippetSchema: Schema<SnippetTypes> = new Schema(
+const postSchema: Schema<PostTypes> = new Schema(
   {
     madeBy: {
       type: Schema.Types.ObjectId,
@@ -43,6 +43,12 @@ const snippetSchema: Schema<SnippetTypes> = new Schema(
       required: true,
       enum: allowedLanguages,
     },
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
     title: { type: String, required: true },
     description: { type: String, required: true },
     upvotes: { type: Number, default: 0 },
@@ -51,4 +57,4 @@ const snippetSchema: Schema<SnippetTypes> = new Schema(
   { timestamps: true }
 );
 
-export const Snippet = mongoose.model<SnippetTypes>("Snippet", snippetSchema);
+export const Post = mongoose.model<PostTypes>("Post", postSchema);

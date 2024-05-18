@@ -18,7 +18,7 @@ const commentSchema: Schema<CommentTypes> = new Schema(
     },
     parent: {
       type: Schema.Types.ObjectId,
-      ref: "Comment" || "Snippet",
+      ref: "Comment" || "Post",
       required: true,
     },
     type: {

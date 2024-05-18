@@ -4,7 +4,7 @@
 - [x] restructure project
 - [ ] write backend boilerplate
 - [ ] convert js boilerplate to ts
-- [ ]
+- [ ] view raw option in each post
 - [ ]
 - [ ]
 - [ ]
