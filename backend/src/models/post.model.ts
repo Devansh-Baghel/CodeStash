@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { CommentTypes } from "./comment.model";
 
-const allowedLanguages = [
+export const allowedLanguages = [
   "javascript",
   "python",
   "typescript",
