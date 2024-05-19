@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { NextUIProvider } from "@nextui-org/react";
 import ReactQueryProvider from "@/utils/providers/ReactQueryProvider";
+import GenericDashboard from "@/components/GenericDashboard";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -25,19 +26,21 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-h-screen bg-background font-sans antialiased p-4",
           fontSans.variable
         )}
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
           <ReactQueryProvider>
             <NextUIProvider>
-              <main className="p-4">{children}</main>
+              <GenericDashboard>
+                <main>{children}</main>
+              </GenericDashboard>
             </NextUIProvider>
           </ReactQueryProvider>
         </ThemeProvider>

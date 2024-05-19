@@ -121,7 +121,6 @@ export default function Posts() {
             </div>
           </CardHeader>
           <CardContent>
-            {/* <p>{post.content}</p> */}
             <Textarea
               isReadOnly
               label="Code"
