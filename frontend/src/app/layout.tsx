@@ -4,7 +4,6 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import ReactQueryProvider from "@/utils/providers/ReactQueryProvider";
-import axios from "axios";
 
 const fontSans = FontSans({
   subsets: ["latin"],

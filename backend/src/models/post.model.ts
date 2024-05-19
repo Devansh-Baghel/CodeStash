@@ -23,16 +23,26 @@ export interface PostTypes extends Document {
   upvotes: number;
   downvotes: number;
   description: string;
-  madeBy: Schema.Types.ObjectId;
+  madeBy: {
+    userId: Schema.Types.ObjectId;
+    fullname: string;
+  };
   comments?: CommentTypes[];
 }
 
 const postSchema: Schema<PostTypes> = new Schema(
   {
     madeBy: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+      userId: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+      fullname: {
+        type: String,
+        trim: true,
+        required: true,
+      },
     },
     content: {
       type: String,

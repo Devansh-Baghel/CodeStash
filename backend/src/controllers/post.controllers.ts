@@ -38,8 +38,11 @@ export const createPost = asyncHandler(
 
     const post = await Post.create({
       title,
-      // @ts-expect-error
-      madeBy: req.user._id,
+      madeBy: {
+        // @ts-expect-error
+        userId: req.user._id,
+        fullname: `${req.user?.firstName} ${req.user?.lastName}`,
+      },
       content,
       language,
       description,
