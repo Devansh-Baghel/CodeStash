@@ -3,6 +3,7 @@ import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
+import { NextUIProvider } from "@nextui-org/react";
 import ReactQueryProvider from "@/utils/providers/ReactQueryProvider";
 
 const fontSans = FontSans({
@@ -30,12 +31,14 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
           <ReactQueryProvider>
-            <main>{children}</main>
+            <NextUIProvider>
+              <main className="p-4">{children}</main>
+            </NextUIProvider>
           </ReactQueryProvider>
         </ThemeProvider>
       </body>
