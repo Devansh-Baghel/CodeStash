@@ -3,20 +3,21 @@ import fetcher from "@/utils/axios";
 import { useQuery } from "@tanstack/react-query";
 import {
   Card,
-  CardHeader,
-  CardBody,
+  CardContent,
+  CardDescription,
   CardFooter,
-  Divider,
-  Link,
-  Image,
-} from "@nextui-org/react";
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { BiUpvote as UpvoteIcon } from "react-icons/bi";
+import { BiDownvote as DownvoteIcon } from "react-icons/bi";
 
 type PostTypes = {
   _id: string;
   title: string;
   content: string;
   description: string;
-  madeBy: string;
+  madeBy: { userId: string; fullname: string };
   upvotes: number;
   downvotes: number;
 };
@@ -34,33 +35,28 @@ export default function Posts() {
   return (
     <div className="flex flex-col gap-4">
       {data.map((post: PostTypes) => (
-        <Card className="max-w-[400px]">
-          <CardHeader className="flex gap-3">
-            <Image
-              alt="nextui logo"
-              height={40}
-              radius="sm"
-              src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
-              width={40}
-            />
-            <div className="flex flex-col">
-              <p className="text-md">NextUI</p>
-              <p className="text-small text-default-500">nextui.org</p>
+        <Card key={post._id}>
+          <CardHeader className="flex flex-row items-center gap-4">
+            <div className="flex gap-1">
+              {/* FIXME: Change to solid verison of these icons when clicked */}
+              <UpvoteIcon className="w-6 h-6" />
+              {post.upvotes - post.downvotes}
+              <DownvoteIcon className="w-6 h-6" />
+            </div>
+            <div>
+              <CardTitle className="">Card Title</CardTitle>
+              <CardDescription>{post.madeBy.fullname}</CardDescription>
             </div>
           </CardHeader>
-          <Divider />
-          <CardBody>
-            <p>Make beautiful websites regardless of your design experience.</p>
-          </CardBody>
-          <Divider />
+          <CardContent>
+            <p>Code will be here</p>
+            <p>
+              Description here, there will be a show more button if the
+              description is too long
+            </p>
+          </CardContent>
           <CardFooter>
-            <Link
-              isExternal
-              showAnchorIcon
-              href="https://github.com/nextui-org/nextui"
-            >
-              Visit source code on GitHub.
-            </Link>
+            <p>Posted in ____ community</p>
           </CardFooter>
         </Card>
       ))}
