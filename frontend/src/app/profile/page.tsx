@@ -3,11 +3,16 @@ import { useUserStore } from "@/store/userStore";
 
 export default function Profile() {
   const loginState = useUserStore((state) => state.isLoggedIn);
-  const changeLoginStatus = useUserStore((state) => state.changeLoginStatus);
+  const getCurrentUser = useUserStore((state) => state.getCurrentUser);
+  const userData = useUserStore((state) => state.userData);
 
   return (
-    <button onClick={changeLoginStatus}>
-      Change login state: {loginState ? "True" : "False"}
-    </button>
+    <div>
+      <button onClick={getCurrentUser}>
+        Change login state: {loginState ? "True" : "False"}
+      </button>
+
+      <h1>{userData.firstName}</h1>
+    </div>
   );
 }
