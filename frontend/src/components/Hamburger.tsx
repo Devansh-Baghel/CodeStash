@@ -13,7 +13,7 @@ export default function Hamburger() {
   return (
     <Sheet>
       <SheetTrigger>
-        <MenuIcon className="w-10 h-10 text-violet-500 md:hidden" />
+        <MenuIcon className="w-10 h-10 text-primary md:hidden" />
       </SheetTrigger>
       <SheetOverlay />
       <SheetContent>
@@ -23,7 +23,7 @@ export default function Hamburger() {
             <Button variant="flat" radius="full">
               Login
             </Button>
-            <Button variant="solid" radius="full" className="bg-violet-500">
+            <Button variant="solid" radius="full" className="bg-primary">
               Sign up
             </Button>
           </div>
