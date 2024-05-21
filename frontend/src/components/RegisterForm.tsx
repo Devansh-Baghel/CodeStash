@@ -3,14 +3,17 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import fetcher from "@/utils/axios";
+import { useUserStore } from "@/store/userStore";
+import { redirect } from "next/navigation";
 
 export default function RegisterForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
 
   async function submitForm(e: FormEvent) {
     e.preventDefault();
@@ -23,6 +26,12 @@ export default function RegisterForm() {
 
     console.log(data);
   }
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      redirect("/");
+    }
+  }, [isLoggedIn]);
 
   return (
     <form onSubmit={submitForm}>
