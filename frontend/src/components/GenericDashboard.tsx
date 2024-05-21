@@ -1,12 +1,18 @@
+"use client";
 import { Button } from "@nextui-org/react";
 import { VscGitStash as CodeStashIcon } from "react-icons/vsc";
 import Hamburger from "./Hamburger";
+import { useUserStore } from "@/store/userStore";
 
 export default function GenericDashboard({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const getCurrentUser = useUserStore((state) => state.getCurrentUser);
+
+  getCurrentUser();
+
   return (
     <>
       <nav className="mb-6 flex justify-between items-center gap-2">

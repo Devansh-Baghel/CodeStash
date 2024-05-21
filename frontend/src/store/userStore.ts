@@ -3,15 +3,22 @@ import { create } from "zustand";
 
 interface UserState {
   isLoggedIn: boolean;
-  // FIXME: Add proper types of userData
-  userData: Object;
+  userData: null | {
+    firstName: string;
+    lastName: string;
+    email: string;
+    username: string;
+    madeBy: {
+      fullName: string;
+      _id: string;
+    };
+  };
   getCurrentUser: () => void;
 }
 
 export const useUserStore = create<UserState>()((set) => ({
   isLoggedIn: false,
-  userData: {},
-  // changeLoginStatus: () => set((state) => ({ isLoggedIn: !state.isLoggedIn })),
+  userData: null,
   getCurrentUser: async () => {
     await axiosInstance
       .get("/users/get-current-user")

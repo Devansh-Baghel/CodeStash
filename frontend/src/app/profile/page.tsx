@@ -12,7 +12,7 @@ export default function Profile() {
         Change login state: {loginState ? "True" : "False"}
       </button>
 
-      <h1>{userData.firstName}</h1>
+      <h1>{userData?.firstName}</h1>
     </div>
   );
 }

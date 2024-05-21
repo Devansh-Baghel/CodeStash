@@ -3,7 +3,7 @@ import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
-import { NextUIProvider } from "@nextui-org/react";
+import { NextUIProvider, useUser } from "@nextui-org/react";
 import ReactQueryProvider from "@/utils/providers/ReactQueryProvider";
 import GenericDashboard from "@/components/GenericDashboard";
 
