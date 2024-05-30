@@ -111,9 +111,9 @@ export default function Posts() {
           <CardHeader className="flex flex-row items-center gap-4">
             <div className="flex gap-1">
               {/* FIXME: Change to solid verison of these icons when clicked */}
-              <UpvoteIcon className="w-6 h-6" />
+              <UpvoteIcon className="h-6 w-6" />
               {post.upvotes - post.downvotes}
-              <DownvoteIcon className="w-6 h-6" />
+              <DownvoteIcon className="h-6 w-6" />
             </div>
             <div>
               <CardTitle className="">{post.title}</CardTitle>
