@@ -13,7 +13,7 @@ export default function Hamburger() {
   return (
     <Sheet>
       <SheetTrigger>
-        <MenuIcon className="w-10 h-10 text-primary md:hidden" />
+        <MenuIcon className="h-10 w-10 text-primary md:hidden" />
       </SheetTrigger>
       <SheetOverlay />
       <SheetContent>

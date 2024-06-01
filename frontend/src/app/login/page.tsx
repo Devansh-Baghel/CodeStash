@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function Login() {
   return (
-    <main className="flex justify-center items-center pt-10">
+    <main className="flex items-center justify-center pt-10">
       <Card className="max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>

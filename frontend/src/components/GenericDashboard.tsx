@@ -15,14 +15,14 @@ export default function GenericDashboard({
 
   return (
     <>
-      <nav className="mb-6 flex justify-between items-center gap-2">
+      <nav className="mb-6 flex items-center justify-between gap-2">
         <Button
-          className="flex gap-2 text-primary font-bold"
+          className="flex gap-2 font-bold text-primary"
           radius="full"
           variant="light"
         >
-          <CodeStashIcon className="w-8 h-8" />
-          <h2 className="text-xl font-semibold mt-1">CodeStash</h2>
+          <CodeStashIcon className="h-8 w-8" />
+          <h2 className="mt-1 text-xl font-semibold">CodeStash</h2>
         </Button>
         <Hamburger />
       </nav>
