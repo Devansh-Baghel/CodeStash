@@ -1,2 +1,2 @@
 cd frontend
-pnpm run format
+npm run format
