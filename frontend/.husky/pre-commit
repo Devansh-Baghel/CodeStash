@@ -1,2 +1,2 @@
 cd frontend
-pnpm test
+pnpm run format
