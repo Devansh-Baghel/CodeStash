@@ -108,7 +108,7 @@ export default function Posts() {
     <div className="flex flex-col gap-4">
       {data.map((post: PostTypes) => (
         <Card key={post._id}>
-          <CardHeader className="flex flex-row items-center gap-4         ">
+          <CardHeader className="flex flex-row items-center     gap-4">
             <div className="flex gap-1">
               {/* FIXME: Change to solid verison of these icons when clicked */}
               <UpvoteIcon className="h-6 w-6" />
