@@ -1,2 +1,2 @@
 cd frontend
-pnpm format
+pnpm run format
