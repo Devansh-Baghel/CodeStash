@@ -1,12 +1,17 @@
+# have to do this because .husky is not in the parent directory
 cd frontend
 
+# linting
 pnpm run lint || {
   echo "Linting failed. Commit aborted."
   exit 1
 }
 
 # formatting
-pnpm run format && git add . || {
+pnpm run format || {
   echo "Formatting failed. Commit aborted."
   exit 1
 }
+
+# adding the formatted changes
+git add .
