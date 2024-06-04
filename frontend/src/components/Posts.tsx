@@ -105,21 +105,21 @@ export default function Posts() {
   ];
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col                gap-4">
       {data.map((post: PostTypes) => (
         <Card key={post._id}>
-          <CardHeader className="flex flex-row items-center gap-4        ">
-            <div className="flex gap-1">
-              {/* FIXME: Change to solid verison of these icons when clicked */}
-              <UpvoteIcon className="h-6 w-6" />
-              {post.upvotes - post.downvotes}
-              <DownvoteIcon className="h-6 w-6" />
-            </div>
-            <div>
-              <CardTitle className="">{post.title}</CardTitle>
-              <CardDescription>{post.madeBy.fullname}</CardDescription>
-            </div>
-          </CardHeader>
+  <CardHeader className="flex flex-row items-center gap-4">
+    <div className="flex gap-1">
+      {/* FIXME: Change to solid verison of these icons when clicked */}
+      <UpvoteIcon className="h-6 w-6" />
+      {post.upvotes - post.downvotes}
+      <DownvoteIcon className="h-6 w-6" />
+    </div>
+    <div>
+      <CardTitle className="">{post.title}</CardTitle>
+      <CardDescription>{post.madeBy.fullname}</CardDescription>
+    </div>
+  </CardHeader>
           <CardContent>
             <Textarea
               isReadOnly
