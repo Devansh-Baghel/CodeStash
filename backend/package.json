@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "tsx watch --clear-screen=false -r dotenv/config src/index | pino-pretty",
     "build": "rimraf dist && tsup",
-    "start": "node -r dotenv/config dist/index.js"
+    "start": "node -r dotenv/config dist/index.js",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "keywords": [],
   "author": "",
@@ -25,15 +29,21 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@eslint/js": "^9.4.0",
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.12.12",
+    "eslint": "^9.4.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.4.0",
+    "prettier": "^3.3.1",
     "rimraf": "^5.0.7",
     "tsup": "^8.0.2",
     "tsx": "^4.10.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.12.0"
   }
 }
