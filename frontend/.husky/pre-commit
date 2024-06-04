@@ -4,3 +4,9 @@ pnpm run lint || {
   echo "Linting failed. Commit aborted."
   exit 1
 }
+
+# formatting
+pnpm run format && git add . || {
+  echo "Formatting failed. Commit aborted."
+  exit 1
+}

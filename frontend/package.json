@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "prettier --write src/ &&next lint",
+    "lint": "next lint",
+    "format": "prettier --write src/",
     "prepare": "cd .. && husky frontend/.husky"
   },
   "dependencies": {
