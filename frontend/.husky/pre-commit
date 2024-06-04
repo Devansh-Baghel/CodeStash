@@ -1,2 +1,11 @@
 cd frontend
-npm run format
+
+pnpm run lint || {
+  echo "Linting failed. Commit aborted."
+  exit 1
+}
+
+pnpm run format || {
+  echo "Formating failed. Commit aborted."
+  exit 1
+}

@@ -18,7 +18,7 @@ export default function Hamburger() {
       <SheetOverlay />
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>You aren't logged in</SheetTitle>
+          <SheetTitle>You aren&apos;t logged in</SheetTitle>
           <div className="flex flex-col gap-2">
             <Button variant="flat" radius="full">
               Login
