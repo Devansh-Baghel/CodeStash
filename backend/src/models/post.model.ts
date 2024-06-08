@@ -64,7 +64,7 @@ const postSchema: Schema<PostTypes> = new Schema(
     upvotes: { type: Number, default: 0 },
     downvotes: { type: Number, default: 0 },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Post = mongoose.model<PostTypes>("Post", postSchema);

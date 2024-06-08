@@ -8,10 +8,10 @@ async function connectDB() {
       `${process.env.MONGO_URL}/${DB_NAME}`,
       {
         writeConcern: { w: "majority" },
-      }
+      },
     );
     logger.info(
-      `MongoDB connected - DB HOST: ${connectionInstance.connection.host}`
+      `MongoDB connected - DB HOST: ${connectionInstance.connection.host}`,
     );
   } catch (error) {
     logger.error("MONGODB connection error: ");

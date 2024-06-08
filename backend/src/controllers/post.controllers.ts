@@ -27,13 +27,13 @@ export const getPostsByLang = asyncHandler(
     return res
       .status(200)
       .json(new ApiResponse(200, posts, "Posts got successfully"));
-  }
+  },
 );
 
 export const createPost = asyncHandler(
   async (req: UserRequest, res: Response) => {
     const { title, content, language, description } = postSchema.parse(
-      req.body
+      req.body,
     );
 
     const post = await Post.create({
@@ -51,5 +51,5 @@ export const createPost = asyncHandler(
     return res
       .status(200)
       .json(new ApiResponse(200, post, "Post created successfully"));
-  }
+  },
 );

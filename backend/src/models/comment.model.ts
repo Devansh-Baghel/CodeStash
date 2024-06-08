@@ -39,7 +39,7 @@ const commentSchema: Schema<CommentTypes> = new Schema(
       default: 0,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Comment = mongoose.model("Comment", commentSchema);
