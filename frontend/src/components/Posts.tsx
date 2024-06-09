@@ -12,7 +12,9 @@ import {
 } from "@/components/ui/card";
 import { BiUpvote as UpvoteIcon } from "react-icons/bi";
 import { BiDownvote as DownvoteIcon } from "react-icons/bi";
-import { Textarea } from "@nextui-org/react";
+import { Button, Textarea } from "@nextui-org/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type PostTypes = {
   _id: string;
@@ -25,6 +27,7 @@ type PostTypes = {
 };
 
 export default function Posts() {
+  const router = useRouter();
   // const { data, isError, isPending } = useQuery({
   //   queryKey: ["posts"],
   //   queryFn: async () => await fetcher.get("/posts/get-posts"),
@@ -117,7 +120,9 @@ export default function Posts() {
               <DownvoteIcon className="h-6 w-6" />
             </div>
             <div>
-              <CardTitle className="">{post.title}</CardTitle>
+              <CardTitle className="">
+                <Link href={`/post/${post._id}`}>{post.title}</Link>
+              </CardTitle>
               <CardDescription>{post.madeBy.fullname}</CardDescription>
             </div>
           </CardHeader>
@@ -133,8 +138,15 @@ export default function Posts() {
             />
             <p>{post.description}</p>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="flex flex-col gap-2">
             <p>Posted in {post._id} community</p>
+            <Button
+              variant="solid"
+              className="w-full rounded-[20px] bg-primary text-white"
+              onClick={() => router.push(`/post/${post._id}`)}
+            >
+              Show more
+            </Button>
           </CardFooter>
         </Card>
       ))}
