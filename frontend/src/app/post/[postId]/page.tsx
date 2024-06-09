@@ -7,8 +7,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Textarea } from "@nextui-org/react";
+import { Code } from "bright";
 import { BiUpvote as UpvoteIcon } from "react-icons/bi";
 import { BiDownvote as DownvoteIcon } from "react-icons/bi";
+import CopyCodeButton from "@/components/CopyCodeButton";
+
+// Default Code Display settings
+// Code.lineNumbers = true;
+Code.theme = "dracula";
 
 // mock post
 const post = {
@@ -46,7 +52,7 @@ export default async function Post({ params }: { params: { postId: string } }) {
         <p>{post.description}</p>
         <br />
         {/* FIXME: Change this textarea to a proper code block with syntax highlighting */}
-        <Textarea
+        {/* <Textarea
           isReadOnly
           label="Code"
           variant="bordered"
@@ -54,7 +60,9 @@ export default async function Post({ params }: { params: { postId: string } }) {
           placeholder="Enter your description"
           defaultValue={post.content}
           className="min-h-full"
-        />
+        /> */}
+        <Code lang="python">{post.content}</Code>
+        <CopyCodeButton code={post.content} />
       </CardContent>
       <CardFooter className="flex flex-col gap-2">
         <p>Posted in {post._id} community</p>
