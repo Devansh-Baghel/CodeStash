@@ -127,7 +127,7 @@ export default function Posts() {
             </div>
           </CardHeader>
           <CardContent>
-            <Textarea
+            {/* <Textarea
               isReadOnly
               label="Code"
               variant="bordered"
@@ -135,7 +135,7 @@ export default function Posts() {
               placeholder="Enter your description"
               defaultValue={post.content}
               className="min-h-full"
-            />
+            /> */}
             <p>{post.description}</p>
           </CardContent>
           <CardFooter className="flex flex-col gap-2">
@@ -145,7 +145,7 @@ export default function Posts() {
               className="w-full rounded-[20px] bg-primary text-white"
               onClick={() => router.push(`/post/${post._id}`)}
             >
-              Show more
+              Show code
             </Button>
           </CardFooter>
         </Card>

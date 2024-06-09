@@ -40,7 +40,7 @@ export default function Hamburger() {
             <Button
               variant="solid"
               radius="full"
-              className="bg-primary"
+              className="bg-primary text-white"
               onClick={() => {
                 router.push("/register");
                 setOpen(false);
