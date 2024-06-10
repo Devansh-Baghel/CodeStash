@@ -26,6 +26,7 @@ export interface PostTypes extends Document {
   madeBy: {
     userId: Schema.Types.ObjectId;
     fullname: string;
+    username: string;
   };
   comments?: CommentTypes[];
 }
@@ -37,11 +38,18 @@ const postSchema: Schema<PostTypes> = new Schema(
         type: Schema.Types.ObjectId,
         ref: "User",
         required: true,
+        unique: true,
       },
       fullname: {
         type: String,
         trim: true,
         required: true,
+      },
+      username: {
+        type: String,
+        trim: true,
+        required: true,
+        unique: true,
       },
     },
     content: {
@@ -64,7 +72,7 @@ const postSchema: Schema<PostTypes> = new Schema(
     upvotes: { type: Number, default: 0 },
     downvotes: { type: Number, default: 0 },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 export const Post = mongoose.model<PostTypes>("Post", postSchema);

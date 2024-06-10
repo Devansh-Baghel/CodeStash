@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, mongo } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -69,7 +69,7 @@ const userSchema: Schema<UserTypes> = new Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 userSchema.pre("save", async function (next) {
@@ -92,7 +92,7 @@ userSchema.methods.generateAccessToken = function () {
     process.env.ACCESS_TOKEN_SECRET!,
     {
       expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
-    },
+    }
   );
 };
 
@@ -104,7 +104,7 @@ userSchema.methods.generateRefreshToken = function () {
     process.env.REFRESH_TOKEN_SECRET!,
     {
       expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
-    },
+    }
   );
 };
 
