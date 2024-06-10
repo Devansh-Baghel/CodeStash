@@ -149,7 +149,10 @@ export default function Posts() {
           </CardContent>
           <CardFooter className="flex flex-col gap-2">
             <p>
-              Posted in <Link href={`/c/${post._id}`}>{post._id}</Link>{" "}
+              Posted in{" "}
+              <Link href={`/c/${post._id}`} className="underline">
+                {post._id}
+              </Link>{" "}
               community
             </p>
             <Button
