@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Textarea } from "@nextui-org/react";
 import { Code } from "bright";
 import { BiUpvote as UpvoteIcon } from "react-icons/bi";
 import { BiDownvote as DownvoteIcon } from "react-icons/bi";
@@ -20,6 +19,7 @@ Code.theme = "dracula";
 // mock post
 const post = {
   _id: "snpt001",
+  language: "cpp",
   title: "QuickSort Algorithm in Python",
   content:
     "def quicksort(arr):\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[len(arr) // 2]\n    left = [x for x in arr if x < pivot]\n    middle = [x for x in arr if x == pivot]\n    right = [x for x in arr if x > pivot]\n    return quicksort(left) + middle + quicksort(right)",
@@ -52,23 +52,15 @@ export default async function Post({ params }: { params: { postId: string } }) {
       <CardContent>
         <p>{post.description}</p>
         <br />
-        {/* FIXME: Change this textarea to a proper code block with syntax highlighting */}
-        {/* <Textarea
-          isReadOnly
-          label="Code"
-          variant="bordered"
-          labelPlacement="outside"
-          placeholder="Enter your description"
-          defaultValue={post.content}
-          className="min-h-full"
-        /> */}
         <Code lang="python">{post.content}</Code>
         <CopyCodeButton code={post.content} />
       </CardContent>
       <CardFooter className="flex flex-col gap-2">
         <p>
-          Posted in
-          <Link href={`/c/${post._id}`}>{post._id}</Link>
+          Posted in{" "}
+          <Link href={`/c/${post.language}`} className="underline">
+            c/{post.language}
+          </Link>{" "}
           community
         </p>
       </CardFooter>
