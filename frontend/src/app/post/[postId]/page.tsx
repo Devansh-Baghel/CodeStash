@@ -13,10 +13,12 @@ import CopyCodeButton from "@/components/CopyCodeButton";
 import Link from "next/link";
 import fetcher from "@/utils/axios";
 
-// Default Code Display settings
+// Code Display settings
 Code.theme = "dracula";
 
 export default async function Post({ params }: { params: { postId: string } }) {
+  // FIXME: use react query to do this
+  // FIXME: add post types
   const post = await fetcher.post("/posts/get-post", {
     postId: params.postId,
   });
@@ -32,7 +34,11 @@ export default async function Post({ params }: { params: { postId: string } }) {
         </div>
         <div>
           <CardTitle className="">{post.title}</CardTitle>
-          <CardDescription>{post.madeBy.fullname}</CardDescription>
+          <CardDescription>
+            <Link href={`/u/${post.madeBy.username}`}>
+              u/{post.madeBy.username}
+            </Link>
+          </CardDescription>
         </div>
       </CardHeader>
       <CardContent>

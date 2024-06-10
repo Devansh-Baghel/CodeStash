@@ -2,8 +2,8 @@
 - [x] register page
 - [ ] infinite scrolling posts/snippets in homepage
 - [x] restructure project
-- [ ] write backend boilerplate
-- [ ] convert js boilerplate to ts
+- [x] write backend boilerplate
+- [x] convert js boilerplate to ts
 - [ ] view raw option in each post
 - [ ] Loading components
 
@@ -13,5 +13,5 @@
   - [ ] in /
 
 - [ ] redirect user to / when loggedin
-- [ ]
+- [ ] change upvote downvote icons when clicked, also will have to save the upvotes and downvotes in user's model
 - [ ]

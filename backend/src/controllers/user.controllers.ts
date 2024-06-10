@@ -20,7 +20,7 @@ const generateAccessAndRefreshTokens = async (userId: string) => {
   } catch (error) {
     throw new ApiError(
       500,
-      "Something went wrong while generating access and refresh tokens",
+      "Something went wrong while generating access and refresh tokens"
     );
   }
 };
@@ -48,19 +48,19 @@ export const registerUser = asyncHandler(
     });
 
     const createdUser = await User.findById(user._id).select(
-      "-password -refreshToken",
+      "-password -refreshToken"
     );
 
     if (!createdUser)
       throw new ApiError(
         500,
-        "Something went wrong while registering the user",
+        "Something went wrong while registering the user"
       );
 
     return res
       .status(201)
       .json(new ApiResponse(201, createdUser, "User registered sucessfully"));
-  },
+  }
 );
 
 export const loginUser = asyncHandler(
@@ -79,11 +79,11 @@ export const loginUser = asyncHandler(
     if (!isPasswordValid) throw new ApiError(401, "Invalid Password");
 
     const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
-      user._id,
+      user._id
     );
 
     const loggedInUser = await User.findById(user._id).select(
-      "-password -refreshToken",
+      "-password -refreshToken"
     );
 
     return res
@@ -98,10 +98,10 @@ export const loginUser = asyncHandler(
             accessToken,
             refreshToken,
           },
-          "User logged in successfully",
-        ),
+          "User logged in successfully"
+        )
       );
-  },
+  }
 );
 
 export const logoutUser = asyncHandler(
@@ -121,7 +121,7 @@ export const logoutUser = asyncHandler(
       },
       {
         new: true,
-      },
+      }
     );
 
     return res
@@ -129,7 +129,7 @@ export const logoutUser = asyncHandler(
       .clearCookie("accessToken", cookieOptions)
       .clearCookie("refreshToken", cookieOptions)
       .json(new ApiResponse(200, {}, "User logged out"));
-  },
+  }
 );
 
 export const getCurrentUser = asyncHandler(
@@ -137,7 +137,24 @@ export const getCurrentUser = asyncHandler(
     return res
       .status(200)
       .json(
-        new ApiResponse(200, { user: req.user }, "User fetched successfully"),
+        new ApiResponse(200, { user: req.user }, "User fetched successfully")
       );
-  },
+  }
 );
+
+export const getUserProfile = asyncHandler(async (req, res) => {
+  const { username } = req.body;
+
+  // FIXME: add zod verification here
+  if (!username) throw new ApiError(400, "Username is required");
+
+  const user = await User.findOne({ username }).select(
+    "-password -refreshToken -email"
+  );
+
+  if (!user) throw new ApiError(404, "User not found");
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, user, "User sent successfully"));
+});

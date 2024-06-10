@@ -6,9 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import fetcher from "@/utils/axios";
 import { Avatar } from "@nextui-org/react";
 
-export default function UserProfile({
+export default async function UserProfile({
   params,
 }: {
   params: { userName: string };
@@ -16,15 +17,19 @@ export default function UserProfile({
   // TODO: fetch the user by username
   // If username === useUserStore().username then redirect to /profile
 
+  // FIXME: add user types
+  const user = await fetcher.post("/users/get-user-profile", {
+    username: params.userName,
+  });
+
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center gap-4">
-        <div className="flex gap-1"></div>
-        <div>
-          <Avatar src="" size="lg" className="mx-auto h-32 w-32" />
-          <CardTitle className="">{params.userName}</CardTitle>
-          <CardDescription></CardDescription>
-        </div>
+      <CardHeader className="flex flex-col items-center gap-4">
+        <Avatar src={user.avatar} size="lg" className="mx-auto h-32 w-32" />
+        <CardTitle className="">{params.userName}</CardTitle>
+        <CardDescription>
+          {user.firstName} {user.lastName}
+        </CardDescription>
       </CardHeader>
       <CardContent></CardContent>
       <CardFooter className="flex flex-col gap-2"></CardFooter>

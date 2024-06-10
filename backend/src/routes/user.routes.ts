@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   getCurrentUser,
+  getUserProfile,
   loginUser,
   logoutUser,
   registerUser,
@@ -11,6 +12,7 @@ const router = Router();
 
 router.route("/register").post(registerUser);
 router.route("/login").post(loginUser);
+router.route("/get-user-profile").post(getUserProfile);
 
 // secured routes
 router.route("/logout").post(verifyJWT, logoutUser);
