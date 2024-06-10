@@ -12,6 +12,6 @@
   - [ ] in /register
   - [ ] in /
 
-- [ ]
+- [ ] redirect user to / when loggedin
 - [ ]
 - [ ]

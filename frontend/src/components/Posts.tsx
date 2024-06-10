@@ -145,15 +145,6 @@ export default function Posts() {
             </div>
           </CardHeader>
           <CardContent>
-            {/* <Textarea
-              isReadOnly
-              label="Code"
-              variant="bordered"
-              labelPlacement="outside"
-              placeholder="Enter your description"
-              defaultValue={post.content}
-              className="min-h-full"
-            /> */}
             <p>{post.description}</p>
           </CardContent>
           <CardFooter className="flex flex-col gap-2">
