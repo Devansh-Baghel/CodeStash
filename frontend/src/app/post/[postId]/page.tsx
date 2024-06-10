@@ -11,6 +11,7 @@ import { Code } from "bright";
 import { BiUpvote as UpvoteIcon } from "react-icons/bi";
 import { BiDownvote as DownvoteIcon } from "react-icons/bi";
 import CopyCodeButton from "@/components/CopyCodeButton";
+import Link from "next/link";
 
 // Default Code Display settings
 // Code.lineNumbers = true;
@@ -65,7 +66,11 @@ export default async function Post({ params }: { params: { postId: string } }) {
         <CopyCodeButton code={post.content} />
       </CardContent>
       <CardFooter className="flex flex-col gap-2">
-        <p>Posted in {post._id} community</p>
+        <p>
+          Posted in
+          <Link href={`/c/${post._id}`}>{post._id}</Link>
+          community
+        </p>
       </CardFooter>
     </Card>
     // TODO: Add comments and replies for these posts

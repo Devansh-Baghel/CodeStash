@@ -15,6 +15,7 @@ import { BiDownvote as DownvoteIcon } from "react-icons/bi";
 import { Button, Textarea } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "@/store/userStore";
 
 type PostTypes = {
   _id: string;
@@ -99,6 +100,7 @@ const data = [
 
 export default function Posts() {
   const router = useRouter();
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
   // const { data, isError, isPending } = useQuery({
   //   queryKey: ["posts"],
   //   queryFn: async () => await fetcher.get("/posts/get-posts"),
@@ -108,6 +110,16 @@ export default function Posts() {
   // if (isPending) return "Loading...";
   // if (isError) return "Erorr";
 
+  function handleInteraction() {
+    if (!isLoggedIn) {
+      router.push("/login");
+      return;
+    }
+
+    // do the interaction , upvote downvote etc
+    console.log("Interaction!!!");
+  }
+
   return (
     <div className="flex flex-col gap-4">
       {data.map((post: PostTypes) => (
@@ -115,9 +127,15 @@ export default function Posts() {
           <CardHeader className="flex flex-row items-center gap-4">
             <div className="flex gap-1">
               {/* FIXME: Change to solid verison of these icons when clicked */}
-              <UpvoteIcon className="h-6 w-6" />
+              <UpvoteIcon
+                className="h-6 w-6 cursor-pointer"
+                onClick={handleInteraction}
+              />
               {post.upvotes - post.downvotes}
-              <DownvoteIcon className="h-6 w-6" />
+              <DownvoteIcon
+                className="h-6 w-6 cursor-pointer"
+                onClick={handleInteraction}
+              />
             </div>
             <div>
               <CardTitle className="">
@@ -139,7 +157,10 @@ export default function Posts() {
             <p>{post.description}</p>
           </CardContent>
           <CardFooter className="flex flex-col gap-2">
-            <p>Posted in {post._id} community</p>
+            <p>
+              Posted in <Link href={`/c/${post._id}`}>{post._id}</Link>{" "}
+              community
+            </p>
             <Button
               variant="solid"
               className="w-full rounded-[20px] bg-primary text-white"
