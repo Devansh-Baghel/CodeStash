@@ -7,12 +7,26 @@ import { postSchema } from "../schemas/postSchema";
 import { UserRequest } from "../types/userTypes";
 
 export const getPosts = asyncHandler(async (req: Request, res: Response) => {
+  // TODO: don't send the post.content to client
   const posts = await Post.find();
   if (!posts) throw new ApiError(404, "There aren't any posts");
 
   return res
     .status(200)
     .json(new ApiResponse(200, posts, "Posts sent successfully"));
+});
+
+export const getPost = asyncHandler(async (req, res) => {
+  const { postId } = req.body;
+  if (!postId) throw new ApiError(400, "Post id is required");
+
+  const post = await Post.findById(postId);
+
+  if (!post) throw new ApiError(404, "Post not found");
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, post, "Post sent successfully"));
 });
 
 export const getPostsByLang = asyncHandler(
