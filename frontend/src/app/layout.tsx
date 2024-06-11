@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { NextUIProvider, useUser } from "@nextui-org/react";
 import ReactQueryProvider from "@/utils/providers/ReactQueryProvider";
 import GenericDashboard from "@/components/GenericDashboard";
+import { Toaster } from "@/components/ui/toaster";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({
             <NextUIProvider>
               <GenericDashboard>
                 <main>{children}</main>
+                <Toaster />
               </GenericDashboard>
             </NextUIProvider>
           </ReactQueryProvider>

@@ -1,13 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
@@ -21,16 +15,37 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { FormEvent, useState } from "react";
+import fetcher from "@/utils/axios";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");
-  const [language, setLanguage] = useState("");
+  const [language, setLanguage] = useState<undefined | string>();
   const [description, setDescription] = useState("");
   const [code, setCode] = useState("");
+  const { toast } = useToast();
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    console.log(title, language, description, code);
+
+    fetcher
+      .post("/posts/create-post", {
+        content: code,
+        language,
+        description,
+        title,
+      })
+      .then((res) => {
+        console.log(res);
+        setTitle("");
+        setCode("");
+        setDescription("");
+
+        toast({
+          title: "Post Created",
+          description: `Your post in ${language} was created successfully.`,
+        });
+      });
   }
 
   return (
@@ -81,9 +96,10 @@ export default function CreatePost() {
               <Label htmlFor="content">Code</Label>
               <CodeEditor
                 value={code}
-                language="js"
-                placeholder="Please enter JS code."
+                language={language || "python"}
+                placeholder={`Please enter ${language || "python"} code`}
                 onChange={(evn) => setCode(evn.target.value)}
+                className="rounded-xl"
                 required
                 padding={15}
                 style={{
