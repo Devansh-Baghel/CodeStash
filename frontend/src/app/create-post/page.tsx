@@ -11,61 +11,99 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import CodeEditor from "@uiw/react-textarea-code-editor";
+import { FormEvent, useState } from "react";
 
 export default function CreatePost() {
+  const [title, setTitle] = useState("");
+  const [language, setLanguage] = useState("");
+  const [description, setDescription] = useState("");
+  const [code, setCode] = useState("");
+
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    console.log(title, language, description, code);
+  }
+
   return (
-    <main className="flex items-center justify-center pt-10">
-      <Card className="max-w-sm">
-        <CardHeader>
-          <CardTitle className="text-2xl">Create Post</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form>
-            <div className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  autoComplete="email"
-                  required
-                />
-              </div>
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  <Link
-                    href="#"
-                    className="ml-auto inline-block text-sm underline"
-                  >
-                    Forgot your password?
-                  </Link>
-                </div>
-                <Input
-                  id="password"
-                  type="password"
-                  required
-                  // minLength={6}
-                  autoComplete="current-password"
-                />
-              </div>
-              <Button type="submit" className="w-full">
-                Login
-              </Button>
-              <Button variant="outline" className="w-full" type="button">
-                Login with Google
-              </Button>
+    <Card className="max-w-sm">
+      <CardHeader>
+        <CardTitle className="text-2xl">Create Post</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit}>
+          <div className="grid gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="title">Title</Label>
+              <Input
+                id="title"
+                placeholder="React server component"
+                required
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </div>
-            <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <Link href="/register" className="underline">
-                Sign up
-              </Link>
+            <div className="grid gap-2">
+              <Select
+                required
+                onValueChange={(lang) => setLanguage(lang)}
+                value={language}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Language" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="typescript">TypeScript</SelectItem>
+                  <SelectItem value="javascript">JavaScript</SelectItem>
+                  <SelectItem value="python">Python</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
-          </form>
-        </CardContent>
-      </Card>
-    </main>
+            <div className="grid gap-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                placeholder="How is this code snippet useful?"
+                id="description"
+                value={description}
+                required
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="content">Code</Label>
+              <CodeEditor
+                value={code}
+                language="js"
+                placeholder="Please enter JS code."
+                onChange={(evn) => setCode(evn.target.value)}
+                required
+                padding={15}
+                style={{
+                  fontFamily:
+                    "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
+                }}
+              />
+            </div>
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
+          </div>
+          <div className="mt-4 text-center text-sm">
+            Don&apos;t have an account?{" "}
+            <Link href="/register" className="underline">
+              Sign up
+            </Link>
+          </div>
+        </form>
+      </CardContent>
+    </Card>
   );
 }
