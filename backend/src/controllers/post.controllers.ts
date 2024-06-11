@@ -8,7 +8,9 @@ import { UserRequest } from "../types/userTypes";
 
 export const getPosts = asyncHandler(async (req: Request, res: Response) => {
   // TODO: don't send the post.content to client
-  const posts = await Post.find();
+  let posts = await Post.find();
+
+  posts = posts.reverse();
 
   // FIXME: use zod verification here
   if (!posts) throw new ApiError(404, "There aren't any posts");

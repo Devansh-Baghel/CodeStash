@@ -22,7 +22,7 @@ type PostTypes = {
   title: string;
   content: string;
   description: string;
-  madeBy: { userId: string; fullname: string };
+  madeBy: { userId: string; fullname: string; username: string };
   upvotes: number;
   downvotes: number;
   language: string;
@@ -73,7 +73,11 @@ export default function Posts() {
               <CardTitle className="">
                 <Link href={`/post/${post._id}`}>{post.title}</Link>
               </CardTitle>
-              <CardDescription>{post.madeBy.fullname}</CardDescription>
+              <CardDescription>
+                <Link href={`/u/${post.madeBy.username}`}>
+                  u/{post.madeBy.username}
+                </Link>
+              </CardDescription>
             </div>
           </CardHeader>
           <CardContent>
