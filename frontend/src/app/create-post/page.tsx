@@ -14,9 +14,11 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import fetcher from "@/utils/axios";
 import { useToast } from "@/components/ui/use-toast";
+import { useUserStore } from "@/store/userStore";
+import { useRouter } from "next/navigation";
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");
@@ -24,6 +26,14 @@ export default function CreatePost() {
   const [description, setDescription] = useState("");
   const [code, setCode] = useState("");
   const { toast } = useToast();
+  const { isLoggedIn } = useUserStore();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push("/login");
+    }
+  }, []);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
