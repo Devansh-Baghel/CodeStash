@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormEvent, useEffect, useState } from "react";
-import fetcher from "@/utils/axios";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
 
@@ -14,19 +13,12 @@ export default function RegisterForm() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  const { isLoggedIn, registerUser, loginUser } = useUserStore();
   const router = useRouter();
 
   async function submitForm(e: FormEvent) {
     e.preventDefault();
-    const data = await fetcher.post("/users/register", {
-      firstName,
-      lastName,
-      email,
-      password,
-    });
-
-    console.log(data);
+    registerUser({ firstName, lastName, email, password });
   }
 
   useEffect(() => {

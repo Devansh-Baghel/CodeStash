@@ -14,11 +14,22 @@ interface UserState {
     };
   };
   getCurrentUser: () => void;
+  registerUser: ({
+    firstName,
+    lastName,
+    email,
+    password,
+  }: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+  }) => void;
   loginUser: ({ email, password }: { email: string; password: string }) => void;
   logoutUser: () => void;
 }
 
-export const useUserStore = create<UserState>()((set) => ({
+export const useUserStore = create<UserState>()((set, get) => ({
   isLoggedIn: false,
   userData: null,
   getCurrentUser: async () => {
@@ -32,6 +43,18 @@ export const useUserStore = create<UserState>()((set) => ({
         if (error.status === 401) {
           console.log("error 401");
         }
+      });
+  },
+  registerUser: async ({ firstName, lastName, email, password }) => {
+    await fetcher
+      .post("/users/register", {
+        firstName,
+        lastName,
+        email,
+        password,
+      })
+      .then(() => {
+        get().loginUser({ email, password });
       });
   },
   loginUser: async ({ email, password }) => {
