@@ -14,6 +14,7 @@ interface UserState {
     };
   };
   getCurrentUser: () => void;
+  loginUser: ({ email, password }: { email: string; password: string }) => void;
   logoutUser: () => void;
 }
 
@@ -32,6 +33,11 @@ export const useUserStore = create<UserState>()((set) => ({
           console.log("error 401");
         }
       });
+  },
+  loginUser: async ({ email, password }) => {
+    const data = await fetcher.post("/users/login", { email, password });
+    set(() => ({ userData: data }));
+    set(() => ({ isLoggedIn: true }));
   },
   logoutUser: async () => {
     await fetcher.post("/users/logout").then(() => {
