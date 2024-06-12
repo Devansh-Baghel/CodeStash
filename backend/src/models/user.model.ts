@@ -9,6 +9,9 @@ export interface UserTypes extends Document {
   firstName: string;
   lastName: string;
   refreshToken: string;
+  upvotes?: string[];
+  downvotes?: string[];
+  savedPosts?: string[];
   verifyCode?: string;
   verifyCodeExpiry?: Date;
   isVerified: boolean;
@@ -53,6 +56,24 @@ const userSchema: Schema<UserTypes> = new Schema(
     refreshToken: {
       type: String,
     },
+    upvotes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Post",
+      },
+    ],
+    downvotes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Post",
+      },
+    ],
+    savedPosts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Post",
+      },
+    ],
     // TODO: Add this feature
     // verifyCode: {
     //   type: String,
