@@ -48,35 +48,12 @@ export default function Hamburger() {
               radius="full"
               className="bg-primary text-white"
               onClick={() => {
-                // router.push("/login");
+                router.push("/profile");
                 setOpen(false);
               }}
             >
               Show profile
             </Button>
-            {/* <div className="flex flex-col gap-2">
-              <Button
-                variant="flat"
-                radius="full"
-                onClick={() => {
-                  router.push("/login");
-                  setOpen(false);
-                }}
-              >
-                Login
-              </Button>
-              <Button
-                variant="solid"
-                radius="full"
-                className="bg-primary text-white"
-                onClick={() => {
-                  router.push("/register");
-                  setOpen(false);
-                }}
-              >
-                Sign up
-              </Button>
-            </div> */}
           </SheetHeader>
 
           {/* FIXME: Temporary spacer */}

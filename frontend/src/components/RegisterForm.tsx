@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { FormEvent, useEffect, useState } from "react";
 import fetcher from "@/utils/axios";
 import { useUserStore } from "@/store/userStore";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
   const [firstName, setFirstName] = useState("");
@@ -15,6 +15,7 @@ export default function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  const router = useRouter();
 
   async function submitForm(e: FormEvent) {
     e.preventDefault();
@@ -30,9 +31,9 @@ export default function RegisterForm() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      redirect("/");
+      router.push("/");
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, router]);
 
   return (
     <form onSubmit={submitForm}>
