@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/utils/axios";
+import fetcher, { axiosInstance } from "@/utils/axios";
 import { create } from "zustand";
 
 interface UserState {
@@ -14,6 +14,7 @@ interface UserState {
     };
   };
   getCurrentUser: () => void;
+  logoutUser: () => void;
 }
 
 export const useUserStore = create<UserState>()((set) => ({
@@ -31,5 +32,10 @@ export const useUserStore = create<UserState>()((set) => ({
           console.log("error 401");
         }
       });
+  },
+  logoutUser: async () => {
+    await fetcher.post("/users/logout").then(() => {
+      set(() => ({ isLoggedIn: false }));
+    });
   },
 }));
