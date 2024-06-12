@@ -12,6 +12,7 @@
   - [ ] in /register
   - [ ] in /
 
-- [ ] redirect user to / when loggedin
+- [x] redirect user to / when loggedin
 - [ ] change upvote downvote icons when clicked, also will have to save the upvotes and downvotes in user's model
-- [ ]
+- [x] /profile ui for not-logged-in user
+- [ ] /profile ui for logged-in user
