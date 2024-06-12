@@ -71,3 +71,25 @@ export const createPost = asyncHandler(
       .json(new ApiResponse(200, post, "Post created successfully"));
   }
 );
+
+export const upvotePost = asyncHandler(async (req, res) => {
+  const { postId } = req.body;
+
+  if (!postId) {
+    throw new ApiError(400, "Post id is required to upvote the post");
+  }
+
+  // FIXME: only let a user upvote a post once
+
+  const updatedPost = await Post.findByIdAndUpdate(postId, {
+    $inc: { upvotes: +1 },
+  });
+
+  if (!updatedPost) {
+    throw new ApiError(404, "Post with this id does not exist");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, { updatedPost }, "Post upvoted successfully"));
+});

@@ -9,8 +9,8 @@ export interface UserTypes extends Document {
   firstName: string;
   lastName: string;
   refreshToken: string;
-  upvotes?: string[];
-  downvotes?: string[];
+  upvotedPosts?: string[];
+  downvotedPosts?: string[];
   savedPosts?: string[];
   verifyCode?: string;
   verifyCodeExpiry?: Date;
@@ -56,13 +56,13 @@ const userSchema: Schema<UserTypes> = new Schema(
     refreshToken: {
       type: String,
     },
-    upvotes: [
+    upvotedPosts: [
       {
         type: Schema.Types.ObjectId,
         ref: "Post",
       },
     ],
-    downvotes: [
+    downvotedPosts: [
       {
         type: Schema.Types.ObjectId,
         ref: "Post",
