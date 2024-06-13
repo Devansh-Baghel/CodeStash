@@ -115,3 +115,15 @@ export const savePost = asyncHandler(async (req: UserRequest, res) => {
     .status(200)
     .json(new ApiResponse(200, { user }, "Post saved successfully"));
 });
+
+export const getSavedPosts = asyncHandler(async (req: UserRequest, res) => {
+  const user = req.user;
+
+  const savedPosts = await Post.find({
+    _id: { $in: user?.savedPosts },
+  });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, savedPosts, "Saved posts sent successfully"));
+});
