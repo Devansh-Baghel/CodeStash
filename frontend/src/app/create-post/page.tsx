@@ -19,6 +19,7 @@ import fetcher from "@/utils/axios";
 import { useToast } from "@/components/ui/use-toast";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
+import NotLoggedIn from "@/components/NotLoggedIn";
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");
@@ -28,12 +29,6 @@ export default function CreatePost() {
   const { toast } = useToast();
   const { isLoggedIn } = useUserStore();
   const router = useRouter();
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      router.push("/login");
-    }
-  }, []);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -56,6 +51,10 @@ export default function CreatePost() {
           description: `Your post in ${language} was created successfully.`,
         });
       });
+  }
+
+  if (!isLoggedIn) {
+    return <NotLoggedIn description="Login or sign up to create posts" />;
   }
 
   return (
