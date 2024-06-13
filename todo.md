@@ -16,4 +16,5 @@
 - [ ] change upvote downvote icons when clicked, also will have to save the upvotes and downvotes in user's model
 - [x] /profile ui for not-logged-in user
 - [ ] /profile ui for logged-in user
-- [ ] save post feature for logged-in user
+- [x] save post feature for logged-in user
+- [ ] make a generic Posts component that takes posts[] as a prop and displays them
