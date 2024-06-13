@@ -18,7 +18,7 @@ export default function NotLoggedIn({ description }: { description: string }) {
       <CardHeader className="flex flex-col items-center">
         <Avatar src="" size="lg" className="mx-auto mb-6 h-32 w-32" />
         <CardTitle className="text-lg">You aren&apos;t logged in</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardDescription className="text-center">{description}</CardDescription>
       </CardHeader>
       <CardFooter className="flex flex-col gap-2">
         <Button

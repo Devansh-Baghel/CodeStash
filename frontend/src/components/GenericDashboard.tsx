@@ -4,7 +4,6 @@ import { Button } from "@nextui-org/react";
 import { VscGitStash as CodeStashIcon } from "react-icons/vsc";
 import Hamburger from "./Hamburger";
 import { useUserStore } from "@/store/userStore";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function GenericDashboard({
@@ -13,8 +12,9 @@ export default function GenericDashboard({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const getCurrentUser = useUserStore((state) => state.getCurrentUser);
+  const { getCurrentUser } = useUserStore();
 
+  // FIXME: only run this if accessToken and refreshToken exist
   getCurrentUser();
 
   return (

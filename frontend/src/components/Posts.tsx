@@ -16,17 +16,7 @@ import { Button, Textarea } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/store/userStore";
-
-export type PostTypes = {
-  _id: string;
-  title: string;
-  content: string;
-  description: string;
-  madeBy: { userId: string; fullname: string; username: string };
-  upvotes: number;
-  downvotes: number;
-  language: string;
-};
+import { PostTypes } from "@/types/postTypes";
 
 export default function Posts() {
   const router = useRouter();

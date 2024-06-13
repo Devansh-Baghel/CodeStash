@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { asyncHandler } from "../utils/asyncHandler";
 import { ApiResponse } from "../utils/apiResponse";
-import { Post, allowedLanguages } from "../models/post.model";
+import { Post } from "../models/post.model";
 import { ApiError } from "../utils/apiError";
 import { postSchema } from "../schemas/postSchema";
 import { UserRequest } from "../types/userTypes";
