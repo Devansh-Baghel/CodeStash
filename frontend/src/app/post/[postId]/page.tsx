@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -12,16 +14,26 @@ import { BiDownvote as DownvoteIcon } from "react-icons/bi";
 import CopyCodeButton from "@/components/CopyCodeButton";
 import Link from "next/link";
 import fetcher from "@/utils/axios";
+import { useQuery } from "@tanstack/react-query";
 
 // Code Display settings
 Code.theme = "dracula";
 
-export default async function Post({ params }: { params: { postId: string } }) {
-  // FIXME: use react query to do this
+export default function Post({ params }: { params: { postId: string } }) {
   // FIXME: add post types
-  const post = await fetcher.post("/posts/get-post", {
-    postId: params.postId,
+  const {
+    data: post,
+    isError,
+    isLoading,
+  } = useQuery({
+    queryKey: [params.postId],
+    queryFn: async () => {
+      return await fetcher.post("/posts/get-post", { postId: params.postId });
+    },
   });
+
+  if (isError) return "Error";
+  if (isLoading) return "Loading...";
 
   return (
     <Card>
@@ -44,7 +56,7 @@ export default async function Post({ params }: { params: { postId: string } }) {
       <CardContent>
         <p>{post.description}</p>
         <br />
-        <Code lang="python">{post.content}</Code>
+        <Code lang={post.language}>{post.content}</Code>
         <CopyCodeButton code={post.content} />
       </CardContent>
       <CardFooter className="flex flex-col gap-2">
