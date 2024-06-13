@@ -93,3 +93,25 @@ export const upvotePost = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, { updatedPost }, "Post upvoted successfully"));
 });
+
+// FIXME: Change this to toggle save or make a new controller for toggle save
+export const savePost = asyncHandler(async (req: UserRequest, res) => {
+  const { postId } = req.body;
+  const user = req.user;
+
+  if (!postId) {
+    throw new ApiError(400, "Post id is required to save posts");
+  }
+
+  if (user?.savedPosts?.includes(postId)) {
+    throw new ApiError(400, "You have already saved this post");
+  }
+
+  user?.savedPosts?.push(postId);
+
+  await user?.save();
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, { user }, "Post saved successfully"));
+});

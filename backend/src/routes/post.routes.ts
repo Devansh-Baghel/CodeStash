@@ -4,6 +4,7 @@ import {
   getPost,
   getPosts,
   getPostsByLang,
+  savePost,
   upvotePost,
 } from "../controllers/post.controllers";
 import { verifyJWT } from "../middlewares/auth.middleware";
@@ -18,5 +19,6 @@ router.route("/get-post").post(getPost);
 // secure posts
 router.route("/create-post").post(verifyJWT, createPost);
 router.route("/upvote").patch(verifyJWT, upvotePost);
+router.route("/save").post(verifyJWT, savePost);
 
 export default router;
