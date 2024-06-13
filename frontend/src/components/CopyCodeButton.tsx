@@ -14,7 +14,7 @@ export default function CopyCodeButton({ code }: { code: string }) {
       variant="ghost"
       color="primary"
       radius="full"
-      className="w-full py-4 text-lg"
+      className="mt-6 w-full py-4 text-lg"
       onClick={() => copyToClipboard(code)}
     >
       {hasCopiedText ? (

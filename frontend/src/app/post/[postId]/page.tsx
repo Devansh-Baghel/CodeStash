@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CodeBlock } from "react-code-block";
+import { CodeBlock, dracula } from "react-code-blocks";
 import { BiUpvote as UpvoteIcon } from "react-icons/bi";
 import { BiDownvote as DownvoteIcon } from "react-icons/bi";
 import CopyCodeButton from "@/components/CopyCodeButton";
@@ -53,13 +53,12 @@ export default function Post({ params }: { params: { postId: string } }) {
       <CardContent>
         <p>{post.description}</p>
         <br />
-        <CodeBlock code={post.content} language={post.language}>
-          <CodeBlock.Code className="mb-6 rounded-xl bg-gray-900 p-6 shadow-lg">
-            <CodeBlock.LineContent>
-              <CodeBlock.Token />
-            </CodeBlock.LineContent>
-          </CodeBlock.Code>
-        </CodeBlock>
+        <CodeBlock
+          text={post.content}
+          language={post.language}
+          theme={dracula}
+          showLineNumbers={false}
+        />
         <CopyCodeButton code={post.content} />
       </CardContent>
       <CardFooter className="flex flex-col gap-2">
