@@ -17,7 +17,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/store/userStore";
 
-type PostTypes = {
+export type PostTypes = {
   _id: string;
   title: string;
   content: string;
@@ -30,8 +30,8 @@ type PostTypes = {
 
 export default function Posts() {
   const router = useRouter();
-  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
-  const { data, isError, isPending } = useQuery({
+  const { isLoggedIn } = useUserStore();
+  const { data, isError, isPending } = useQuery<PostTypes[]>({
     queryKey: ["posts"],
     queryFn: async () => await fetcher.get("/posts/get-posts"),
   });
@@ -50,11 +50,9 @@ export default function Posts() {
     console.log("Interaction!!!");
   }
 
-  console.log(data);
-
   return (
     <div className="flex flex-col gap-4">
-      {data.map((post: PostTypes) => (
+      {data.map((post) => (
         <Card key={post._id}>
           <CardHeader className="flex flex-row items-center gap-4">
             <div className="flex gap-1">

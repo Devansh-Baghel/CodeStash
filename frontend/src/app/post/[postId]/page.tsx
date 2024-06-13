@@ -15,8 +15,11 @@ import CopyCodeButton from "@/components/CopyCodeButton";
 import Link from "next/link";
 import fetcher from "@/utils/axios";
 import { useQuery } from "@tanstack/react-query";
+import { Button } from "@nextui-org/react";
+import { useUserStore } from "@/store/userStore";
 
 export default function Post({ params }: { params: { postId: string } }) {
+  const { isLoggedIn } = useUserStore();
   // FIXME: add post types
   const {
     data: post,
@@ -31,6 +34,10 @@ export default function Post({ params }: { params: { postId: string } }) {
 
   if (isError) return "Error";
   if (isLoading) return "Loading...";
+
+  async function savePost() {
+    await fetcher.post("/posts/save", { postId: post._id });
+  }
 
   return (
     <Card>
@@ -59,7 +66,20 @@ export default function Post({ params }: { params: { postId: string } }) {
           theme={dracula}
           showLineNumbers={false}
         />
-        <CopyCodeButton code={post.content} />
+        <div className="mt-6 flex flex-col gap-4">
+          <CopyCodeButton code={post.content} />
+          {isLoggedIn && (
+            <Button
+              variant="flat"
+              color="primary"
+              radius="full"
+              className="w-full text-lg"
+              onClick={savePost}
+            >
+              Save post
+            </Button>
+          )}
+        </div>
       </CardContent>
       <CardFooter className="flex flex-col gap-2">
         <p>
