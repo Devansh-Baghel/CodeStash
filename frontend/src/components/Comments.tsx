@@ -3,13 +3,7 @@
 import fetcher from "@/utils/axios";
 import { Button, Textarea } from "@nextui-org/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FormEvent, useState } from "react";
 
 export default function Comments({ postId }: { postId: string }) {
@@ -36,12 +30,11 @@ export default function Comments({ postId }: { postId: string }) {
 
     await mutateAsync();
     refetch();
+    setComment("");
   }
 
   if (isError || isRefetchError) return "Error";
   if (isLoading) return "Loading...";
-
-  console.log(data);
 
   return (
     <Card className="my-6">
@@ -57,11 +50,13 @@ export default function Comments({ postId }: { postId: string }) {
             // label="Description"
             // labelPlacement="outside"
             placeholder="Add a comment"
-            className="col-span-12 mb-3 md:col-span-6 md:mb-0"
+            className={`col-span-12 mb-3 md:col-span-6 md:mb-0 ${!comment && "h-10"}`}
           />
-          <Button color="primary" type="submit">
-            Add comment
-          </Button>
+          {comment && (
+            <Button color="primary" type="submit">
+              Add comment
+            </Button>
+          )}
         </form>
       </CardHeader>
       <CardContent>
@@ -69,6 +64,7 @@ export default function Comments({ postId }: { postId: string }) {
           <p>No comments yet</p>
         ) : (
           <ul>
+            {/* TODO: show loading when refetching for new comments */}
             {/* FIXME: add comment types */}
             {data?.map((comment) => (
               <li key={comment._id}>{comment.content}</li>
@@ -76,9 +72,6 @@ export default function Comments({ postId }: { postId: string }) {
           </ul>
         )}
       </CardContent>
-      <CardFooter>
-        <p>Card Footer</p>
-      </CardFooter>
     </Card>
   );
 }

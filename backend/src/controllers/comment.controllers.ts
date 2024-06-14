@@ -16,7 +16,9 @@ export const getComments = asyncHandler(async (req, res) => {
 
   if (!post) return new ApiError(404, "Post with this id does not exist");
 
-  const comments = await Comment.find({ _id: { $in: post.comments } });
+  let comments = await Comment.find({ _id: { $in: post.comments } });
+
+  comments = comments.reverse();
 
   return res
     .status(200)
@@ -42,6 +44,7 @@ export const createComment = asyncHandler(async (req: UserRequest, res) => {
 
   post.comments?.push(comment._id);
 
+  // FIXME: fix ts errors
   if (!post.madeBy.username) {
     post.madeBy.username = user?.username;
   }
