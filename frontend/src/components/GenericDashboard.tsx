@@ -5,6 +5,7 @@ import { VscGitStash as CodeStashIcon } from "react-icons/vsc";
 import Hamburger from "./Hamburger";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function GenericDashboard({
   children,
@@ -15,7 +16,9 @@ export default function GenericDashboard({
   const { getCurrentUser } = useUserStore();
 
   // FIXME: only run this if accessToken and refreshToken exist
-  getCurrentUser();
+  useEffect(() => {
+    getCurrentUser();
+  }, [getCurrentUser]);
 
   return (
     <>

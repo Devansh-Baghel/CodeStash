@@ -44,16 +44,16 @@ export default function Posts() {
     <div className="flex flex-col gap-4">
       {data.map((post) => (
         <Card key={post._id}>
-          <CardHeader className="flex flex-row items-center gap-4">
-            <div className="flex gap-1">
+          <CardHeader className="flex flex-row gap-4">
+            <div className="flex flex-col items-center">
               {/* FIXME: Change to solid verison of these icons when clicked */}
               <UpvoteIcon
-                className="h-6 w-6 cursor-pointer"
+                className="h-5 w-5 cursor-pointer"
                 onClick={handleInteraction}
               />
               {post.upvotes - post.downvotes}
               <DownvoteIcon
-                className="h-6 w-6 cursor-pointer"
+                className="h-5 w-5 cursor-pointer"
                 onClick={handleInteraction}
               />
             </div>
