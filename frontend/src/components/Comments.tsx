@@ -30,12 +30,11 @@ export default function Comments({ postId }: { postId: string }) {
       });
     },
   });
-  function addComment(e: FormEvent) {
+  async function addComment(e: FormEvent) {
     e.preventDefault();
     if (!comment) return;
 
-    // FIXME: comments not fetching after user adds comment
-    mutateAsync();
+    await mutateAsync();
     refetch();
   }
 
@@ -70,6 +69,7 @@ export default function Comments({ postId }: { postId: string }) {
           <p>No comments yet</p>
         ) : (
           <ul>
+            {/* FIXME: add comment types */}
             {data?.map((comment) => (
               <li key={comment._id}>{comment.content}</li>
             ))}
