@@ -40,6 +40,14 @@ export const createComment = asyncHandler(async (req: UserRequest, res) => {
     content,
   });
 
+  post.comments?.push(comment._id);
+
+  if (!post.madeBy.username) {
+    post.madeBy.username = user?.username;
+  }
+
+  await post.save();
+
   return res
     .status(200)
     .json(new ApiResponse(200, comment, "Comment created successfully"));
