@@ -1,7 +1,10 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface CommentTypes extends Document {
-  madeBy: Schema.Types.ObjectId;
+  madeBy: {
+    userId: Schema.Types.ObjectId;
+    username: string;
+  };
   parent: Schema.Types.ObjectId;
   type: "comment" | "reply";
   content: string;
@@ -12,9 +15,18 @@ export interface CommentTypes extends Document {
 const commentSchema: Schema<CommentTypes> = new Schema(
   {
     madeBy: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+      userId: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+        unique: true,
+      },
+      username: {
+        type: String,
+        trim: true,
+        required: true,
+        unique: true,
+      },
     },
     parent: {
       type: Schema.Types.ObjectId,
@@ -39,7 +51,7 @@ const commentSchema: Schema<CommentTypes> = new Schema(
       default: 0,
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 export const Comment = mongoose.model("Comment", commentSchema);

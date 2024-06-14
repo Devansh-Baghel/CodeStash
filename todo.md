@@ -18,3 +18,4 @@
 - [ ] /profile ui for logged-in user
 - [x] save post feature for logged-in user
 - [ ] make a generic Posts component that takes posts[] as a prop and displays them
+- [ ] add formatting for number of comments, posts, upvotes, downvotes, etc like 1k, 2k, 3k, 1M, 2M, 3M etc

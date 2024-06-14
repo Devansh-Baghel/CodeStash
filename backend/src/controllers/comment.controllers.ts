@@ -36,7 +36,7 @@ export const createComment = asyncHandler(async (req: UserRequest, res) => {
   if (!post) throw new ApiError(404, "Post with this postId not found");
 
   const comment = await Comment.create({
-    madeBy: user?._id,
+    madeBy: { userId: user?._id, username: user?.username },
     parent: post._id,
     type: "comment",
     content,
