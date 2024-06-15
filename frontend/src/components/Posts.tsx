@@ -17,18 +17,49 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/store/userStore";
 import { PostTypes } from "@/types/postTypes";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Posts() {
+  const searchParams = useSearchParams();
+  const language = searchParams.get("language");
   const router = useRouter();
   const { isLoggedIn } = useUserStore();
-  const { data, isError, isPending } = useQuery<PostTypes[]>({
+  const {
+    data,
+    isError,
+    isPending,
+    error,
+    refetch,
+    isRefetchError,
+    isRefetching,
+  } = useQuery<PostTypes[]>({
     queryKey: ["posts"],
-    queryFn: async () => await fetcher.get("/posts/get-posts"),
+    queryFn: async () => {
+      if (!language) {
+        return await fetcher.get("/posts/get-posts");
+      } else {
+        return await fetcher.post("/posts/get-posts-by-language", { language });
+      }
+    },
+    retry: 1,
   });
 
+  // This is cause when user clicks on homepage icon to go to / , then it refetches the query
+  useEffect(() => {
+    refetch();
+  }, [refetch, searchParams]);
+
   // TODO: Add better loading and error states
-  if (isPending) return "Loading...";
-  if (isError) return "Erorr";
+  if (isPending || isRefetching) return "Loading...";
+  if (isError || isRefetchError) {
+    // FIXME: fix ts error
+    if (error.response.status === 404) {
+      // TODO: add better looking ui for not supported language
+      return "This language isn't supported yet";
+    }
+    return "error";
+  }
 
   function handleInteraction() {
     if (!isLoggedIn) {

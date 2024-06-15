@@ -91,6 +91,14 @@ export default function Post({ params }: { params: { postId: string } }) {
             </Link>{" "}
             community
           </p>
+
+          {/* FIXME: make this a badge, label or chip that a user can click */}
+          <p>
+            Written in{" "}
+            <Link href={`/?language=${post.language}`} className="underline">
+              {post.language}
+            </Link>{" "}
+          </p>
         </CardFooter>
       </Card>
       <Comments postId={params.postId} />
