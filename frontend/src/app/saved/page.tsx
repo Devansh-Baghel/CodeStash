@@ -13,23 +13,30 @@ import { BiDownvote as DownvoteIcon } from "react-icons/bi";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import fetcher from "@/utils/axios";
 import { PostTypes } from "@/types/postTypes";
 import { useUserStore } from "@/store/userStore";
 import NotLoggedIn from "@/components/NotLoggedIn";
-import { useEffect } from "react";
 
 export default function SavedPosts() {
   const { isLoggedIn } = useUserStore();
-  const { data, isError, isLoading } = useQuery<PostTypes[]>({
-    queryKey: ["saved-posts"],
-    queryFn: async () => {
-      if (isLoggedIn) {
+  const { data, isError, isLoading, refetch, isRefetchError, isRefetching } =
+    useQuery<PostTypes[]>({
+      queryKey: ["saved-posts"],
+      queryFn: async () => {
+        // FIXME: make sure to not run the query when user isn't logged in
+        // if (isLoggedIn) {
         return await fetcher.get("/posts/get-saved-posts");
-      } else return [];
-    },
-  });
+        // } else return [];
+      },
+    });
+
+  async function removeSavedPost(postId: string) {
+    await fetcher.patch("/posts/remove-saved-post", { postId });
+    refetch();
+  }
+
   const router = useRouter();
 
   if (!isLoggedIn) {
@@ -37,8 +44,8 @@ export default function SavedPosts() {
       <NotLoggedIn description="Login or sign up to view your saved posts" />
     );
   }
-  if (isError) return "Error";
-  if (isLoading) return "Loading...";
+  if (isError || isRefetchError) return "Error";
+  if (isLoading || isRefetching) return "Loading...";
 
   console.log(data);
 
@@ -82,6 +89,14 @@ export default function SavedPosts() {
               onClick={() => router.push(`/post/${post._id}`)}
             >
               Show code
+            </Button>
+            <Button
+              variant="flat"
+              color="primary"
+              className="w-full rounded-[20px]"
+              onClick={() => removeSavedPost(post._id)}
+            >
+              Remove from saved
             </Button>
           </CardFooter>
         </Card>

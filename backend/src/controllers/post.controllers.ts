@@ -139,7 +139,13 @@ export const removeSavedPost = asyncHandler(async (req: UserRequest, res) => {
     throw new ApiError(400, "You haven't saved this post yet");
   }
 
-  user.savedPosts = user.savedPosts.filter((item) => item !== postId);
+  console.log(user.savedPosts);
+
+  user.savedPosts = user.savedPosts.filter(
+    (item) => item.toString() !== postId
+  );
+
+  console.log(user.savedPosts);
 
   await user.save();
 

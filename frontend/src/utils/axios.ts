@@ -18,6 +18,10 @@ const fetcher = {
     const response = await axiosInstance.put(url, options);
     return response.data.data;
   },
+  patch: async (url: string, options = {}) => {
+    const response = await axiosInstance.patch(url, options);
+    return response.data.data;
+  },
   delete: async (url: string) => {
     const response = await axiosInstance.delete(url);
     return response.data.data;
