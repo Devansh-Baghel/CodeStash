@@ -47,7 +47,9 @@ export default function SavedPosts() {
   if (isError || isRefetchError) return "Error";
   if (isLoading || isRefetching) return "Loading...";
 
-  console.log(data);
+  if (data?.length === 0) {
+    return "You haven't saved any posts yet";
+  }
 
   // TODO: add ui for no when user has no saved posts
   return (

@@ -54,6 +54,18 @@ export default function Hamburger() {
             >
               Show profile
             </Button>
+
+            <Button
+              variant="flat"
+              radius="full"
+              color="primary"
+              onClick={() => {
+                router.push("/saved");
+                setOpen(false);
+              }}
+            >
+              Saved Posts
+            </Button>
           </SheetHeader>
 
           {/* FIXME: Temporary spacer */}

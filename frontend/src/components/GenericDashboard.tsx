@@ -15,6 +15,7 @@ export default function GenericDashboard({
   const router = useRouter();
   const { getCurrentUser } = useUserStore();
 
+  // TODO: add Loading user data... screen like monkeytype
   // FIXME: only run this if accessToken and refreshToken exist
   useEffect(() => {
     getCurrentUser();
