@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { asyncHandler } from "../utils/asyncHandler";
 import { ApiResponse } from "../utils/apiResponse";
-import { Post } from "../models/post.model";
+import { Post, allowedLanguages } from "../models/post.model";
 import { ApiError } from "../utils/apiError";
 import { postSchema } from "../schemas/postSchema";
 import { UserRequest } from "../types/userTypes";
@@ -38,6 +38,10 @@ export const getPostsByLang = asyncHandler(
     // FIXME: Add proper language verification w/ zod
     const { language } = req.body;
     if (!language) throw new ApiError(400, "Language is required");
+
+    if (!allowedLanguages.includes(language)) {
+      throw new ApiError(404, "Language is not supported yet");
+    }
 
     const posts = await Post.find({ language });
     if (!posts) throw new ApiError(404, "There aren't any posts");
