@@ -127,3 +127,23 @@ export const getSavedPosts = asyncHandler(async (req: UserRequest, res) => {
     .status(200)
     .json(new ApiResponse(200, savedPosts, "Saved posts sent successfully"));
 });
+
+export const removeSavedPost = asyncHandler(async (req: UserRequest, res) => {
+  const { postId } = req.body;
+  const user = req.user;
+
+  if (!postId)
+    throw new ApiError(400, "Post id is required to remove saved post");
+
+  if (!user?.savedPosts?.includes(postId)) {
+    throw new ApiError(400, "You haven't saved this post yet");
+  }
+
+  user.savedPosts = user.savedPosts.filter((item) => item !== postId);
+
+  await user.save();
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, user, "Post removed successfully"));
+});

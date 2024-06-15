@@ -5,6 +5,7 @@ import {
   getPosts,
   getPostsByLang,
   getSavedPosts,
+  removeSavedPost,
   savePost,
   upvotePost,
 } from "../controllers/post.controllers";
@@ -22,5 +23,6 @@ router.route("/create-post").post(verifyJWT, createPost);
 router.route("/upvote").patch(verifyJWT, upvotePost);
 router.route("/save").post(verifyJWT, savePost);
 router.route("/get-saved-posts").get(verifyJWT, getSavedPosts);
+router.route("/remove-saved-post").patch(verifyJWT, removeSavedPost);
 
 export default router;

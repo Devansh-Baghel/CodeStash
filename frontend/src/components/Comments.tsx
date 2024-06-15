@@ -85,6 +85,7 @@ export default function Comments({ postId }: { postId: string }) {
       </CardHeader>
       <CardContent>
         {data?.length === 0 ? (
+          // TODO: add better ui for no comments yet.
           <p>No comments yet</p>
         ) : (
           <ul className="flex flex-col gap-2">

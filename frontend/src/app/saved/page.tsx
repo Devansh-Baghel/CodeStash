@@ -40,6 +40,9 @@ export default function SavedPosts() {
   if (isError) return "Error";
   if (isLoading) return "Loading...";
 
+  console.log(data);
+
+  // TODO: add ui for no when user has no saved posts
   return (
     <div className="flex flex-col gap-4">
       {data?.map((post) => (
