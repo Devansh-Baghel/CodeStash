@@ -54,7 +54,7 @@ export default function Posts() {
   if (isPending || isRefetching) return "Loading...";
   if (isError || isRefetchError) {
     // FIXME: fix ts error
-    if (error.response.status === 404) {
+    if (error?.response?.status === 404) {
       // TODO: add better looking ui for not supported language
       return "This language isn't supported yet";
     }
