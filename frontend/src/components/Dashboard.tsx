@@ -4,11 +4,7 @@ import { useUserStore } from "@/store/userStore";
 import { useEffect } from "react";
 import Navbar from "./NavBar";
 
-export default function GenericDashboard({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Dashboard({ children }: { children: React.ReactNode }) {
   const { getCurrentUser } = useUserStore();
 
   // TODO: add Loading user data... screen like monkeytype
