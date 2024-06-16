@@ -58,9 +58,10 @@ export const useUserStore = create<UserState>()((set, get) => ({
       });
   },
   loginUser: async ({ email, password }) => {
-    const data = await fetcher.post("/users/login", { email, password });
-    set(() => ({ userData: data }));
-    set(() => ({ isLoggedIn: true }));
+    await fetcher.post("/users/login", { email, password }).then((res) => {
+      set(() => ({ userData: res.user }));
+      set(() => ({ isLoggedIn: true }));
+    });
   },
   logoutUser: async () => {
     await fetcher.post("/users/logout").then(() => {

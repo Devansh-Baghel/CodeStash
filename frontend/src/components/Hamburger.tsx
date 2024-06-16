@@ -31,7 +31,7 @@ export default function Hamburger() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger>
-        <MenuIcon className="h-10 w-10 text-primary md:hidden" />
+        <MenuIcon className="h-10 w-10 text-primary sm:hidden" />
       </SheetTrigger>
       <SheetOverlay />
 
