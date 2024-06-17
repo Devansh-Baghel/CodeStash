@@ -6,6 +6,7 @@ export interface CommunityTypes extends Document {
     username: string;
   };
   name: string;
+  description: string;
   joinedMembers: number;
   coverImage: string;
   avatar: string;
@@ -32,6 +33,11 @@ const communitySchema: Schema<CommunityTypes> = new Schema(
       required: true,
       unique: true,
       trim: true,
+    },
+    description: {
+      type: String,
+      trim: true,
+      required: true,
     },
     joinedMembers: {
       type: Number,
