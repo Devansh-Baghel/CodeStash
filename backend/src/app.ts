@@ -23,10 +23,12 @@ import healthCheckRouter from "./routes/healthCheck.routes";
 import userRouter from "./routes/user.routes";
 import postRouter from "./routes/post.routes";
 import commentRouter from "./routes/comment.routes";
+import communityRouter from "./routes/community.routes";
 
 app.use("/api", healthCheckRouter);
 app.use("/api/users", userRouter);
 app.use("/api/posts", postRouter);
 app.use("/api/comments", commentRouter);
+app.use("/api/community", communityRouter);
 
 export default app;
