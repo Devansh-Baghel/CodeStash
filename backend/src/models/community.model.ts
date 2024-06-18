@@ -19,13 +19,13 @@ const communitySchema: Schema<CommunityTypes> = new Schema(
         type: Schema.Types.ObjectId,
         ref: "User",
         required: true,
-        unique: true,
+        // unique: true,
       },
       username: {
         type: String,
         trim: true,
         required: true,
-        unique: true,
+        // unique: true,
       },
     },
     name: {

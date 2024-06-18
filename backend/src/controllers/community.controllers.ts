@@ -32,6 +32,10 @@ export const createCommunity = asyncHandler(async (req: UserRequest, res) => {
     );
   }
 
+  user?.communitiesJoined.push(community._id);
+
+  await user?.save();
+
   return res
     .status(201)
     .json(new ApiResponse(201, community, "Community created successfully"));
@@ -39,8 +43,6 @@ export const createCommunity = asyncHandler(async (req: UserRequest, res) => {
 
 export const getCommunities = asyncHandler(async (req, res) => {
   const communities = await Community.find({});
-
-  if (!communities) throw new ApiError(404, "There are no communities yet");
 
   return res
     .status(200)
@@ -53,7 +55,7 @@ export const getCommunity = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Community name is required to get it's details");
 
   const community = await Community.find({ name });
-  if (!community)
+  if (!community || community.length === 0)
     throw new ApiError(404, "Community with this name does not exist");
 
   return res
