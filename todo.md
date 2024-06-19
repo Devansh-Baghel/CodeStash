@@ -21,3 +21,4 @@
 - [ ] add formatting for number of comments, posts, upvotes, downvotes, etc like 1k, 2k, 3k, 1M, 2M, 3M etc
 - [ ] create list feature for users to create a list of snippets etc.
 - [ ] add loading user data loader in generic component to fetch the current user and block all rendering until then
+- [ ] https://dev.to/lissy93/cli-tools-you-cant-live-without-57f6
