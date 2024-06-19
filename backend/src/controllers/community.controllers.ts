@@ -4,6 +4,7 @@ import { ApiError } from "../utils/apiError";
 import { UserRequest } from "../types/userTypes";
 import { Community } from "../models/community.model";
 
+// TODO: Add extra validation for name of cummunity, it cant contain whitespace for example
 export const createCommunity = asyncHandler(async (req: UserRequest, res) => {
   const { name, description } = req.body;
   const user = req.user;

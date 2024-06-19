@@ -24,7 +24,7 @@ export type CommunityTypes = {
   joinedMembers: number;
 };
 
-export default function () {
+export default function Communities() {
   // TODO: add community types
   const { data, isLoading, isError } = useQuery<CommunityTypes[]>({
     queryKey: ["communities"],

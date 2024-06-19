@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function Page() {
-  return <h1>This page shows all communities...</h1>;
+  redirect("/communities");
 }
