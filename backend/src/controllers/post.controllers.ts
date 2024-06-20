@@ -80,8 +80,27 @@ export const upvotePost = asyncHandler(async (req: UserRequest, res) => {
     throw new ApiError(400, "Post id is required to upvote the post");
   }
 
+  // Remove the upvote
   if (user?.upvotedPosts.includes(postId)) {
-    throw new ApiError(400, "This post has already been upvoted by you");
+    const updatedPost = await Post.findByIdAndUpdate(postId, {
+      $inc: { upvotes: -1 },
+    });
+
+    user.upvotedPosts = user.upvotedPosts.filter(
+      (item) => item.toString() !== postId
+    );
+
+    await user.save();
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          { updatedPost, user },
+          "Post was already upvoted, so removed it from upvotedPosts"
+        )
+      );
   }
 
   let updatedPost;
@@ -122,8 +141,27 @@ export const downvotePost = asyncHandler(async (req: UserRequest, res) => {
     throw new ApiError(400, "Post id is required to downvote the post");
   }
 
+  // Remove the downvote
   if (user?.downvotedPosts.includes(postId)) {
-    throw new ApiError(400, "This post has already been downvoted by you");
+    const updatedPost = await Post.findByIdAndUpdate(postId, {
+      $inc: { downvotes: -1 },
+    });
+
+    user.downvotedPosts = user.downvotedPosts.filter(
+      (item) => item.toString() !== postId
+    );
+
+    await user.save();
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          { updatedPost, user },
+          "Post was downvoted already, so removing the downvote instead"
+        )
+      );
   }
 
   let updatedPost;
