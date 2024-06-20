@@ -21,6 +21,7 @@ import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
 import NotLoggedIn from "@/components/NotLoggedIn";
 
+// TODO: add community option in this form
 export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [language, setLanguage] = useState<undefined | string>();
@@ -48,7 +49,7 @@ export default function CreatePost() {
 
         toast({
           title: "Post Created",
-          description: `Your post in ${language} was created successfully.`,
+          description: `Your post in c/${language} was created successfully.`,
         });
       });
   }
