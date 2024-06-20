@@ -11,7 +11,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { BiUpvote as UpvoteIcon } from "react-icons/bi";
+import { BiSolidUpvote as SolidUpvoteIcon } from "react-icons/bi";
 import { BiDownvote as DownvoteIcon } from "react-icons/bi";
+import { BiSolidDownvote as SolidDownvoteIcon } from "react-icons/bi";
 import { Button, Textarea } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -24,7 +26,7 @@ export default function Posts() {
   const searchParams = useSearchParams();
   const language = searchParams.get("language");
   const router = useRouter();
-  const { isLoggedIn } = useUserStore();
+  const { isLoggedIn, upvotePost, userData } = useUserStore();
   const {
     data,
     isError,
@@ -54,6 +56,7 @@ export default function Posts() {
   if (isPending || isRefetching) return "Loading...";
   if (isError || isRefetchError) {
     // FIXME: fix ts error
+    // @ts-ignore
     if (error?.response?.status === 404) {
       // TODO: add better looking ui for not supported language
       return "This language isn't supported yet";
@@ -61,14 +64,16 @@ export default function Posts() {
     return "error";
   }
 
-  function handleInteraction() {
+  function handleInteraction(postId: string, action: "upvote" | "downvote") {
     if (!isLoggedIn) {
       router.push("/login");
       return;
     }
 
-    // do the interaction , upvote downvote etc
-    console.log("Interaction!!!");
+    // This is a mutation maybe you should use reactQuery
+    if (action === "upvote") {
+      upvotePost(postId);
+    }
   }
 
   return (
@@ -77,15 +82,21 @@ export default function Posts() {
         <Card key={post._id}>
           <CardHeader className="flex flex-row gap-4">
             <div className="flex flex-col items-center">
-              {/* FIXME: Change to solid verison of these icons when clicked */}
-              <UpvoteIcon
-                className="h-5 w-5 cursor-pointer"
-                onClick={handleInteraction}
-              />
+              {userData?.upvotedPosts.includes(post._id) ? (
+                <SolidUpvoteIcon
+                  className="h-5 w-5 cursor-pointer"
+                  // TODO: remove this post from upvotes when user clicks solid icons
+                />
+              ) : (
+                <UpvoteIcon
+                  className="h-5 w-5 cursor-pointer"
+                  onClick={() => handleInteraction(post._id, "upvote")}
+                />
+              )}
               {post.upvotes - post.downvotes}
               <DownvoteIcon
                 className="h-5 w-5 cursor-pointer"
-                onClick={handleInteraction}
+                onClick={() => handleInteraction(post._id, "downvote")}
               />
             </div>
             <div>

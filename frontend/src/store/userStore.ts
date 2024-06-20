@@ -12,6 +12,13 @@ interface UserState {
       fullName: string;
       _id: string;
     };
+    upvotedPosts: string[];
+    downvotedPosts: string[];
+    savedPosts: string[];
+    communitiesJoined: string[];
+    verifyCode?: string;
+    verifyCodeExpiry?: Date;
+    isVerified: boolean;
   };
   getCurrentUser: () => void;
   registerUser: ({
@@ -27,6 +34,7 @@ interface UserState {
   }) => void;
   loginUser: ({ email, password }: { email: string; password: string }) => void;
   logoutUser: () => void;
+  upvotePost: (postId: string) => void;
 }
 
 export const useUserStore = create<UserState>()((set, get) => ({
@@ -66,6 +74,12 @@ export const useUserStore = create<UserState>()((set, get) => ({
   logoutUser: async () => {
     await fetcher.post("/users/logout").then(() => {
       set(() => ({ isLoggedIn: false }));
+    });
+  },
+  upvotePost: async (postId) => {
+    await fetcher.patch(`/posts/upvote`, { postId }).then((res) => {
+      console.log(res);
+      set(() => ({ userData: res.user }));
     });
   },
 }));

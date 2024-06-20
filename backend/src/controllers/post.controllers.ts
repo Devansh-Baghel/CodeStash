@@ -72,14 +72,17 @@ export const createPost = asyncHandler(
   }
 );
 
-export const upvotePost = asyncHandler(async (req, res) => {
+export const upvotePost = asyncHandler(async (req: UserRequest, res) => {
   const { postId } = req.body;
+  const user = req.user;
 
   if (!postId) {
     throw new ApiError(400, "Post id is required to upvote the post");
   }
 
-  // FIXME: only let a user upvote a post once
+  if (user?.upvotedPosts.includes(postId)) {
+    throw new ApiError(400, "This post has already been upvoted by you");
+  }
 
   const updatedPost = await Post.findByIdAndUpdate(postId, {
     $inc: { upvotes: +1 },
@@ -89,9 +92,19 @@ export const upvotePost = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Post with this id does not exist");
   }
 
+  // If user has downvoted the post before, we remove that here
+  if (user?.downvotedPosts.includes(postId)) {
+    user.downvotedPosts = user.downvotedPosts.filter((item) => item !== postId);
+  }
+
+  user?.upvotedPosts.push(postId);
+  await user?.save();
+
   return res
     .status(200)
-    .json(new ApiResponse(200, { updatedPost }, "Post upvoted successfully"));
+    .json(
+      new ApiResponse(200, { updatedPost, user }, "Post upvoted successfully")
+    );
 });
 
 // FIXME: Change this to toggle save or make a new controller for toggle save
