@@ -11,7 +11,11 @@ import {
 import fetcher from "@/utils/axios";
 import { Button } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
+// import { RiGroupFill as GroupIcon } from "react-icons/ri";
+import { Divider } from "@nextui-org/divider";
 import Link from "next/link";
+import { useUserStore } from "@/store/userStore";
+import { useRouter } from "next/navigation";
 
 export type CommunityTypes = {
   madeBy: {
@@ -32,14 +36,28 @@ export default function Communities() {
       return await fetcher.get("/community/get-all");
     },
   });
+  const { isLoggedIn } = useUserStore();
+  const router = useRouter();
 
   if (isError) return "Error";
   if (isLoading) return "Loading...";
 
-  console.log(data);
-
   return (
     <section className="flex flex-col gap-4">
+      {isLoggedIn && (
+        <>
+          <Button
+            color="primary"
+            className="h-14 text-lg"
+            variant="flat"
+            onClick={() => router.push("/create-community")}
+          >
+            {/* <GroupIcon /> */}
+            Create your own community
+          </Button>
+          <p className="text-grey-700 text-center text-sm">Or join one below</p>
+        </>
+      )}
       {data?.map((community) => (
         <Card key={community._id}>
           <CardHeader className="flex flex-row items-center justify-between">
