@@ -26,7 +26,7 @@ export default function Posts() {
   const searchParams = useSearchParams();
   const language = searchParams.get("language");
   const router = useRouter();
-  const { isLoggedIn, upvotePost, userData } = useUserStore();
+  const { isLoggedIn, upvotePost, userData, downvotePost } = useUserStore();
   const {
     data,
     isError,
@@ -70,9 +70,11 @@ export default function Posts() {
       return;
     }
 
-    // This is a mutation maybe you should use reactQuery
+    // FIXME: This is a mutation maybe you should use reactQuery
     if (action === "upvote") {
       upvotePost(postId);
+    } else if (action === "downvote") {
+      downvotePost(postId);
     }
   }
 
@@ -94,10 +96,17 @@ export default function Posts() {
                 />
               )}
               {post.upvotes - post.downvotes}
-              <DownvoteIcon
-                className="h-5 w-5 cursor-pointer"
-                onClick={() => handleInteraction(post._id, "downvote")}
-              />
+              {userData?.downvotedPosts.includes(post._id) ? (
+                <SolidDownvoteIcon
+                  className="h-5 w-5 cursor-pointer"
+                  // TODO: remove this post from downvotes when user clicks solid icons
+                />
+              ) : (
+                <DownvoteIcon
+                  className="h-5 w-5 cursor-pointer"
+                  onClick={() => handleInteraction(post._id, "downvote")}
+                />
+              )}
             </div>
             <div>
               <CardTitle className="">

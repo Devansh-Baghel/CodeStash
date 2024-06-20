@@ -94,7 +94,9 @@ export const upvotePost = asyncHandler(async (req: UserRequest, res) => {
 
   // If user has downvoted the post before, we remove that here
   if (user?.downvotedPosts.includes(postId)) {
-    user.downvotedPosts = user.downvotedPosts.filter((item) => item !== postId);
+    user.downvotedPosts = user.downvotedPosts.filter(
+      (item) => item.toString() !== postId
+    );
   }
 
   user?.upvotedPosts.push(postId);
@@ -104,6 +106,43 @@ export const upvotePost = asyncHandler(async (req: UserRequest, res) => {
     .status(200)
     .json(
       new ApiResponse(200, { updatedPost, user }, "Post upvoted successfully")
+    );
+});
+
+export const downvotePost = asyncHandler(async (req: UserRequest, res) => {
+  const { postId } = req.body;
+  const user = req.user;
+
+  if (!postId) {
+    throw new ApiError(400, "Post id is required to downvote the post");
+  }
+
+  if (user?.downvotedPosts.includes(postId)) {
+    throw new ApiError(400, "This post has already been downvoted by you");
+  }
+
+  const updatedPost = await Post.findByIdAndUpdate(postId, {
+    $inc: { downvotes: +1 },
+  });
+
+  if (!updatedPost) {
+    throw new ApiError(404, "Post with this id does not exist");
+  }
+
+  // If user has upvoted the post before, we remove that here
+  if (user?.upvotedPosts.includes(postId)) {
+    user.upvotedPosts = user.upvotedPosts.filter(
+      (item) => item.toString() !== postId
+    );
+  }
+
+  user?.downvotedPosts.push(postId);
+  await user?.save();
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, { updatedPost, user }, "Post downvoted successfully")
     );
 });
 

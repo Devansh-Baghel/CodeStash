@@ -35,6 +35,7 @@ interface UserState {
   loginUser: ({ email, password }: { email: string; password: string }) => void;
   logoutUser: () => void;
   upvotePost: (postId: string) => void;
+  downvotePost: (postId: string) => void;
 }
 
 export const useUserStore = create<UserState>()((set, get) => ({
@@ -74,10 +75,17 @@ export const useUserStore = create<UserState>()((set, get) => ({
   logoutUser: async () => {
     await fetcher.post("/users/logout").then(() => {
       set(() => ({ isLoggedIn: false }));
+      set(() => ({ userData: null }));
     });
   },
   upvotePost: async (postId) => {
     await fetcher.patch(`/posts/upvote`, { postId }).then((res) => {
+      console.log(res);
+      set(() => ({ userData: res.user }));
+    });
+  },
+  downvotePost: async (postId) => {
+    await fetcher.patch(`/posts/downvote`, { postId }).then((res) => {
       console.log(res);
       set(() => ({ userData: res.user }));
     });
