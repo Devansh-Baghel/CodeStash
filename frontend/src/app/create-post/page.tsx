@@ -58,7 +58,7 @@ export default function CreatePost() {
   }
 
   return (
-    <Card className="max-w-sm">
+    <Card className="mx-auto max-w-sm">
       <CardHeader>
         <CardTitle className="text-2xl">Create Post</CardTitle>
       </CardHeader>
@@ -118,10 +118,11 @@ export default function CreatePost() {
               />
             </div>
             <Button type="submit" className="w-full">
-              Login
+              Create post
             </Button>
           </div>
           <div className="mt-4 text-center text-sm">
+            {/* FIXME: fix this */}
             Don&apos;t have an account?{" "}
             <Link href="/register" className="underline">
               Sign up
