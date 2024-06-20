@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import { asyncHandler } from "../utils/asyncHandler";
 import { ApiResponse } from "../utils/apiResponse";
-import { Post } from "../models/post.model";
+import { Post, allowedLanguages } from "../models/post.model";
 import { ApiError } from "../utils/apiError";
 import { postSchema } from "../schemas/postSchema";
 import { UserRequest } from "../types/userTypes";
 
 export const getPosts = asyncHandler(async (req: Request, res: Response) => {
-  // TODO: don't send the post.content to client
+  // TODO: don't send the post.content to client, cause the coed can be very large
   let posts = await Post.find();
 
   posts = posts.reverse();
@@ -35,9 +35,12 @@ export const getPost = asyncHandler(async (req, res) => {
 
 export const getPostsByLang = asyncHandler(
   async (req: Request, res: Response) => {
-    // FIXME: Add proper language verification w/ zod
     const { language } = req.body;
     if (!language) throw new ApiError(400, "Language is required");
+
+    if (!allowedLanguages.includes(language)) {
+      throw new ApiError(404, "This language isn't supported yet");
+    }
 
     const posts = await Post.find({ language });
     if (!posts) throw new ApiError(404, "There aren't any posts");

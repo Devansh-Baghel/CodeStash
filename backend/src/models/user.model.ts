@@ -12,7 +12,7 @@ export interface UserTypes extends Document {
   upvotedPosts: Schema.Types.ObjectId[];
   downvotedPosts: Schema.Types.ObjectId[];
   savedPosts: Schema.Types.ObjectId[];
-  communitiesJoined: Schema.Types.ObjectId[];
+  communitiesJoined: string[];
   verifyCode?: string;
   verifyCodeExpiry?: Date;
   isVerified: boolean;
@@ -90,8 +90,7 @@ const userSchema: Schema<UserTypes> = new Schema(
     },
     communitiesJoined: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "Community",
+        type: String,
       },
     ],
   },

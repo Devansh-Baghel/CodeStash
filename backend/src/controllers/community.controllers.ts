@@ -65,3 +65,36 @@ export const getCommunity = asyncHandler(async (req, res) => {
       new ApiResponse(200, community, "Community details sent successfully")
     );
 });
+
+export const joinCommunity = asyncHandler(async (req: UserRequest, res) => {
+  const { community } = req.body;
+  const user = req.user;
+
+  if (!community)
+    throw new ApiError(400, "Community name is required to join a community");
+
+  if (user?.communitiesJoined.includes(community)) {
+    throw new ApiError(400, "You have already joined this community");
+  }
+
+  const updatedCommunity = await Community.findOneAndUpdate(
+    { name: community },
+    { $inc: { joinedMembers: +1 } }
+  );
+
+  if (!updatedCommunity)
+    throw new ApiError(404, "Community with this name does not exist");
+
+  user?.communitiesJoined.push(community);
+  await user?.save();
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { updatedCommunity, user },
+        "Community joined successfully"
+      )
+    );
+});

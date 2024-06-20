@@ -4,6 +4,7 @@ import {
   createCommunity,
   getCommunities,
   getCommunity,
+  joinCommunity,
 } from "../controllers/community.controllers";
 
 const router = Router();
@@ -14,5 +15,6 @@ router.route("/get-community").post(getCommunity);
 
 // secure posts
 router.route("/create-community").post(verifyJWT, createCommunity);
+router.route("/join").post(verifyJWT, joinCommunity);
 
 export default router;
