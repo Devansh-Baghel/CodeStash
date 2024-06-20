@@ -4,6 +4,7 @@ import Hamburger from "./Hamburger";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/store/userStore";
 
+// TODO: Make this navbar fixed at the top of the screen all the time
 export default function Navbar() {
   const router = useRouter();
   const { isLoggedIn } = useUserStore();

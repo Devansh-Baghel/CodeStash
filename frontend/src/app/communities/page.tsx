@@ -16,6 +16,7 @@ import { Divider } from "@nextui-org/divider";
 import Link from "next/link";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
+import { toast } from "@/components/ui/use-toast";
 
 export type CommunityTypes = {
   madeBy: {
@@ -42,6 +43,20 @@ export default function Communities() {
   if (isError) return "Error";
   if (isLoading) return "Loading...";
 
+  function joinCommunity(name: string) {
+    if (!name) return;
+    if (!isLoggedIn) {
+      toast({
+        description: "You need to be logged in to join a community",
+      });
+      return;
+    }
+
+    fetcher.post("/community/join", { community: name }).then((res) => {
+      console.log(res);
+    });
+  }
+
   return (
     <section className="flex flex-col gap-4">
       {isLoggedIn && (
@@ -67,7 +82,11 @@ export default function Communities() {
             </Link>
             <div className="flex flex-col items-center">
               <p className="text-sm">{community.joinedMembers} members</p>
-              <Button color="primary" radius="md">
+              <Button
+                color="primary"
+                radius="md"
+                onClick={() => joinCommunity(community.name)}
+              >
                 + Join community
               </Button>
             </div>
