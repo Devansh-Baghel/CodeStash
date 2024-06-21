@@ -278,7 +278,7 @@ export const getDownvotedPosts = asyncHandler(async (req: UserRequest, res) => {
   const user = req.user;
 
   if (user?.downvotedPosts.length === 0) {
-    throw new ApiError(404, "You don't have any upvoted posts");
+    throw new ApiError(404, "You don't have any downvoted posts");
   }
 
   let downvotedPosts = await Post.find({
@@ -290,6 +290,6 @@ export const getDownvotedPosts = asyncHandler(async (req: UserRequest, res) => {
   return res
     .status(200)
     .json(
-      new ApiResponse(200, downvotedPosts, "Upvoted posts sent successfully")
+      new ApiResponse(200, downvotedPosts, "Downvoted posts sent successfully")
     );
 });

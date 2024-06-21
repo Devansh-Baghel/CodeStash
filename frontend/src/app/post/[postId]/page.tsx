@@ -10,7 +10,9 @@ import {
 } from "@/components/ui/card";
 import { CodeBlock, dracula } from "react-code-blocks";
 import { BiUpvote as UpvoteIcon } from "react-icons/bi";
+import { BiSolidUpvote as SolidUpvoteIcon } from "react-icons/bi";
 import { BiDownvote as DownvoteIcon } from "react-icons/bi";
+import { BiSolidDownvote as SolidDownvoteIcon } from "react-icons/bi";
 import CopyCodeButton from "@/components/CopyCodeButton";
 import Link from "next/link";
 import fetcher from "@/utils/axios";
@@ -18,9 +20,20 @@ import { useQuery } from "@tanstack/react-query";
 import { Button } from "@nextui-org/react";
 import { useUserStore } from "@/store/userStore";
 import Comments from "@/components/Comments";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Post({ params }: { params: { postId: string } }) {
-  const { isLoggedIn, userData, savePost, removeSavedPost } = useUserStore();
+  const {
+    isLoggedIn,
+    userData,
+    savePost,
+    removeSavedPost,
+    upvotePost,
+    downvotePost,
+  } = useUserStore();
+  const router = useRouter();
+  const [upvoteCount, setUpvoteCount] = useState(0);
   // FIXME: add post types
   const {
     data: post,
@@ -29,33 +42,81 @@ export default function Post({ params }: { params: { postId: string } }) {
   } = useQuery({
     queryKey: [params.postId],
     queryFn: async () => {
-      return await fetcher.post("/posts/get-post", { postId: params.postId });
+      return await fetcher
+        .post("/posts/get-post", { postId: params.postId })
+        .then((res) => {
+          setUpvoteCount(res.upvotes - res.downvotes);
+          return res;
+        });
     },
   });
 
   if (isError) return "Error";
   if (isLoading) return "Loading...";
 
-  // async function savePost() {
-  //   await fetcher.post("/posts/save", { postId: post._id });
-  // }
+  // TODO: Create a custom hook to do this
+  function handleInteraction(postId: string, action: "upvote" | "downvote") {
+    if (!isLoggedIn) {
+      router.push("/login");
+      return;
+    }
 
-  // async function removeSavedPost(postId: string) {
-  //   await fetcher.patch("/posts/remove-saved-post", { postId });
-  // }
+    if (action === "upvote") {
+      upvotePost(postId);
+      if (userData?.upvotedPosts.includes(postId)) {
+        setUpvoteCount((count) => count - 1);
+      } else {
+        if (userData?.downvotedPosts.includes(postId)) {
+          setUpvoteCount((count) => count + 2);
+        } else {
+          setUpvoteCount((count) => count + 1);
+        }
+      }
+    } else if (action === "downvote") {
+      downvotePost(postId);
+      if (userData?.downvotedPosts.includes(postId)) {
+        setUpvoteCount((count) => count + 1);
+      } else {
+        if (userData?.upvotedPosts.includes(postId)) {
+          setUpvoteCount((count) => count - 2);
+        } else {
+          setUpvoteCount((count) => count - 1);
+        }
+      }
+    }
+  }
 
   return (
     <section>
       <Card>
         <CardHeader className="flex flex-row items-center gap-4">
-          <div className="flex gap-1">
-            {/* FIXME: Change to solid verison of these icons when clicked */}
-            <UpvoteIcon className="h-6 w-6" />
-            {post.upvotes - post.downvotes}
-            <DownvoteIcon className="h-6 w-6" />
+          <div className="flex flex-col items-center">
+            {userData?.upvotedPosts.includes(post._id) ? (
+              <SolidUpvoteIcon
+                className="h-5 w-5 cursor-pointer"
+                onClick={() => handleInteraction(post._id, "upvote")}
+              />
+            ) : (
+              <UpvoteIcon
+                className="h-5 w-5 cursor-pointer"
+                onClick={() => handleInteraction(post._id, "upvote")}
+              />
+            )}
+            {upvoteCount}
+            {userData?.downvotedPosts.includes(post._id) ? (
+              <SolidDownvoteIcon
+                className="h-5 w-5 cursor-pointer"
+                onClick={() => handleInteraction(post._id, "downvote")}
+              />
+            ) : (
+              <DownvoteIcon
+                className="h-5 w-5 cursor-pointer"
+                onClick={() => handleInteraction(post._id, "downvote")}
+              />
+            )}
           </div>
           <div>
-            <CardTitle className="">{post.title}</CardTitle>
+            <CardTitle className="text-lg">{post.title}</CardTitle>
             <CardDescription>
               <Link href={`/u/${post.madeBy.username}`}>
                 u/{post.madeBy.username}

@@ -18,14 +18,14 @@ import { useUserStore } from "@/store/userStore";
 import NotLoggedIn from "@/components/NotLoggedIn";
 
 export default function DownvotedPosts() {
-  const { isLoggedIn } = useUserStore();
+  const { isLoggedIn, userData } = useUserStore();
   const { data, isError, isLoading } = useQuery<PostTypes[]>({
     queryKey: ["downvoted-posts"],
     queryFn: async () => {
-      // FIXME: make sure to not run the query when user isn't logged in
-      // if (isLoggedIn) {
+      if (userData?.downvotedPosts.length === 0) {
+        return [];
+      }
       return await fetcher.get("/posts/get-downvoted");
-      // } else return [];
     },
   });
 

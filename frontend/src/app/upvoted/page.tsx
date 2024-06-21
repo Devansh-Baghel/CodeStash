@@ -18,14 +18,14 @@ import { useUserStore } from "@/store/userStore";
 import NotLoggedIn from "@/components/NotLoggedIn";
 
 export default function UpvotedPosts() {
-  const { isLoggedIn } = useUserStore();
+  const { isLoggedIn, userData } = useUserStore();
   const { data, isError, isLoading } = useQuery<PostTypes[]>({
     queryKey: ["upvoted-posts"],
     queryFn: async () => {
-      // FIXME: make sure to not run the query when user isn't logged in
-      // if (isLoggedIn) {
+      if (userData?.upvotedPosts.length === 0) {
+        return [];
+      }
       return await fetcher.get("/posts/get-upvoted");
-      // } else return [];
     },
   });
 
@@ -45,6 +45,7 @@ export default function UpvotedPosts() {
 
   return (
     <div className="flex flex-col gap-4">
+      {/* TODO: add text like, "Posts that you have upvoted" */}
       {data?.map((post) => (
         <Card key={post._id}>
           <CardHeader className="flex flex-row items-center gap-4">

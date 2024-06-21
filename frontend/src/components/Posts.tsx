@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PostTypes } from "@/types/postTypes";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import Post from "./Post";
+import Post from "./PostItem";
 
 export default function Posts() {
   const searchParams = useSearchParams();
