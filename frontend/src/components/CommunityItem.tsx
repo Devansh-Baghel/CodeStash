@@ -12,30 +12,37 @@ import { Button } from "@nextui-org/react";
 import { useState } from "react";
 import { useUserStore } from "@/store/userStore";
 import { toast } from "@/components/ui/use-toast";
-import fetcher from "@/utils/axios";
 
 export default function CommunityItem({
   community,
 }: {
   community: CommunityTypes;
 }) {
-  const { userData, isLoggedIn } = useUserStore();
+  const { userData, isLoggedIn, joinCommunity, leaveCommunity } =
+    useUserStore();
   const [hasJoinedCommunity, setHasJoinedCommunity] = useState(
     userData?.communitiesJoined.includes(community.name),
   );
+  const [members, setMembers] = useState(community.joinedMembers);
 
-  function joinCommunity(name: string) {
+  function handleLeaveAndJoin(name: string, action: "join" | "leave") {
     if (!name) return;
     if (!isLoggedIn) {
       toast({
-        description: "You need to be logged in to join a community",
+        description: "You need to be logged in to join/leave a community",
       });
       return;
     }
 
-    fetcher.post("/community/join", { community: name }).then((res) => {
-      console.log(res);
-    });
+    if (action === "join") {
+      joinCommunity(name);
+      setHasJoinedCommunity(true);
+      setMembers((count) => count + 1);
+    } else {
+      leaveCommunity(name);
+      setHasJoinedCommunity(false);
+      setMembers((count) => count - 1);
+    }
   }
 
   return (
@@ -46,13 +53,13 @@ export default function CommunityItem({
           <CardDescription>{community.description}</CardDescription>
         </Link>
         <div className="flex flex-col items-center">
-          <p className="text-sm">{community.joinedMembers} members</p>
+          <p className="text-sm">{members} members</p>
           {hasJoinedCommunity ? (
             <Button
               color="primary"
               variant="flat"
               radius="md"
-              //   onClick={() => joinCommunity(community.name)}
+              onClick={() => handleLeaveAndJoin(community.name, "leave")}
             >
               - Leave community
             </Button>
@@ -60,7 +67,7 @@ export default function CommunityItem({
             <Button
               color="primary"
               radius="md"
-              onClick={() => joinCommunity(community.name)}
+              onClick={() => handleLeaveAndJoin(community.name, "join")}
             >
               + Join community
             </Button>
