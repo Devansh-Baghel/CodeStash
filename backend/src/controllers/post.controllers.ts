@@ -261,7 +261,11 @@ export const getUpvotedPosts = asyncHandler(async (req: UserRequest, res) => {
     throw new ApiError(404, "You don't have any upvoted posts");
   }
 
-  const upvotedPosts = await Post.find({ _id: { $all: user?.upvotedPosts } });
+  let upvotedPosts = await Post.find({
+    _id: { $in: user?.upvotedPosts },
+  });
+
+  upvotedPosts = upvotedPosts.reverse();
 
   return res
     .status(200)
@@ -277,9 +281,11 @@ export const getDownvotedPosts = asyncHandler(async (req: UserRequest, res) => {
     throw new ApiError(404, "You don't have any upvoted posts");
   }
 
-  const downvotedPosts = await Post.find({
-    _id: { $all: user?.downvotedPosts },
+  let downvotedPosts = await Post.find({
+    _id: { $in: user?.downvotedPosts },
   });
+
+  downvotedPosts = downvotedPosts.reverse();
 
   return res
     .status(200)

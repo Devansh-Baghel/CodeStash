@@ -66,6 +66,30 @@ export default function Hamburger() {
             >
               Saved Posts
             </Button>
+
+            <Button
+              variant="flat"
+              radius="full"
+              color="primary"
+              onClick={() => {
+                router.push("/upvoted");
+                setOpen(false);
+              }}
+            >
+              Upvoted Posts
+            </Button>
+
+            <Button
+              variant="flat"
+              radius="full"
+              color="primary"
+              onClick={() => {
+                router.push("/downvoted");
+                setOpen(false);
+              }}
+            >
+              Downvoted Posts
+            </Button>
           </SheetHeader>
 
           {/* FIXME: Temporary spacer */}
