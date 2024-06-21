@@ -20,7 +20,7 @@ import { useUserStore } from "@/store/userStore";
 import Comments from "@/components/Comments";
 
 export default function Post({ params }: { params: { postId: string } }) {
-  const { isLoggedIn } = useUserStore();
+  const { isLoggedIn, userData, savePost, removeSavedPost } = useUserStore();
   // FIXME: add post types
   const {
     data: post,
@@ -36,9 +36,13 @@ export default function Post({ params }: { params: { postId: string } }) {
   if (isError) return "Error";
   if (isLoading) return "Loading...";
 
-  async function savePost() {
-    await fetcher.post("/posts/save", { postId: post._id });
-  }
+  // async function savePost() {
+  //   await fetcher.post("/posts/save", { postId: post._id });
+  // }
+
+  // async function removeSavedPost(postId: string) {
+  //   await fetcher.patch("/posts/remove-saved-post", { postId });
+  // }
 
   return (
     <section>
@@ -71,15 +75,28 @@ export default function Post({ params }: { params: { postId: string } }) {
           <div className="mt-6 flex flex-col gap-4">
             <CopyCodeButton code={post.content} />
             {isLoggedIn && (
-              <Button
-                variant="flat"
-                color="primary"
-                radius="full"
-                className="w-full text-lg"
-                onClick={savePost}
-              >
-                Save post
-              </Button>
+              <>
+                {userData?.savedPosts.includes(post._id) ? (
+                  <Button
+                    variant="flat"
+                    color="primary"
+                    className="w-full rounded-[20px] text-lg"
+                    onClick={() => removeSavedPost(post._id)}
+                  >
+                    Remove from saved
+                  </Button>
+                ) : (
+                  <Button
+                    variant="flat"
+                    color="primary"
+                    radius="full"
+                    className="w-full text-lg"
+                    onClick={() => savePost(post._id)}
+                  >
+                    Save post
+                  </Button>
+                )}
+              </>
             )}
           </div>
         </CardContent>

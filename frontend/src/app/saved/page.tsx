@@ -8,19 +8,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { BiUpvote as UpvoteIcon } from "react-icons/bi";
-import { BiDownvote as DownvoteIcon } from "react-icons/bi";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import fetcher from "@/utils/axios";
 import { PostTypes } from "@/types/postTypes";
 import { useUserStore } from "@/store/userStore";
 import NotLoggedIn from "@/components/NotLoggedIn";
 
 export default function SavedPosts() {
-  const { isLoggedIn } = useUserStore();
+  const { isLoggedIn, removeSavedPost } = useUserStore();
   const { data, isError, isLoading, refetch, isRefetchError, isRefetching } =
     useQuery<PostTypes[]>({
       queryKey: ["saved-posts"],
@@ -31,11 +29,6 @@ export default function SavedPosts() {
         // } else return [];
       },
     });
-
-  async function removeSavedPost(postId: string) {
-    await fetcher.patch("/posts/remove-saved-post", { postId });
-    refetch();
-  }
 
   const router = useRouter();
 
@@ -57,14 +50,14 @@ export default function SavedPosts() {
       {data?.map((post) => (
         <Card key={post._id}>
           <CardHeader className="flex flex-row items-center gap-4">
-            <div className="flex gap-1">
-              {/* FIXME: Change to solid verison of these icons when clicked */}
-              <UpvoteIcon className="h-6 w-6 cursor-pointer" />
+            {/* <div className="flex gap-1"> */}
+            {/* FIXME: Change to solid verison of these icons when clicked */}
+            {/* <UpvoteIcon className="h-6 w-6 cursor-pointer" />
               {post.upvotes - post.downvotes}
-              <DownvoteIcon className="h-6 w-6 cursor-pointer" />
-            </div>
+              <DownvoteIcon className="h-6 w-6 cursor-pointer" /> */}
+            {/* </div> */}
             <div>
-              <CardTitle className="">
+              <CardTitle className="text-lg">
                 <Link href={`/post/${post._id}`}>{post.title}</Link>
               </CardTitle>
               <CardDescription>
@@ -96,7 +89,10 @@ export default function SavedPosts() {
               variant="flat"
               color="primary"
               className="w-full rounded-[20px]"
-              onClick={() => removeSavedPost(post._id)}
+              onClick={async () => {
+                await removeSavedPost(post._id);
+                refetch();
+              }}
             >
               Remove from saved
             </Button>

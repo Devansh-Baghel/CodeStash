@@ -243,17 +243,13 @@ export const removeSavedPost = asyncHandler(async (req: UserRequest, res) => {
     throw new ApiError(400, "You haven't saved this post yet");
   }
 
-  console.log(user.savedPosts);
-
   user.savedPosts = user.savedPosts.filter(
     (item) => item.toString() !== postId
   );
-
-  console.log(user.savedPosts);
 
   await user.save();
 
   return res
     .status(200)
-    .json(new ApiResponse(200, user, "Post removed successfully"));
+    .json(new ApiResponse(200, { user }, "Post removed successfully"));
 });

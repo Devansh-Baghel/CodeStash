@@ -15,7 +15,7 @@ export const createCommunity = asyncHandler(async (req: UserRequest, res) => {
 
   const doesCommunityExist = await Community.findOne({ name });
   if (doesCommunityExist)
-    throw new ApiError(400, "A community with this name already exists");
+    throw new ApiError(409, "A community with this name already exists");
 
   const community = await Community.create({
     name,

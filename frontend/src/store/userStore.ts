@@ -38,6 +38,8 @@ interface UserState {
   downvotePost: (postId: string) => void;
   joinCommunity: (name: string) => void;
   leaveCommunity: (name: string) => void;
+  savePost: (postId: string) => void;
+  removeSavedPost: (postId: string) => void;
 }
 
 export const useUserStore = create<UserState>()((set, get) => ({
@@ -100,6 +102,18 @@ export const useUserStore = create<UserState>()((set, get) => ({
   },
   leaveCommunity: async (name) => {
     await fetcher.post("/community/leave", { community: name }).then((res) => {
+      console.log(res);
+      set(() => ({ userData: res.user }));
+    });
+  },
+  savePost: async (postId) => {
+    await fetcher.post("/posts/save", { postId }).then((res) => {
+      console.log(res);
+      set(() => ({ userData: res.user }));
+    });
+  },
+  removeSavedPost: async (postId) => {
+    await fetcher.patch("/posts/remove-saved-post", { postId }).then((res) => {
       console.log(res);
       set(() => ({ userData: res.user }));
     });

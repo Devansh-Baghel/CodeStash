@@ -42,6 +42,13 @@ export default function CreateCommunity() {
 
         setName("");
         setDescription("");
+      })
+      .catch((error) => {
+        if (error.response.status === 409) {
+          toast({
+            description: "A community with this name already exists",
+          });
+        }
       });
   }
 
