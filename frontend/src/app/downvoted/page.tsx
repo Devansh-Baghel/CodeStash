@@ -17,14 +17,14 @@ import { PostTypes } from "@/types/postTypes";
 import { useUserStore } from "@/store/userStore";
 import NotLoggedIn from "@/components/NotLoggedIn";
 
-export default function UpvotedPosts() {
+export default function DownvotedPosts() {
   const { isLoggedIn } = useUserStore();
   const { data, isError, isLoading } = useQuery<PostTypes[]>({
-    queryKey: ["upvoted-posts"],
+    queryKey: ["downvoted-posts"],
     queryFn: async () => {
       // FIXME: make sure to not run the query when user isn't logged in
       // if (isLoggedIn) {
-      return await fetcher.get("/posts/get-upvoted");
+      return await fetcher.get("/posts/get-downvoted");
       // } else return [];
     },
   });
@@ -33,14 +33,14 @@ export default function UpvotedPosts() {
 
   if (!isLoggedIn) {
     return (
-      <NotLoggedIn description="Login or sign up to view your upvoted posts" />
+      <NotLoggedIn description="Login or sign up to view your downvoted posts" />
     );
   }
   if (isError) return "Error";
   if (isLoading) return "Loading...";
 
   if (data?.length === 0) {
-    return "You haven't upvoted any posts yet";
+    return "You haven't downvoted any posts yet";
   }
 
   return (
@@ -77,7 +77,7 @@ export default function UpvotedPosts() {
             >
               Show code
             </Button>
-            {/* TODO: Maybe add a remove from upvotes button here? */}
+            {/* TODO: Maybe add a remove from downvotes button here? */}
             {/* <Button
               variant="flat"
               color="primary"
