@@ -98,3 +98,38 @@ export const joinCommunity = asyncHandler(async (req: UserRequest, res) => {
       )
     );
 });
+
+export const leaveCommunity = asyncHandler(async (req: UserRequest, res) => {
+  const { community } = req.body;
+  const user = req.user;
+
+  if (!community) throw new ApiError(400, "Community name is required");
+
+  if (!user?.communitiesJoined.includes(community)) {
+    throw new ApiError(
+      400,
+      "You haven't joined this community yet, can't remove"
+    );
+  }
+
+  const updatedCommunity = await Community.findOneAndUpdate(
+    { name: community },
+    { $inc: { joinedMembers: -1 } }
+  );
+
+  user.communitiesJoined = user.communitiesJoined.filter(
+    (item) => item !== community
+  );
+
+  await user?.save();
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { updatedCommunity, user },
+        "Left the community successfully"
+      )
+    );
+});
