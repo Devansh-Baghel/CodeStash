@@ -253,3 +253,37 @@ export const removeSavedPost = asyncHandler(async (req: UserRequest, res) => {
     .status(200)
     .json(new ApiResponse(200, { user }, "Post removed successfully"));
 });
+
+export const getUpvotedPosts = asyncHandler(async (req: UserRequest, res) => {
+  const user = req.user;
+
+  if (user?.upvotedPosts.length === 0) {
+    throw new ApiError(404, "You don't have any upvoted posts");
+  }
+
+  const upvotedPosts = await Post.find({ _id: { $all: user?.upvotedPosts } });
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, upvotedPosts, "Upvoted posts sent successfully")
+    );
+});
+
+export const getDownvotedPosts = asyncHandler(async (req: UserRequest, res) => {
+  const user = req.user;
+
+  if (user?.downvotedPosts.length === 0) {
+    throw new ApiError(404, "You don't have any upvoted posts");
+  }
+
+  const downvotedPosts = await Post.find({
+    _id: { $all: user?.downvotedPosts },
+  });
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, downvotedPosts, "Upvoted posts sent successfully")
+    );
+});

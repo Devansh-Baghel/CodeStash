@@ -2,10 +2,12 @@ import { Router } from "express";
 import {
   createPost,
   downvotePost,
+  getDownvotedPosts,
   getPost,
   getPosts,
   getPostsByLang,
   getSavedPosts,
+  getUpvotedPosts,
   removeSavedPost,
   savePost,
   upvotePost,
@@ -26,5 +28,7 @@ router.route("/downvote").patch(verifyJWT, downvotePost);
 router.route("/save").post(verifyJWT, savePost);
 router.route("/get-saved-posts").get(verifyJWT, getSavedPosts);
 router.route("/remove-saved-post").patch(verifyJWT, removeSavedPost);
+router.route("/get-upvoted").get(verifyJWT, getUpvotedPosts);
+router.route("/get-downvoted").get(verifyJWT, getDownvotedPosts);
 
 export default router;
