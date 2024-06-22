@@ -3,6 +3,7 @@
 import { useUserStore } from "@/store/userStore";
 import { useEffect } from "react";
 import Navbar from "./NavBar";
+import SideBar from "./SideBar";
 
 export default function Dashboard({ children }: { children: React.ReactNode }) {
   const { getCurrentUser } = useUserStore();
@@ -16,8 +17,10 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Navbar />
-      {/* <aside></aside> */}
-      {children}
+      <div className="flex">
+        <SideBar />
+        {children}
+      </div>
     </>
   );
 }

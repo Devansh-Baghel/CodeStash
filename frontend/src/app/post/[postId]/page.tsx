@@ -179,6 +179,7 @@ export default function Post({ params }: { params: { postId: string } }) {
           </p>
         </CardFooter>
       </Card>
+      {/* TODO: add a card that displays some stats about the community that this post is posted in */}
       <Comments postId={params.postId} />
     </section>
   );
