@@ -23,3 +23,7 @@
 - [ ] add loading user data loader in generic component to fetch the current user and block all rendering until then
 - [ ] https://dev.to/lissy93/cli-tools-you-cant-live-without-57f6
 - [ ] nextjs doesn't work when you create a file with echo "" > page.tsx: github issue
+- [ ] https://devhubapp.com/
+- [ ] https://devdocs.io/
+- [ ] https://devtoys.app/
+- [ ]
