@@ -55,7 +55,7 @@ export default function PostItem({ post }: { post: PostTypes }) {
   }
 
   return (
-    <Card key={post._id}>
+    <Card key={post._id} className="bg-sky-50">
       <CardHeader className="flex flex-row gap-4">
         <div className="flex flex-col items-center">
           {userData?.upvotedPosts.includes(post._id) ? (
@@ -105,8 +105,9 @@ export default function PostItem({ post }: { post: PostTypes }) {
           community
         </p>
         <Button
-          variant="solid"
-          className="w-full rounded-[20px] bg-primary text-white"
+          color="primary"
+          // variant="flat"
+          className="w-full rounded-[20px]"
           onClick={() => router.push(`/post/${post._id}`)}
         >
           Show code

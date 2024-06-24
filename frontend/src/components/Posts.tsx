@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PostTypes } from "@/types/postTypes";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import Post from "./PostItem";
+import PostItem from "./PostItem";
 
 export default function Posts() {
   const searchParams = useSearchParams();
@@ -51,7 +51,7 @@ export default function Posts() {
   return (
     <div className="flex flex-col gap-4">
       {data.map((post) => (
-        <Post post={post} />
+        <PostItem post={post} />
       ))}
     </div>
   );

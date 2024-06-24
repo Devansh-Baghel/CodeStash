@@ -10,7 +10,7 @@ export default function Navbar() {
   const { isLoggedIn } = useUserStore();
 
   return (
-    <nav className="mb-6 flex items-center justify-between gap-2">
+    <nav className="sticky top-4 mb-6 flex items-center justify-between">
       <Button
         className="flex gap-2 font-bold text-primary"
         radius="full"
