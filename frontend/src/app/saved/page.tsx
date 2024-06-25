@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@nextui-org/react";
+import { Avatar, Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
@@ -41,10 +41,21 @@ export default function SavedPosts() {
   if (isLoading || isRefetching) return "Loading...";
 
   if (data?.length === 0) {
-    return "You haven't saved any posts yet";
+    // TODO: add ui for no when user has no saved posts
+    return (
+      <Card className="ml-20 mt-20 flex flex-col items-center justify-center">
+        <CardHeader>
+          <h1>You haven't saved any posts yet</h1>
+        </CardHeader>
+        <CardContent>
+          <Button color="primary" onClick={() => router.push("/")}>
+            Go to homepage
+          </Button>
+        </CardContent>
+      </Card>
+    );
   }
 
-  // TODO: add ui for no when user has no saved posts
   return (
     <div className="flex flex-col gap-4">
       {data?.map((post) => (
