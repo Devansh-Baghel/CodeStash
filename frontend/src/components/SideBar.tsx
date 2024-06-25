@@ -64,10 +64,8 @@ export default function SideBar() {
           </Button>
         </div>
 
-        {!isLoggedIn ? (
-          // TODO: add ui here for not logged in user
-          "not logged in"
-        ) : (
+        {/* // TODO: add ui here for not logged in user */}
+        {isLoggedIn && (
           // FAQ page
           // Upvoted posts
           // Downvoted posts

@@ -6,6 +6,7 @@ import { PostTypes } from "@/types/postTypes";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import PostItem from "./PostItem";
+import PostsLoading from "./PostsLoading";
 
 export default function Posts() {
   const searchParams = useSearchParams();
@@ -37,7 +38,7 @@ export default function Posts() {
   }, [refetch, searchParams]);
 
   // TODO: Add better loading and error states
-  if (isPending || isRefetching) return "Loading...";
+  if (!isPending || isRefetching) return <PostsLoading />;
   if (isError || isRefetchError) {
     // FIXME: fix ts error
     // @ts-ignore
@@ -48,11 +49,11 @@ export default function Posts() {
     return "error";
   }
 
-  return (
-    <div className="flex flex-col gap-4">
-      {data.map((post) => (
-        <PostItem post={post} />
-      ))}
-    </div>
-  );
+  // return (
+  //   <div className="flex flex-col gap-4">
+  //     {data.map((post) => (
+  //       <PostItem post={post} />
+  //     ))}
+  //   </div>
+  // );
 }
