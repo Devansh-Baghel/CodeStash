@@ -12,16 +12,14 @@ export default function PostsLoading() {
   return (
     <>
       {[1, 2, 3, 4].map((_, index) => (
-        <Card className="mb-4" key={index}>
+        <Card className="mb-4 w-[90vw] max-w-[700px] md:w-[60vw]" key={index}>
           <CardHeader className="flex flex-row gap-4">
-            <div>
-              <CardTitle className="">
-                <Skeleton className="h-10 w-[80vw] rounded-2xl md:w-[50vw] md:max-w-[600px]" />
-              </CardTitle>
-            </div>
+            <CardTitle>
+              <Skeleton className="h-10 w-80 rounded-2xl" />
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <Skeleton className="h-32 w-[80vw] rounded-2xl md:w-[50vw] md:max-w-[600px]" />
+            <Skeleton className="h-32 rounded-2xl" />
           </CardContent>
           <CardFooter className="flex flex-col gap-2">
             <Button

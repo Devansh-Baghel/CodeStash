@@ -22,6 +22,7 @@ import { useUserStore } from "@/store/userStore";
 import Comments from "@/components/Comments";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import PostSkeleton from "@/components/skeletons/PostSkeleton";
 
 export default function Post({ params }: { params: { postId: string } }) {
   const {
@@ -50,9 +51,6 @@ export default function Post({ params }: { params: { postId: string } }) {
         });
     },
   });
-
-  if (isError) return "Error";
-  if (isLoading) return "Loading...";
 
   // TODO: Create a custom hook to do this
   function handleInteraction(postId: string, action: "upvote" | "downvote") {
@@ -85,6 +83,9 @@ export default function Post({ params }: { params: { postId: string } }) {
       }
     }
   }
+
+  if (isError) return "Error";
+  if (isLoading) return <PostSkeleton />;
 
   return (
     <section>

@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button, Textarea } from "@nextui-org/react";
+import { Textarea } from "@nextui-org/react";
 import { Skeleton } from "@nextui-org/react";
 
 export default function () {
