@@ -12,6 +12,7 @@ import { Button } from "@nextui-org/react";
 import { useState } from "react";
 import { useUserStore } from "@/store/userStore";
 import { toast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 export default function CommunityItem({
   community,
@@ -24,6 +25,7 @@ export default function CommunityItem({
     userData?.communitiesJoined.includes(community.name),
   );
   const [members, setMembers] = useState(community.joinedMembers);
+  const router = useRouter();
 
   function handleLeaveAndJoin(name: string, action: "join" | "leave") {
     if (!name) return;
@@ -46,8 +48,11 @@ export default function CommunityItem({
   }
 
   return (
-    <Card key={community._id}>
-      <CardHeader className="flex flex-row items-center justify-between">
+    <Card
+      key={community._id}
+      className="max-w-[700px] hover:cursor-pointer md:w-[60vw]"
+    >
+      <CardHeader className="flex flex-row items-center justify-between gap-4">
         <Link href={`c/${community.name}`}>
           <CardTitle className="mb-2 text-lg">c/{community.name}</CardTitle>
           <CardDescription>{community.description}</CardDescription>
@@ -56,7 +61,7 @@ export default function CommunityItem({
           <p className="text-sm">{members} members</p>
           {hasJoinedCommunity ? (
             <Button
-              color="primary"
+              color="danger"
               variant="flat"
               radius="md"
               onClick={() => handleLeaveAndJoin(community.name, "leave")}
@@ -77,13 +82,20 @@ export default function CommunityItem({
       <CardContent>
         {/* TODO: add community cover image and avatar here */}
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex flex-col gap-2">
         <CardDescription>
           Community created by:{" "}
           <Link href={`u/${community.madeBy.username}`} className="underline">
             u/{community.madeBy.username}
           </Link>
         </CardDescription>
+        <Button
+          className="w-full"
+          color="primary"
+          onClick={() => router.push(`/c/${community.name}`)}
+        >
+          View Community
+        </Button>
       </CardFooter>
     </Card>
   );
