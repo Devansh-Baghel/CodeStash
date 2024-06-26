@@ -47,7 +47,7 @@ export default function SideBar() {
             className="flex w-full justify-normal"
             radius="sm"
             color="primary"
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/languages")}
           >
             <LangIcon className="ml-4 text-lg" />
             Popular languages
