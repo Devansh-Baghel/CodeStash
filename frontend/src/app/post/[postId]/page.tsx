@@ -88,7 +88,7 @@ export default function Post({ params }: { params: { postId: string } }) {
 
   return (
     <section>
-      <Card>
+      <Card className="w-[90vw] max-w-[700px] md:w-[60vw]">
         <CardHeader className="flex flex-row items-center gap-4">
           <div className="flex flex-col items-center">
             {userData?.upvotedPosts.includes(post._id) ? (

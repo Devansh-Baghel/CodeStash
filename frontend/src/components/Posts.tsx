@@ -6,7 +6,7 @@ import { PostTypes } from "@/types/postTypes";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import PostItem from "./PostItem";
-import PostsLoading from "./PostsLoading";
+import PostsLoading from "./skeletons/PostsLoading";
 
 export default function Posts() {
   const searchParams = useSearchParams();

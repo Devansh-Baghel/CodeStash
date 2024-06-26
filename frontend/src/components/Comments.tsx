@@ -11,6 +11,7 @@ import Link from "next/link";
 import { Comment } from "@/types/commentTypes";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
+import CommentsSkeleton from "./skeletons/CommentsSkeleton";
 
 export default function Comments({ postId }: { postId: string }) {
   const [comment, setComment] = useState("");
@@ -43,7 +44,7 @@ export default function Comments({ postId }: { postId: string }) {
   }
 
   if (isError || isRefetchError) return "Error";
-  if (isLoading) return "Loading...";
+  if (isLoading) return <CommentsSkeleton />;
 
   return (
     <Card className="my-6">
@@ -58,7 +59,7 @@ export default function Comments({ postId }: { postId: string }) {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder="Add a comment"
-              className={`col-span-12 mb-3 md:col-span-6 md:mb-0 ${!comment && "h-10"}`}
+              className={`col-span-12 mb-3 md:col-span-6 ${!comment && "h-10"}`}
             />
             {comment && (
               <Button color="primary" type="submit">

@@ -11,7 +11,7 @@ export default function CopyCodeButton({ code }: { code: string }) {
 
   return (
     <Button
-      variant="ghost"
+      // variant="ghost"
       color="primary"
       radius="full"
       className="w-full py-4 text-lg"
