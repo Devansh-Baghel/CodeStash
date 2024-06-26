@@ -16,6 +16,8 @@ import fetcher from "@/utils/axios";
 import { PostTypes } from "@/types/postTypes";
 import { useUserStore } from "@/store/userStore";
 import NotLoggedIn from "@/components/NotLoggedIn";
+import { cn } from "@/lib/utils";
+import { cardLayout } from "@/utils/classnames";
 
 export default function SavedPosts() {
   const { isLoggedIn, removeSavedPost } = useUserStore();
@@ -37,6 +39,7 @@ export default function SavedPosts() {
       <NotLoggedIn description="Login or sign up to view your saved posts" />
     );
   }
+
   if (isError || isRefetchError) return "Error";
   if (isLoading || isRefetching) return "Loading...";
 
@@ -59,14 +62,8 @@ export default function SavedPosts() {
   return (
     <div className="flex flex-col gap-4">
       {data?.map((post) => (
-        <Card key={post._id}>
+        <Card key={post._id} className={cn(cardLayout)}>
           <CardHeader className="flex flex-row items-center gap-4">
-            {/* <div className="flex gap-1"> */}
-            {/* FIXME: Change to solid verison of these icons when clicked */}
-            {/* <UpvoteIcon className="h-6 w-6 cursor-pointer" />
-              {post.upvotes - post.downvotes}
-              <DownvoteIcon className="h-6 w-6 cursor-pointer" /> */}
-            {/* </div> */}
             <div>
               <CardTitle className="text-lg">
                 <Link href={`/post/${post._id}`}>{post.title}</Link>

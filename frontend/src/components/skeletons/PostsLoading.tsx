@@ -5,6 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 import { Skeleton } from "@nextui-org/react";
 
@@ -12,7 +14,7 @@ export default function PostsLoading() {
   return (
     <>
       {[1, 2, 3, 4].map((_, index) => (
-        <Card className="mb-4 w-[90vw] max-w-[700px] md:w-[60vw]" key={index}>
+        <Card className={cn("mb-4", cardLayout)} key={index}>
           <CardHeader className="flex flex-row gap-4">
             <CardTitle>
               <Skeleton className="h-10 w-80 rounded-2xl" />

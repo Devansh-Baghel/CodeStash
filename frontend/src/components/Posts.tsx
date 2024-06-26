@@ -37,7 +37,6 @@ export default function Posts() {
     refetch();
   }, [refetch, searchParams]);
 
-  // TODO: Add better loading and error states
   if (isPending || isRefetching) return <PostsLoading />;
   if (isError || isRefetchError) {
     // FIXME: fix ts error

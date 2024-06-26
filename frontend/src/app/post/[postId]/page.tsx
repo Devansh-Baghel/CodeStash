@@ -23,6 +23,8 @@ import Comments from "@/components/Comments";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import PostSkeleton from "@/components/skeletons/PostSkeleton";
+import { cn } from "@/lib/utils";
+import { cardLayout } from "@/utils/classnames";
 
 export default function Post({ params }: { params: { postId: string } }) {
   const {
@@ -89,7 +91,7 @@ export default function Post({ params }: { params: { postId: string } }) {
 
   return (
     <section>
-      <Card className="w-[90vw] max-w-[700px] md:w-[60vw]">
+      <Card className={cn(cardLayout)}>
         <CardHeader className="flex flex-row items-center gap-4">
           <div className="flex flex-col items-center">
             {userData?.upvotedPosts.includes(post._id) ? (

@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import {
   Card,
   CardContent,
@@ -6,10 +7,11 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Button, Skeleton } from "@nextui-org/react";
+import { cardLayout } from "@/utils/classnames";
 
 export default function PostSkeleton() {
   return (
-    <Card className="w-[90vw] max-w-[700px] md:w-[60vw]">
+    <Card className={cn(cardLayout)}>
       <CardHeader>
         <CardTitle>
           <Skeleton className="h-10 rounded-2xl" />
