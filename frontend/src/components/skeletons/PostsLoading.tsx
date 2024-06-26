@@ -10,10 +10,12 @@ import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 import { Skeleton } from "@nextui-org/react";
 
-export default function PostsLoading() {
+export default function PostsLoading({ items }: { items?: number }) {
+  const itemCount = items ? items : 4;
+
   return (
     <>
-      {[1, 2, 3, 4].map((_, index) => (
+      {Array.from({ length: itemCount }).map((_, index) => (
         <Card className={cn("mb-4", cardLayout)} key={index}>
           <CardHeader className="flex flex-row gap-4">
             <CardTitle>
@@ -27,7 +29,6 @@ export default function PostsLoading() {
             <Button
               color="primary"
               isLoading={true}
-              // variant="flat"
               className="w-full rounded-[20px]"
             >
               Show code

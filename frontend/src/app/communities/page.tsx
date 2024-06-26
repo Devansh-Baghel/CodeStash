@@ -6,6 +6,9 @@ import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/react";
 import CommunityItem from "@/components/CommunityItem";
+import PostsLoading from "@/components/skeletons/PostsLoading";
+import PostSkeleton from "@/components/skeletons/PostSkeleton";
+import CommunitiesSkeleton from "@/components/skeletons/CommunitiesSkeleton";
 
 export type CommunityTypes = {
   madeBy: {
@@ -30,7 +33,7 @@ export default function Communities() {
   const router = useRouter();
 
   if (isError) return "Error";
-  if (isLoading) return "Loading...";
+  if (isLoading) return <CommunitiesSkeleton />;
 
   return (
     <section className="flex flex-col gap-4">

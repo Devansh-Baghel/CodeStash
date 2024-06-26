@@ -18,6 +18,7 @@ import { useUserStore } from "@/store/userStore";
 import NotLoggedIn from "@/components/NotLoggedIn";
 import { cn } from "@/lib/utils";
 import { cardLayout } from "@/utils/classnames";
+import PostsLoading from "@/components/skeletons/PostsLoading";
 
 export default function SavedPosts() {
   const { isLoggedIn, removeSavedPost } = useUserStore();
@@ -41,7 +42,7 @@ export default function SavedPosts() {
   }
 
   if (isError || isRefetchError) return "Error";
-  if (isLoading || isRefetching) return "Loading...";
+  if (isLoading || isRefetching) return <PostsLoading items={1} />;
 
   if (data?.length === 0) {
     // TODO: add ui for no when user has no saved posts
