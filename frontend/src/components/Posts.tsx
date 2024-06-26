@@ -38,7 +38,7 @@ export default function Posts() {
   }, [refetch, searchParams]);
 
   // TODO: Add better loading and error states
-  if (!isPending || isRefetching) return <PostsLoading />;
+  if (isPending || isRefetching) return <PostsLoading />;
   if (isError || isRefetchError) {
     // FIXME: fix ts error
     // @ts-ignore
@@ -49,11 +49,11 @@ export default function Posts() {
     return "error";
   }
 
-  // return (
-  //   <div className="flex flex-col gap-4">
-  //     {data.map((post) => (
-  //       <PostItem post={post} />
-  //     ))}
-  //   </div>
-  // );
+  return (
+    <div className="flex flex-col gap-4">
+      {data.map((post) => (
+        <PostItem post={post} />
+      ))}
+    </div>
+  );
 }
