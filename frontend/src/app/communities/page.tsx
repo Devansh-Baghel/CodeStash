@@ -9,6 +9,8 @@ import CommunityItem from "@/components/CommunityItem";
 import PostsLoading from "@/components/skeletons/PostsLoading";
 import PostSkeleton from "@/components/skeletons/PostSkeleton";
 import CommunitiesSkeleton from "@/components/skeletons/CommunitiesSkeleton";
+import { cn } from "@/lib/utils";
+import { cardLayout } from "@/utils/classnames";
 
 export type CommunityTypes = {
   madeBy: {
@@ -36,7 +38,7 @@ export default function Communities() {
   if (isLoading) return <CommunitiesSkeleton />;
 
   return (
-    <section className="flex flex-col gap-4">
+    <section className={cn(cardLayout, "flex flex-col gap-4")}>
       {isLoggedIn && (
         <>
           <Button

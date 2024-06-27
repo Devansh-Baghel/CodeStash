@@ -20,6 +20,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
 import NotLoggedIn from "@/components/NotLoggedIn";
+import { cn } from "@/lib/utils";
+import { cardLayout } from "@/utils/classnames";
 
 // TODO: add community option in this form
 export default function CreatePost() {
@@ -59,7 +61,7 @@ export default function CreatePost() {
   }
 
   return (
-    <Card className="mx-auto max-w-sm">
+    <Card className={cn(cardLayout, "mx-auto")}>
       <CardHeader>
         <CardTitle className="text-2xl">Create Post</CardTitle>
       </CardHeader>
@@ -93,6 +95,7 @@ export default function CreatePost() {
               </Select>
             </div>
             <div className="grid gap-2">
+              {/* TODO Make this WYSIWYG editor */}
               <Label htmlFor="description">Description</Label>
               <Textarea
                 placeholder="How is this code snippet useful?"

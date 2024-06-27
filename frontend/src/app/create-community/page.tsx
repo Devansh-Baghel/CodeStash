@@ -12,6 +12,8 @@ import { FormEvent, useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import fetcher from "@/utils/axios";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { cardLayout } from "@/utils/classnames";
 
 export default function CreateCommunity() {
   const { isLoggedIn } = useUserStore();
@@ -57,7 +59,7 @@ export default function CreateCommunity() {
   }
 
   return (
-    <Card className="mx-auto max-w-sm">
+    <Card className={cn(cardLayout, "mx-auto")}>
       <CardHeader>
         <CardTitle className="text-2xl">Create Community</CardTitle>
       </CardHeader>

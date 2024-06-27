@@ -6,6 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { cardLayout } from "@/utils/classnames";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function Login() {
   return (
-    <main className="flex items-center justify-center pt-10">
+    <main className={cn(cardLayout, `flex items-center justify-center pt-10`)}>
       <Card className="max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>

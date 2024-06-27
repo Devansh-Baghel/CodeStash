@@ -40,7 +40,7 @@ export default function RootLayout({
           <ReactQueryProvider>
             <NextUIProvider>
               <Dashboard>
-                <main>{children}</main>
+                <main className="h-full w-full">{children}</main>
                 <Toaster />
               </Dashboard>
             </NextUIProvider>

@@ -7,6 +7,8 @@ import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import PostItem from "./PostItem";
 import PostsLoading from "./skeletons/PostsLoading";
+import { cn } from "@/lib/utils";
+import { cardLayout } from "@/utils/classnames";
 
 export default function Posts() {
   const searchParams = useSearchParams();
@@ -49,7 +51,7 @@ export default function Posts() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className={cn(cardLayout, "flex flex-col gap-4")}>
       {data.map((post) => (
         <PostItem post={post} />
       ))}

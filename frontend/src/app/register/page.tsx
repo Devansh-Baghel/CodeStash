@@ -7,6 +7,8 @@ import {
 } from "@/components/ui/card";
 import { Metadata } from "next";
 import RegisterForm from "@/components/RegisterForm";
+import { cardLayout } from "@/utils/classnames";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Sign up - CodeStash",
@@ -14,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function Register() {
   return (
-    <main className="flex items-center justify-center pt-10">
+    <main className={cn(cardLayout, "flex items-center justify-center pt-10")}>
       <Card className="max-w-sm">
         <CardHeader>
           <CardTitle className="text-xl">Sign Up</CardTitle>

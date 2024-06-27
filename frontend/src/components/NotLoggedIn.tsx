@@ -7,6 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { cardLayout } from "@/utils/classnames";
 import { Avatar, Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
@@ -15,7 +17,7 @@ export default function NotLoggedIn({ description }: { description: string }) {
 
   return (
     <Card>
-      <CardHeader className="flex flex-col items-center">
+      <CardHeader className={cn(cardLayout, "flex flex-col items-center")}>
         <Avatar src="" size="lg" className="mx-auto mb-6 h-32 w-32" />
         <CardTitle className="text-lg">You aren&apos;t logged in</CardTitle>
         <CardDescription className="text-center">{description}</CardDescription>
