@@ -37,13 +37,13 @@ import { useSearchParams } from "next/navigation";
 
 // or just have a dropdown to select the community that the user wants to post in and have a none option there
 export default function CreatePost() {
+  const searchParams = useSearchParams();
   const [title, setTitle] = useState("");
-  const [language, setLanguage] = useState<undefined | string>();
+  const [language, setLanguage] = useState(searchParams.get("language"));
   const [description, setDescription] = useState("");
   const [code, setCode] = useState("");
   const { toast } = useToast();
   const { isLoggedIn, userData } = useUserStore();
-  const searchParams = useSearchParams();
   const [community, setCommunity] = useState(searchParams.get("community"));
 
   if (!community) setCommunity("all");
@@ -95,6 +95,9 @@ export default function CreatePost() {
           <Link href={`/c/${community}`} className="underline">
             c/{community}
           </Link>
+          {community === "all" && (
+            <span className="text-xs"> (default community)</span>
+          )}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -114,7 +117,7 @@ export default function CreatePost() {
               <Select
                 required
                 onValueChange={(lang) => setLanguage(lang)}
-                value={language}
+                value={language!}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Language" />

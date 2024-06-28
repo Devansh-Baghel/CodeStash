@@ -25,6 +25,7 @@ import { useRouter } from "next/navigation";
 import PostSkeleton from "@/components/skeletons/PostSkeleton";
 import { cn } from "@/lib/utils";
 import { cardLayout } from "@/utils/classnames";
+import BackButton from "@/components/BackButton";
 
 export default function Post({ params }: { params: { postId: string } }) {
   const {
@@ -91,6 +92,7 @@ export default function Post({ params }: { params: { postId: string } }) {
 
   return (
     <section className={cn(cardLayout)}>
+      <BackButton />
       <Card>
         <CardHeader className="flex flex-row items-center gap-4">
           <div className="flex flex-col items-center">

@@ -7,4 +7,5 @@ export type PostTypes = {
   upvotes: number;
   downvotes: number;
   language: string;
+  community: string;
 };
