@@ -53,7 +53,9 @@ export default function Communities() {
           <p className="text-grey-700 text-center text-sm">Or join one below</p>
         </>
       )}
-      {data?.map((community) => <CommunityItem community={community} />)}
+      {data?.map((community) => (
+        <CommunityItem community={community} key={community._id} />
+      ))}
     </section>
   );
 }

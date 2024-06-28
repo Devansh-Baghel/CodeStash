@@ -19,6 +19,7 @@ type Language = (typeof allowedLanguages)[number];
 export interface PostTypes extends Document {
   content: string;
   language: Language;
+  community: string;
   title: string;
   upvotes: number;
   downvotes: number;
@@ -67,6 +68,7 @@ const postSchema: Schema<PostTypes> = new Schema(
         ref: "Comment",
       },
     ],
+    community: { type: String, required: true, default: "all" },
     title: { type: String, required: true },
     description: { type: String, required: true },
     upvotes: { type: Number, default: 0 },

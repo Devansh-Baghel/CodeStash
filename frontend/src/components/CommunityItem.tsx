@@ -48,7 +48,7 @@ export default function CommunityItem({
   }
 
   return (
-    <Card key={community._id}>
+    <Card>
       <CardHeader className="flex flex-row items-center justify-between gap-4">
         <Link href={`c/${community.name}`}>
           <CardTitle className="mb-2 text-lg">c/{community.name}</CardTitle>

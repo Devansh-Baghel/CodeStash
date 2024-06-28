@@ -91,6 +91,7 @@ const userSchema: Schema<UserTypes> = new Schema(
     communitiesJoined: [
       {
         type: String,
+        default: "all",
       },
     ],
   },

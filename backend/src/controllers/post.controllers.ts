@@ -34,7 +34,7 @@ export const getPost = asyncHandler(async (req, res) => {
 });
 
 export const getPostsByLang = asyncHandler(
-  async (req: Request, res: Response) => {
+  async (req: UserRequest, res: Response) => {
     const { language } = req.body;
     if (!language) throw new ApiError(400, "Language is required");
 
@@ -53,9 +53,8 @@ export const getPostsByLang = asyncHandler(
 
 export const createPost = asyncHandler(
   async (req: UserRequest, res: Response) => {
-    const { title, content, language, description } = postSchema.parse(
-      req.body
-    );
+    const { title, content, language, description, community } =
+      postSchema.parse(req.body);
 
     const post = await Post.create({
       title,
@@ -67,11 +66,18 @@ export const createPost = asyncHandler(
       content,
       language,
       description,
+      community: community ? community : "all",
     });
 
     return res
       .status(200)
-      .json(new ApiResponse(200, post, "Post created successfully"));
+      .json(
+        new ApiResponse(
+          200,
+          post,
+          `Post created successfully in c/${community}`
+        )
+      );
   }
 );
 

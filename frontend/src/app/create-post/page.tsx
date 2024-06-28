@@ -1,7 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
@@ -18,23 +24,42 @@ import { FormEvent, useEffect, useState } from "react";
 import fetcher from "@/utils/axios";
 import { useToast } from "@/components/ui/use-toast";
 import { useUserStore } from "@/store/userStore";
-import { useRouter } from "next/navigation";
 import NotLoggedIn from "@/components/NotLoggedIn";
 import { cn } from "@/lib/utils";
 import { cardLayout } from "@/utils/classnames";
+import { allowedLanguages } from "../languages/page";
+import { useSearchParams } from "next/navigation";
 
 // TODO: add community option in this form
+// this page take a query param ?community in which if no community is passed
+// then it by default creates a post in c/all or just no community
+// and if the prop is passed then it makes a post in that community
+
+// or just have a dropdown to select the community that the user wants to post in and have a none option there
 export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [language, setLanguage] = useState<undefined | string>();
   const [description, setDescription] = useState("");
   const [code, setCode] = useState("");
   const { toast } = useToast();
-  const { isLoggedIn } = useUserStore();
-  const router = useRouter();
+  const { isLoggedIn, userData } = useUserStore();
+  const searchParams = useSearchParams();
+  const [community, setCommunity] = useState(searchParams.get("community"));
+
+  if (!community) setCommunity("all");
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
+
+    if (!userData?.communitiesJoined.includes(community!)) {
+      // FIXME: add better looking toasts
+      toast({
+        title: "You haven't joined this community yet",
+        description: `Cannot create post in c/${community}.`,
+      });
+
+      return;
+    }
 
     fetcher
       .post("/posts/create-post", {
@@ -42,6 +67,7 @@ export default function CreatePost() {
         language,
         description,
         title,
+        community,
       })
       .then((res) => {
         console.log(res);
@@ -51,7 +77,7 @@ export default function CreatePost() {
 
         toast({
           title: "Post Created",
-          description: `Your post in c/${language} was created successfully.`,
+          description: `Your post in c/${community} written in ${language} was created successfully.`,
         });
       });
   }
@@ -64,6 +90,12 @@ export default function CreatePost() {
     <Card className={cn(cardLayout, "mx-auto")}>
       <CardHeader>
         <CardTitle className="text-2xl">Create Post</CardTitle>
+        <CardDescription>
+          You are creating a post in{" "}
+          <Link href={`/c/${community}`} className="underline">
+            c/{community}
+          </Link>
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit}>
@@ -88,9 +120,12 @@ export default function CreatePost() {
                   <SelectValue placeholder="Language" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="typescript">TypeScript</SelectItem>
+                  {/* <SelectItem value="typescript">TypeScript</SelectItem>
                   <SelectItem value="javascript">JavaScript</SelectItem>
-                  <SelectItem value="python">Python</SelectItem>
+                  <SelectItem value="python">Python</SelectItem> */}
+                  {[...allowedLanguages].map((lang) => (
+                    <SelectItem value={lang}>{lang}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
