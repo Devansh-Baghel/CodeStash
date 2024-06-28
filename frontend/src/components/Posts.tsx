@@ -52,9 +52,10 @@ export default function Posts() {
 
   return (
     <div className={cn(cardLayout, "flex flex-col gap-4")}>
-      {data.map((post) => (
-        <PostItem post={post} />
-      ))}
+      {data.length === 0
+        ? // TODO: add better ui for this!
+          "There are no posts in this language"
+        : data.map((post) => <PostItem post={post} />)}
     </div>
   );
 }
