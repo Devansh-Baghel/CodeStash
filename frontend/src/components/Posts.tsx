@@ -3,16 +3,19 @@
 import fetcher from "@/utils/axios";
 import { useQuery } from "@tanstack/react-query";
 import { PostTypes } from "@/types/postTypes";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import PostItem from "./PostItem";
 import PostsLoading from "./skeletons/PostsLoading";
 import { cn } from "@/lib/utils";
 import { cardLayout } from "@/utils/classnames";
+import { Button } from "@nextui-org/react";
+import { TbError404 as NotFoundIcon } from "react-icons/tb";
 
 export default function Posts() {
   const searchParams = useSearchParams();
   const language = searchParams.get("language");
+  const router = useRouter();
 
   const {
     data,
@@ -52,10 +55,18 @@ export default function Posts() {
 
   return (
     <div className={cn(cardLayout, "flex flex-col gap-4")}>
-      {data.length === 0
-        ? // TODO: add better ui for this!
-          "There are no posts in this language"
-        : data.map((post) => <PostItem post={post} />)}
+      {data.length === 0 ? (
+        // TODO: add better ui for this!
+        <div className="mt-10 flex flex-col items-center justify-center gap-4">
+          <NotFoundIcon className="text-[300px] text-secondary" />
+          <p>Currenly there are no posts for {language}</p>
+          <Button onClick={() => router.push("/create-post")} color="primary">
+            Create post in {language}
+          </Button>
+        </div>
+      ) : (
+        data.map((post) => <PostItem post={post} />)
+      )}
     </div>
   );
 }
