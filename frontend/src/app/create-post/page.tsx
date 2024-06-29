@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import fetcher from "@/utils/axios";
 import { useToast } from "@/components/ui/use-toast";
 import { useUserStore } from "@/store/userStore";
@@ -30,16 +30,12 @@ import { cardLayout } from "@/utils/classnames";
 import { allowedLanguages } from "../languages/page";
 import { useSearchParams } from "next/navigation";
 
-// TODO: add community option in this form
-// this page take a query param ?community in which if no community is passed
-// then it by default creates a post in c/all or just no community
-// and if the prop is passed then it makes a post in that community
-
-// or just have a dropdown to select the community that the user wants to post in and have a none option there
 export default function CreatePost() {
   const searchParams = useSearchParams();
   const [title, setTitle] = useState("");
-  const [language, setLanguage] = useState(searchParams.get("language"));
+  const [language, setLanguage] = useState(
+    searchParams.get("language") ? searchParams.get("language") : "",
+  );
   const [description, setDescription] = useState("");
   const [code, setCode] = useState("");
   const { toast } = useToast();
@@ -114,18 +110,16 @@ export default function CreatePost() {
               />
             </div>
             <div className="grid gap-2">
+              <Label htmlFor="language">Language</Label>
               <Select
                 required
                 onValueChange={(lang) => setLanguage(lang)}
                 value={language!}
               >
-                <SelectTrigger>
+                <SelectTrigger id="language">
                   <SelectValue placeholder="Language" />
                 </SelectTrigger>
                 <SelectContent>
-                  {/* <SelectItem value="typescript">TypeScript</SelectItem>
-                  <SelectItem value="javascript">JavaScript</SelectItem>
-                  <SelectItem value="python">Python</SelectItem> */}
                   {[...allowedLanguages].map((lang) => (
                     <SelectItem value={lang}>{lang}</SelectItem>
                   ))}
@@ -160,15 +154,8 @@ export default function CreatePost() {
               />
             </div>
             <Button type="submit" className="w-full">
-              Create post
+              Create post in c/{community}
             </Button>
-          </div>
-          <div className="mt-4 text-center text-sm">
-            {/* FIXME: fix this */}
-            Don&apos;t have an account?{" "}
-            <Link href="/register" className="underline">
-              Sign up
-            </Link>
           </div>
         </form>
       </CardContent>
