@@ -127,7 +127,7 @@ export default function CreatePost() {
               </Select>
             </div>
             <div className="grid gap-2">
-              {/* TODO Make this WYSIWYG editor */}
+              {/* TODO: Make this WYSIWYG editor */}
               <Label htmlFor="description">Description</Label>
               <Textarea
                 placeholder="How is this code snippet useful?"

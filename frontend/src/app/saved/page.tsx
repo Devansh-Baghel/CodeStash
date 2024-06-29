@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Avatar, Button } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
@@ -45,9 +45,14 @@ export default function SavedPosts() {
   if (isLoading || isRefetching) return <PostsLoading items={1} />;
 
   if (data?.length === 0) {
-    // TODO: add ui for no when user has no saved posts
+    // TODO: make this into a seperate reusable component
     return (
-      <Card className="ml-20 mt-20 flex flex-col items-center justify-center">
+      <Card
+        className={cn(
+          cardLayout,
+          "mt-4 flex flex-col items-center justify-center",
+        )}
+      >
         <CardHeader>
           <h1>You haven't saved any posts yet</h1>
         </CardHeader>

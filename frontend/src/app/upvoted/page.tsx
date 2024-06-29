@@ -16,6 +16,7 @@ import fetcher from "@/utils/axios";
 import { PostTypes } from "@/types/postTypes";
 import { useUserStore } from "@/store/userStore";
 import NotLoggedIn from "@/components/NotLoggedIn";
+import PostsLoading from "@/components/skeletons/PostsLoading";
 
 export default function UpvotedPosts() {
   const { isLoggedIn, userData } = useUserStore();
@@ -37,7 +38,7 @@ export default function UpvotedPosts() {
     );
   }
   if (isError) return "Error";
-  if (isLoading) return "Loading...";
+  if (isLoading) return <PostsLoading />;
 
   if (data?.length === 0) {
     return "You haven't upvoted any posts yet";
