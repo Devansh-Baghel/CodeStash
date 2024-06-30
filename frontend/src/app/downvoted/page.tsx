@@ -16,6 +16,7 @@ import fetcher from "@/utils/axios";
 import { PostTypes } from "@/types/postTypes";
 import { useUserStore } from "@/store/userStore";
 import NotLoggedIn from "@/components/NotLoggedIn";
+import PostsLoading from "@/components/skeletons/PostsLoading";
 
 export default function DownvotedPosts() {
   const { isLoggedIn, userData } = useUserStore();
@@ -37,7 +38,8 @@ export default function DownvotedPosts() {
     );
   }
   if (isError) return "Error";
-  if (isLoading) return "Loading...";
+  if (isLoading)
+    return <PostsLoading items={userData?.downvotedPosts.length || 2} />;
 
   if (data?.length === 0) {
     return "You haven't downvoted any posts yet";

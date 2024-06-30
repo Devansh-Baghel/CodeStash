@@ -38,7 +38,8 @@ export default function UpvotedPosts() {
     );
   }
   if (isError) return "Error";
-  if (isLoading) return <PostsLoading />;
+  if (isLoading)
+    return <PostsLoading items={userData?.upvotedPosts.length || 4} />;
 
   if (data?.length === 0) {
     return "You haven't upvoted any posts yet";

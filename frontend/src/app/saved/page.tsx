@@ -19,9 +19,10 @@ import NotLoggedIn from "@/components/NotLoggedIn";
 import { cn } from "@/lib/utils";
 import { cardLayout } from "@/utils/classnames";
 import PostsLoading from "@/components/skeletons/PostsLoading";
+import PostsNotFound from "@/components/PostsNotFound";
 
 export default function SavedPosts() {
-  const { isLoggedIn, removeSavedPost } = useUserStore();
+  const { isLoggedIn, removeSavedPost, userData } = useUserStore();
   const { data, isError, isLoading, refetch, isRefetchError, isRefetching } =
     useQuery<PostTypes[]>({
       queryKey: ["saved-posts"],
@@ -42,27 +43,12 @@ export default function SavedPosts() {
   }
 
   if (isError || isRefetchError) return "Error";
-  if (isLoading || isRefetching) return <PostsLoading items={1} />;
+  if (isLoading || isRefetching)
+    return <PostsLoading items={userData?.savedPosts.length || 2} />;
 
   if (data?.length === 0) {
     // TODO: make this into a seperate reusable component
-    return (
-      <Card
-        className={cn(
-          cardLayout,
-          "mt-4 flex flex-col items-center justify-center",
-        )}
-      >
-        <CardHeader>
-          <h1>You haven't saved any posts yet</h1>
-        </CardHeader>
-        <CardContent>
-          <Button color="primary" onClick={() => router.push("/")}>
-            Go to homepage
-          </Button>
-        </CardContent>
-      </Card>
-    );
+    return <PostsNotFound description="You haven't saved any posts yet" />;
   }
 
   return (
