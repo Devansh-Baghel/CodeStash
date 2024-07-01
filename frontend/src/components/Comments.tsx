@@ -49,7 +49,11 @@ export default function Comments({ postId }: { postId: string }) {
   return (
     <Card className="my-6">
       <CardHeader className="">
-        <CardTitle>{data?.length} Comments</CardTitle>
+        <CardTitle>
+          {data?.length === 1
+            ? `${data.length} Comment`
+            : `${data?.length} Comments`}
+        </CardTitle>
         {isLoggedIn ? (
           <form onSubmit={addComment}>
             <Textarea

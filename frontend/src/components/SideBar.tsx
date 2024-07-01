@@ -9,6 +9,7 @@ import { IoMdSettings as SettingsIcon } from "react-icons/io";
 import { LuLogOut as LogoutIcon } from "react-icons/lu";
 import { FaPlus as PlusIcon } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import JoinedCommunities from "./JoinedCommunities";
 
 export default function SideBar() {
   const { isLoggedIn, logoutUser } = useUserStore();
@@ -18,6 +19,8 @@ export default function SideBar() {
     logoutUser();
     router.push("/");
   }
+
+  // TODO: use https://nextui.org/docs/components/link#polymorphic-component this instead of router.push
 
   return (
     <aside className="hidden h-[87vh] min-w-80 pl-2 pr-10 pt-4 md:sticky md:top-20 md:block">
@@ -76,6 +79,7 @@ export default function SideBar() {
             <CodeIcon className="ml-4 text-lg" />
             Best snippets
           </Button>
+          {isLoggedIn && <JoinedCommunities />}
         </div>
 
         {/* // TODO: add ui here for not logged in user */}
