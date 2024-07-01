@@ -17,6 +17,7 @@ import { PostTypes } from "@/types/postTypes";
 import { useUserStore } from "@/store/userStore";
 import NotLoggedIn from "@/components/NotLoggedIn";
 import PostsLoading from "@/components/skeletons/PostsLoading";
+import PostsNotFound from "@/components/PostsNotFound";
 
 export default function DownvotedPosts() {
   const { isLoggedIn, userData } = useUserStore();
@@ -42,7 +43,7 @@ export default function DownvotedPosts() {
     return <PostsLoading items={userData?.downvotedPosts.length || 2} />;
 
   if (data?.length === 0) {
-    return "You haven't downvoted any posts yet";
+    return <PostsNotFound description="You haven't downvoted any posts yet" />;
   }
 
   return (

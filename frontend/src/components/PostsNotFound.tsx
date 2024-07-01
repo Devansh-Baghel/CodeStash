@@ -15,6 +15,7 @@ function PostsNotFound({ description }: { description: string }) {
         "mt-4 flex flex-col items-center justify-center",
       )}
     >
+      {/* TODO: add an icon/svg here for no saved/downvoted/upvoted posts */}
       <CardHeader>
         <h1>{description}</h1>
       </CardHeader>

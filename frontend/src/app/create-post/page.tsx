@@ -47,6 +47,14 @@ export default function CreatePost() {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
+    if (!language) {
+      toast({
+        title: "Programming language not selected",
+        description: "Please selected a programming language to create a post",
+      });
+      return;
+    }
+
     if (!userData?.communitiesJoined.includes(community!)) {
       // FIXME: add better looking toasts
       toast({
@@ -110,7 +118,7 @@ export default function CreatePost() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="language">Language</Label>
+              <Label htmlFor="language">Programming Language</Label>
               <Select
                 required
                 onValueChange={(lang) => setLanguage(lang)}
@@ -142,7 +150,9 @@ export default function CreatePost() {
               <CodeEditor
                 value={code}
                 language={language || "python"}
-                placeholder={`Please enter ${language || "python"} code`}
+                placeholder={
+                  language ? `Please enter ${language} code` : "Enter code here"
+                }
                 onChange={(evn) => setCode(evn.target.value)}
                 className="rounded-xl"
                 required

@@ -17,6 +17,7 @@ import { PostTypes } from "@/types/postTypes";
 import { useUserStore } from "@/store/userStore";
 import NotLoggedIn from "@/components/NotLoggedIn";
 import PostsLoading from "@/components/skeletons/PostsLoading";
+import PostsNotFound from "@/components/PostsNotFound";
 
 export default function UpvotedPosts() {
   const { isLoggedIn, userData } = useUserStore();
@@ -42,7 +43,7 @@ export default function UpvotedPosts() {
     return <PostsLoading items={userData?.upvotedPosts.length || 4} />;
 
   if (data?.length === 0) {
-    return "You haven't upvoted any posts yet";
+    return <PostsNotFound description="You haven't upvoted any posts yet" />;
   }
 
   return (
