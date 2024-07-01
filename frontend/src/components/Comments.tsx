@@ -46,6 +46,7 @@ export default function Comments({ postId }: { postId: string }) {
   if (isError || isRefetchError) return "Error";
   if (isLoading) return <CommentsSkeleton />;
 
+  // TODO: show "OP" label if the comment is made by same id as the post
   return (
     <Card className="my-6">
       <CardHeader className="">

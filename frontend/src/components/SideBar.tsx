@@ -8,6 +8,7 @@ import { IoMdPerson as ProfileIcon } from "react-icons/io";
 import { IoMdSettings as SettingsIcon } from "react-icons/io";
 import { LuLogOut as LogoutIcon } from "react-icons/lu";
 import { FaPlus as PlusIcon } from "react-icons/fa";
+import { FaUserPlus as UserPlusIcon } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import JoinedCommunities from "./JoinedCommunities";
 
@@ -79,7 +80,21 @@ export default function SideBar() {
             <CodeIcon className="ml-4 text-lg" />
             Best snippets
           </Button>
-          {isLoggedIn && <JoinedCommunities />}
+          {isLoggedIn && (
+            <>
+              <Button
+                variant="flat"
+                color="primary"
+                className="flex w-full justify-normal"
+                aria-label="create community"
+                onClick={() => router.push("/create-community")}
+              >
+                <UserPlusIcon className="ml-4 text-lg" />
+                Create Community
+              </Button>
+              <JoinedCommunities />
+            </>
+          )}
         </div>
 
         {/* // TODO: add ui here for not logged in user */}
