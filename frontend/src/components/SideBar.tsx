@@ -11,14 +11,20 @@ import { FaPlus as PlusIcon } from "react-icons/fa";
 import { FaUserPlus as UserPlusIcon } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import JoinedCommunities from "./JoinedCommunities";
+import { CardContent, CardHeader, CardTitle, CardDescription } from "./ui/card";
+import { Card } from "@nextui-org/react";
 
 export default function SideBar() {
-  const { isLoggedIn, logoutUser } = useUserStore();
+  const { isLoggedIn, logoutUser, loginUser } = useUserStore();
   const router = useRouter();
 
   function handleLogout() {
     logoutUser();
-    router.push("/");
+  }
+
+  // FIXME: add a better demo user
+  function loginDemoUser() {
+    loginUser({ email: "test@test.com", password: "test" });
   }
 
   // TODO: use https://nextui.org/docs/components/link#polymorphic-component this instead of router.push
@@ -98,7 +104,7 @@ export default function SideBar() {
         </div>
 
         {/* // TODO: add ui here for not logged in user */}
-        {isLoggedIn && (
+        {isLoggedIn ? (
           // FAQ page
           // Upvoted posts
           // Downvoted posts
@@ -137,6 +143,27 @@ export default function SideBar() {
               Logout
             </Button>
           </div>
+        ) : (
+          <Card className="max-w-80">
+            <CardHeader>
+              <CardTitle className="text-lg">
+                Want to see the full app?
+              </CardTitle>
+              <CardDescription>
+                Login to a demo account to get temporary access to all features
+                of this app
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="w-full">
+              <Button
+                color="primary"
+                className="w-full"
+                onClick={loginDemoUser}
+              >
+                Login as a demo user
+              </Button>
+            </CardContent>
+          </Card>
         )}
       </div>
     </aside>
