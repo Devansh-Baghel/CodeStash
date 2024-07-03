@@ -121,3 +121,69 @@ export const upvoteComment = asyncHandler(async (req: UserRequest, res) => {
       )
     );
 });
+
+export const downvoteComment = asyncHandler(async (req: UserRequest, res) => {
+  const { commentId } = req.body;
+  const user = req.user;
+
+  if (!commentId) {
+    throw new ApiError(400, "Comment id is required to downvote the comment");
+  }
+
+  // Remove the downvote
+  if (user?.downvotedComments.includes(commentId)) {
+    const updatedComment = await Comment.findByIdAndUpdate(commentId, {
+      $inc: { downvotes: -1 },
+    });
+
+    user.downvotedComments = user.downvotedComments.filter(
+      (item) => item.toString() !== commentId
+    );
+
+    await user.save();
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          { updatedComment, user },
+          "Comment was downvoted already, so removing the downvote instead"
+        )
+      );
+  }
+
+  let updatedComment;
+
+  // If user has upvoted the comment before, we remove that here
+  if (user?.upvotedComments.includes(commentId)) {
+    updatedComment = await Comment.findByIdAndUpdate(commentId, {
+      $inc: { downvotes: +1, upvotes: -1 },
+    });
+
+    user.upvotedComments = user.upvotedComments.filter(
+      (item) => item.toString() !== commentId
+    );
+  } else {
+    updatedComment = await Comment.findByIdAndUpdate(commentId, {
+      $inc: { downvotes: +1 },
+    });
+  }
+
+  if (!updatedComment) {
+    throw new ApiError(404, "Comment with this id does not exist");
+  }
+
+  user?.downvotedComments.push(commentId);
+  await user?.save();
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { updatedComment, user },
+        "Post downvoted successfully"
+      )
+    );
+});
