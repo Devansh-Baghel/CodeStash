@@ -19,7 +19,7 @@ type CommentProps = {
 
 export default function Comments({ postId, madeBy }: CommentProps) {
   const [comment, setComment] = useState("");
-  const { isLoggedIn, userData } = useUserStore();
+  const { isLoggedIn } = useUserStore();
   const router = useRouter();
   const { data, isError, isLoading, refetch, isRefetchError, isRefetching } =
     useQuery<Comment[]>({
@@ -27,6 +27,7 @@ export default function Comments({ postId, madeBy }: CommentProps) {
       queryFn: async () => {
         return await fetcher.post("/comments/get-comments", { postId });
       },
+      refetchOnMount: "always",
     });
   const { mutateAsync, isPending } = useMutation({
     mutationKey: [`${postId}/comments`],
@@ -50,7 +51,6 @@ export default function Comments({ postId, madeBy }: CommentProps) {
   if (isError || isRefetchError) return "Error";
   if (isLoading) return <CommentsSkeleton />;
 
-  // TODO: show "OP" label if the comment is made by same id as the post
   return (
     <Card className="my-6">
       <CardHeader className="">

@@ -14,6 +14,8 @@ interface UserState {
     };
     upvotedPosts: string[];
     downvotedPosts: string[];
+    upvotedComments: string[];
+    downvotedComments: string[];
     savedPosts: string[];
     communitiesJoined: string[];
     verifyCode?: string;
@@ -36,6 +38,8 @@ interface UserState {
   logoutUser: () => void;
   upvotePost: (postId: string) => void;
   downvotePost: (postId: string) => void;
+  upvoteComment: (commentId: string) => void;
+  downvoteComment: (commentId: string) => void;
   joinCommunity: (name: string) => void;
   leaveCommunity: (name: string) => void;
   savePost: (postId: string) => void;
@@ -90,6 +94,18 @@ export const useUserStore = create<UserState>()((set, get) => ({
   },
   downvotePost: async (postId) => {
     await fetcher.patch(`/posts/downvote`, { postId }).then((res) => {
+      console.log(res);
+      set(() => ({ userData: res.user }));
+    });
+  },
+  upvoteComment: async (commentId) => {
+    await fetcher.patch(`/comments/upvote`, { commentId }).then((res) => {
+      console.log(res);
+      set(() => ({ userData: res.user }));
+    });
+  },
+  downvoteComment: async (commentId) => {
+    await fetcher.patch(`/comments/downvote`, { commentId }).then((res) => {
       console.log(res);
       set(() => ({ userData: res.user }));
     });
