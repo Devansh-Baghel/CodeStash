@@ -12,6 +12,8 @@ export interface UserTypes extends Document {
   upvotedPosts: Schema.Types.ObjectId[];
   downvotedPosts: Schema.Types.ObjectId[];
   savedPosts: Schema.Types.ObjectId[];
+  upvotedComments: Schema.Types.ObjectId[];
+  downvotedComments: Schema.Types.ObjectId[];
   communitiesJoined: string[];
   verifyCode?: string;
   verifyCodeExpiry?: Date;
@@ -67,6 +69,18 @@ const userSchema: Schema<UserTypes> = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "Post",
+      },
+    ],
+    upvotedComments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
+    downvotedComments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
       },
     ],
     savedPosts: [

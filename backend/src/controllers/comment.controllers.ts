@@ -46,6 +46,7 @@ export const createComment = asyncHandler(async (req: UserRequest, res) => {
 
   // FIXME: fix ts errors
   if (!post.madeBy.username) {
+    // @ts-ignore
     post.madeBy.username = user?.username;
   }
 
@@ -54,4 +55,69 @@ export const createComment = asyncHandler(async (req: UserRequest, res) => {
   return res
     .status(200)
     .json(new ApiResponse(200, comment, "Comment created successfully"));
+});
+
+export const upvoteComment = asyncHandler(async (req: UserRequest, res) => {
+  const { commentId } = req.body;
+  const user = req.user;
+
+  if (!commentId) {
+    throw new ApiError(400, "Comment id is required to upvote the comment");
+  }
+
+  // Remove the upvote
+  if (user?.upvotedComments.includes(commentId)) {
+    const updatedComment = await Comment.findByIdAndUpdate(commentId, {
+      $inc: { upvotes: -1 },
+    });
+
+    user.upvotedComments = user.upvotedComments.filter(
+      (item) => item.toString() !== commentId
+    );
+
+    await user.save();
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          { updatedComment, user },
+          "Comment was already upvoted, so removed it from upvotedComments"
+        )
+      );
+  }
+
+  let updatedComment;
+
+  // If user has downvoted the post before, we remove that here
+  if (user?.downvotedComments.includes(commentId)) {
+    updatedComment = await Comment.findByIdAndUpdate(commentId, {
+      $inc: { upvotes: +1, downvotes: -1 },
+    });
+    user.downvotedComments = user.downvotedComments.filter(
+      (item) => item.toString() !== commentId
+    );
+  } else {
+    updatedComment = await Comment.findByIdAndUpdate(commentId, {
+      $inc: { upvotes: +1 },
+    });
+  }
+
+  if (!updatedComment) {
+    throw new ApiError(404, "Comment with this id does not exist");
+  }
+
+  user?.upvotedComments.push(commentId);
+  await user?.save();
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { updatedComment, user },
+        "Post upvoted successfully"
+      )
+    );
 });
