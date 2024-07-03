@@ -187,3 +187,51 @@ export const downvoteComment = asyncHandler(async (req: UserRequest, res) => {
       )
     );
 });
+
+// TODO: fix all "return new ApiError" with "throw new ApiError"
+
+export const updateComment = asyncHandler(async (req: UserRequest, res) => {
+  const { commentId, content } = req.body;
+  const user = req.user;
+
+  if (!commentId)
+    throw new ApiError(400, "Comment id is required to update comment");
+  if (!content)
+    throw new ApiError(400, "Comment body is required to update comment");
+
+  const comment = await Comment.findById(commentId);
+
+  if (!comment) throw new ApiError(404, "Comment with this id does not exist");
+
+  if (comment.madeBy.username !== user?.username)
+    throw new ApiError(403, "You are not authorized to update this comment");
+
+  comment.content = content;
+  comment.isEdited = true;
+  await comment.save();
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, comment, "Comment updated successfully"));
+});
+
+export const deleteComment = asyncHandler(async (req: UserRequest, res) => {
+  const { commentId } = req.body;
+  const user = req.user;
+
+  if (!commentId)
+    throw new ApiError(400, "Comment id is required to delete comment");
+
+  const comment = await Comment.findById(commentId);
+
+  if (!comment) throw new ApiError(404, "Comment with this id does not exist");
+
+  if (comment.madeBy.username !== user?.username)
+    throw new ApiError(403, "You are not authorized to delete this comment");
+
+  await comment.deleteOne();
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Comment deleted successfully"));
+});

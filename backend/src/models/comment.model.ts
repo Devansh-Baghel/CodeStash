@@ -10,6 +10,7 @@ export interface CommentTypes extends Document {
   content: string;
   upvotes: number;
   downvotes: number;
+  isEdited: boolean;
 }
 
 const commentSchema: Schema<CommentTypes> = new Schema(
@@ -49,6 +50,10 @@ const commentSchema: Schema<CommentTypes> = new Schema(
     downvotes: {
       type: Number,
       default: 0,
+    },
+    isEdited: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }
