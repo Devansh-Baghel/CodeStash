@@ -12,8 +12,14 @@ import { Comment } from "@/types/commentTypes";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
 import CommentsSkeleton from "./skeletons/CommentsSkeleton";
+import { Badge } from "./ui/badge";
 
-export default function Comments({ postId }: { postId: string }) {
+type CommentProps = {
+  postId: string;
+  madeBy: string;
+};
+
+export default function Comments({ postId, madeBy }: CommentProps) {
   const [comment, setComment] = useState("");
   const { isLoggedIn, userData } = useUserStore();
   const router = useRouter();
@@ -117,6 +123,9 @@ export default function Comments({ postId }: { postId: string }) {
                     className="text-grey-700 text-xs"
                   >
                     u/{comment.madeBy.username}
+                    {comment.madeBy.username === madeBy && (
+                      <Badge className="ml-2">OP</Badge>
+                    )}
                   </Link>
                   <p>{comment.content}</p>
                 </div>
