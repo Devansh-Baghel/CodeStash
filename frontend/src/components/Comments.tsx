@@ -15,7 +15,7 @@ import CommentsSkeleton from "./skeletons/CommentsSkeleton";
 
 export default function Comments({ postId }: { postId: string }) {
   const [comment, setComment] = useState("");
-  const { isLoggedIn } = useUserStore();
+  const { isLoggedIn, userData } = useUserStore();
   const router = useRouter();
   const { data, isError, isLoading, refetch, isRefetchError, isRefetching } =
     useQuery<Comment[]>({
@@ -24,7 +24,7 @@ export default function Comments({ postId }: { postId: string }) {
         return await fetcher.post("/comments/get-comments", { postId });
       },
     });
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationKey: [`${postId}/comments`],
     mutationFn: async () => {
       return await fetcher.put("/comments/create-comment", {
@@ -39,7 +39,7 @@ export default function Comments({ postId }: { postId: string }) {
     if (!comment) return;
 
     await mutateAsync();
-    refetch();
+    await refetch();
     setComment("");
   }
 
@@ -67,7 +67,11 @@ export default function Comments({ postId }: { postId: string }) {
               className={`col-span-12 mb-3 md:col-span-6 ${!comment && "h-10"}`}
             />
             {comment && (
-              <Button color="primary" type="submit">
+              <Button
+                color="primary"
+                type="submit"
+                isLoading={isRefetching || isPending}
+              >
                 Add comment
               </Button>
             )}
@@ -95,7 +99,7 @@ export default function Comments({ postId }: { postId: string }) {
           <p>No comments yet</p>
         ) : (
           <ul className="flex flex-col gap-2">
-            {/* TODO: show loading when refetching for new comments */}
+            {/* TODO: show "adding comment..." when user adds a new comment */}
             {data?.map((comment) => (
               <li
                 key={comment._id}
