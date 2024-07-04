@@ -300,11 +300,21 @@ export const getDownvotedPosts = asyncHandler(async (req: UserRequest, res) => {
     );
 });
 
-export const deletePost = asyncHandler(async (req, res) => {
+export const deletePost = asyncHandler(async (req: UserRequest, res) => {
   const { postId } = req.body;
+  const user = req.user;
 
   if (!postId)
     throw new ApiError(400, "Post id is required to delete the post");
+
+  const postToDelete = await Post.findById(postId);
+
+  if (postToDelete?.madeBy.username !== user?.username) {
+    throw new ApiError(
+      401,
+      "Cannot delete post as this post hasn't been created by you"
+    );
+  }
 
   const post = await Post.deleteOne({ _id: postId });
 
@@ -313,4 +323,36 @@ export const deletePost = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(new ApiResponse(200, { post }, "Post deleted successfully"));
+});
+
+export const updatePost = asyncHandler(async (req: UserRequest, res) => {
+  const { postId, title, description, content, language } = req.body;
+  const user = req.user;
+
+  if (!postId) throw new ApiError(400, "Post id is required to update post");
+
+  const post = await Post.findById(postId);
+  if (!post) throw new ApiError(404, "Post with this id does not exist");
+  if (post.madeBy.username !== user?.username) {
+    throw new ApiError(
+      401,
+      "Cannot update post as this post hasn't been created by you"
+    );
+  }
+
+  if (title) post.title = title;
+  if (description) post.description = description;
+  if (content) post.content = content;
+  if (language) {
+    if (!allowedLanguages.includes(language)) {
+      throw new ApiError(400, "This language is not supported yet");
+    }
+    post.language = language;
+  }
+
+  await post.save();
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, { post }, "Post updated successfully"));
 });

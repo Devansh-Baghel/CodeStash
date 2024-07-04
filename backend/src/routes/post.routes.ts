@@ -32,5 +32,6 @@ router.route("/remove-saved-post").patch(verifyJWT, removeSavedPost);
 router.route("/get-upvoted").get(verifyJWT, getUpvotedPosts);
 router.route("/get-downvoted").get(verifyJWT, getDownvotedPosts);
 router.route("/delete-post").post(verifyJWT, deletePost);
+router.route("/");
 
 export default router;
