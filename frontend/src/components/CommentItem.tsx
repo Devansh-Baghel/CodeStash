@@ -5,21 +5,25 @@ import { BiSolidDownvote as SolidDownvoteIcon } from "react-icons/bi";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
 import { Comment } from "@/types/commentTypes";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
 import { MdDelete as DeleteIcon } from "react-icons/md";
 import { Textarea } from "@nextui-org/react";
 // import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
+import fetcher from "@/utils/axios";
+import { toast } from "./ui/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { BiLoaderAlt as Loader } from "react-icons/bi";
 
-function CommentItem({
-  comment,
-  madeBy,
-}: {
+type CommentItemPropTypes = {
   comment: Comment;
   madeBy: string;
-}) {
+  refetch: () => void;
+};
+
+function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
   const { upvoteComment, downvoteComment, isLoggedIn, userData } =
     useUserStore();
   const [upvoteCount, setUpvoteCount] = useState(
@@ -28,6 +32,24 @@ function CommentItem({
   const [updatedContent, setUpdatedContent] = useState(comment.content);
   const [isUpdating, setIsUpdating] = useState(false);
   const router = useRouter();
+
+  const { mutate, isPending } = useMutation({
+    mutationKey: [`comment - ${comment._id}`],
+    mutationFn: async () => {
+      await fetcher
+        .patch("/comments/update-comment", {
+          commentId: comment._id,
+          content: updatedContent,
+        })
+        .then(() => {
+          toast({
+            description: "Updated comment successfully!",
+          });
+          setIsUpdating(false);
+          refetch();
+        });
+    },
+  });
 
   function handleInteraction(action: "upvote" | "downvote") {
     const commentId = comment._id;
@@ -60,9 +82,29 @@ function CommentItem({
         }
       }
     }
+
+    refetch();
   }
 
-  function deleteComment() {}
+  function updateComment(e: FormEvent) {
+    e.preventDefault();
+
+    if (!updatedContent) {
+      toast({
+        description: "Comment can't be empty",
+      });
+      return;
+    }
+
+    if (updatedContent === comment.content) {
+      toast({
+        description: "You haven't made any changes",
+      });
+      return;
+    }
+
+    mutate();
+  }
 
   //   FIXME: comment count is cached after an upvote/downvote and user has to refresh to get the accurate count
   return (
@@ -114,12 +156,12 @@ function CommentItem({
               >
                 Update
               </Badge>
-              <DeleteIcon className="h-5 w-5 hover:cursor-pointer" />
+              <DeleteIcon className="h-5 w-5 hover:cursor-pointer hover:text-red-500" />
             </div>
           )}
         </div>
         {isUpdating ? (
-          <form>
+          <form onSubmit={updateComment}>
             <Textarea
               variant="bordered"
               color="primary"
@@ -129,7 +171,10 @@ function CommentItem({
               onChange={(e) => setUpdatedContent(e.target.value)}
             />
             <div className="flex gap-2">
-              <Button size="sm">Save changes</Button>
+              <Button size="sm" disabled={isPending}>
+                {isPending && <Loader className="mr-2 h-4 w-4 animate-spin" />}
+                Save changes
+              </Button>
               <Button
                 size="sm"
                 variant="outline"
@@ -141,7 +186,7 @@ function CommentItem({
             </div>
           </form>
         ) : (
-          <p>{comment.content}</p>
+          <p>{updatedContent}</p>
         )}
       </div>
     </li>

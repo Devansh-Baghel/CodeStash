@@ -105,7 +105,11 @@ export default function Comments({ postId, madeBy }: CommentProps) {
           <ul className="flex flex-col gap-2">
             {/* TODO: show "adding comment..." when user adds a new comment */}
             {data?.map((comment) => (
-              <CommentItem madeBy={madeBy} comment={comment} />
+              <CommentItem
+                madeBy={madeBy}
+                comment={comment}
+                refetch={refetch}
+              />
             ))}
           </ul>
         )}
