@@ -158,3 +158,27 @@ export const getUserProfile = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, user, "User sent successfully"));
 });
+
+export const updateUsername = asyncHandler(async (req: UserRequest, res) => {
+  const { newUsername } = req.body;
+  const user = req.user;
+
+  if (!newUsername) throw new ApiError(400, "New username is required");
+
+  if (newUsername === user?.username)
+    throw new ApiError(400, "New username can't be the same as old username");
+
+  const userExists = await User.findOne({ username: newUsername });
+  if (userExists)
+    throw new ApiError(409, "User with this username already exists");
+
+  const updatedUser = await User.findByIdAndUpdate(user?._id, {
+    username: newUsername,
+  });
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, { updatedUser }, "Username updated successfully")
+    );
+});

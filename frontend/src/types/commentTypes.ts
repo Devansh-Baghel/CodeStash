@@ -9,4 +9,5 @@ export type Comment = {
   content: string;
   upvotes: number;
   downvotes: number;
+  isEdited: boolean;
 };

@@ -26,6 +26,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { LuPencilLine as EditIcon } from "react-icons/lu";
 
 type CommentItemPropTypes = {
   comment: Comment;
@@ -155,7 +156,7 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
           />
         )}
       </div>
-      <div className="w-full">
+      <div className="flex w-full flex-col">
         <div className="flex w-full justify-between">
           <Link
             href={`/u/${comment.madeBy.username}`}
@@ -170,7 +171,10 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
           {comment.madeBy.username === userData?.username && !isUpdating && (
             <div className="flex items-center gap-2 text-xs">
               <button onClick={() => setIsUpdating(true)}>
-                <Badge className="hover:cursor-pointer" variant="default">
+                <Badge
+                  className="font-normal hover:cursor-pointer"
+                  variant="default"
+                >
                   Update
                 </Badge>
               </button>
@@ -230,6 +234,12 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
           </form>
         ) : (
           <p>{updatedContent}</p>
+        )}
+        {comment.isEdited && (
+          <span className="mr-1 flex items-center gap-1 self-end text-xs text-slate-500">
+            edited
+            <EditIcon />
+          </span>
         )}
       </div>
     </li>
