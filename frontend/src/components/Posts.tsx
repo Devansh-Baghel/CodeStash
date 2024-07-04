@@ -67,7 +67,7 @@ export default function Posts() {
           </Button>
         </div>
       ) : (
-        data.map((post) => <PostItem post={post} />)
+        data.map((post) => <PostItem post={post} key={post._id} />)
       )}
     </div>
   );

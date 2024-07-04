@@ -116,6 +116,7 @@ export default function UpdatePost() {
     return <NotLoggedIn description="Login or sign up to update posts" />;
   }
 
+  // TODO: add better looking error here
   if (isError) return "Error";
   // TODO: add loading skeletons
   if (isLoading) return "Loading...";

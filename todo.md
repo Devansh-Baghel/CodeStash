@@ -26,3 +26,8 @@
 - [ ] create list feature for users to create a list of snippets etc.
 - [ ] add loading user data loader in generic component to fetch the current user and block all rendering until then
 - [ ] verify user before deleting community
+- [ ] add "design help: nikhil" in final project readme
+- [ ] add better errors in all page
+- [ ] add "remove from upvotes" in /upvotes similar to "remove from saved" in /saved
+- [ ] add "remove from downvotes" in /downvotes similar to "remove from saved" in /saved
+- [ ] add
