@@ -10,12 +10,22 @@ import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
 import { MdDelete as DeleteIcon } from "react-icons/md";
 import { Textarea } from "@nextui-org/react";
-// import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import fetcher from "@/utils/axios";
 import { toast } from "./ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { BiLoaderAlt as Loader } from "react-icons/bi";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 type CommentItemPropTypes = {
   comment: Comment;
@@ -106,11 +116,21 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
     mutate();
   }
 
-  //   FIXME: comment count is cached after an upvote/downvote and user has to refresh to get the accurate count
+  function deleteComment() {
+    fetcher
+      .post("/comments/delete-comment", { commentId: comment._id })
+      .then(() => {
+        toast({
+          description: "Comment deleted successfully",
+        });
+
+        refetch();
+      });
+  }
+
   return (
-    <li key={comment._id} className="flex gap-2 rounded-xl bg-primary-50 p-2">
+    <li className="flex gap-2 rounded-xl bg-primary-50 p-2">
       <div className="flex flex-col items-center">
-        {/* FIXME: Change to solid verison of these icons when clicked */}
         {userData?.upvotedComments.includes(comment._id) ? (
           <SolidUpvoteIcon
             className="h-5 w-5 cursor-pointer"
@@ -149,14 +169,34 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
 
           {comment.madeBy.username === userData?.username && !isUpdating && (
             <div className="flex items-center gap-2 text-xs">
-              <Badge
-                className="hover:cursor-pointer"
-                variant="default"
-                onClick={() => setIsUpdating(true)}
-              >
-                Update
-              </Badge>
-              <DeleteIcon className="h-5 w-5 hover:cursor-pointer hover:text-red-500" />
+              <button onClick={() => setIsUpdating(true)}>
+                <Badge className="hover:cursor-pointer" variant="default">
+                  Update
+                </Badge>
+              </button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <button>
+                    <DeleteIcon className="h-5 w-5 hover:cursor-pointer hover:text-red-500" />
+                  </button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you sure about deleting this comment?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This will permanently delete your comment.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={deleteComment}>
+                      Continue
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           )}
         </div>
@@ -179,7 +219,10 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
                 size="sm"
                 variant="outline"
                 type="button"
-                onClick={() => setIsUpdating(false)}
+                onClick={() => {
+                  setIsUpdating(false);
+                  setUpdatedContent(comment.content);
+                }}
               >
                 Cancel
               </Button>

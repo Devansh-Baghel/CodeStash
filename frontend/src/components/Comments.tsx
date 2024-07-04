@@ -109,6 +109,7 @@ export default function Comments({ postId, madeBy }: CommentProps) {
                 madeBy={madeBy}
                 comment={comment}
                 refetch={refetch}
+                key={comment._id}
               />
             ))}
           </ul>
