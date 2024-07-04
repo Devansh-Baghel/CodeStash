@@ -26,6 +26,7 @@ import PostSkeleton from "@/components/skeletons/PostSkeleton";
 import { cn } from "@/lib/utils";
 import { cardLayout } from "@/utils/classnames";
 import BackButton from "@/components/BackButton";
+import { MdDelete as DeleteIcon } from "react-icons/md";
 
 export default function Post({ params }: { params: { postId: string } }) {
   const {
@@ -92,7 +93,29 @@ export default function Post({ params }: { params: { postId: string } }) {
 
   return (
     <section className={cn(cardLayout)}>
-      <BackButton />
+      <div className="flex items-center justify-between">
+        <BackButton />
+        <div>
+          <Button
+            className="mb-2 mr-2"
+            radius="full"
+            color="primary"
+            variant="flat"
+            size="sm"
+          >
+            Update
+          </Button>
+          <Button
+            className="mb-2"
+            radius="full"
+            color="primary"
+            variant="flat"
+            size="sm"
+          >
+            Delete
+          </Button>
+        </div>
+      </div>
       <Card>
         <CardHeader className="flex flex-row items-center gap-4">
           <div className="flex flex-col items-center">

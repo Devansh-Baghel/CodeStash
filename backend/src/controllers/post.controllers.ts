@@ -299,3 +299,18 @@ export const getDownvotedPosts = asyncHandler(async (req: UserRequest, res) => {
       new ApiResponse(200, downvotedPosts, "Downvoted posts sent successfully")
     );
 });
+
+export const deletePost = asyncHandler(async (req, res) => {
+  const { postId } = req.body;
+
+  if (!postId)
+    throw new ApiError(400, "Post id is required to delete the post");
+
+  const post = Post.findOneAndDelete(postId);
+
+  if (!post) throw new ApiError(404, "Post with this id does not exist");
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, { post }, "Post deleted successfully"));
+});

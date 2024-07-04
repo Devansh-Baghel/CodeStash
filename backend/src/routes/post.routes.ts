@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createPost,
+  deletePost,
   downvotePost,
   getDownvotedPosts,
   getPost,
@@ -30,5 +31,6 @@ router.route("/get-saved-posts").get(verifyJWT, getSavedPosts);
 router.route("/remove-saved-post").patch(verifyJWT, removeSavedPost);
 router.route("/get-upvoted").get(verifyJWT, getUpvotedPosts);
 router.route("/get-downvoted").get(verifyJWT, getDownvotedPosts);
+router.route("/delete-post").post(verifyJWT, deletePost);
 
 export default router;
