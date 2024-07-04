@@ -120,6 +120,7 @@ export default function Post({ params }: { params: { postId: string } }) {
               className="text-sm text-black hover:text-primary"
               variant="link"
               size="sm"
+              onClick={() => router.push(`/update-post?postId=${post._id}`)}
             >
               <EditIcon className="mr-1 h-4 w-4" />
               Update Post

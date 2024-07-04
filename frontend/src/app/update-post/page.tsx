@@ -29,10 +29,13 @@ import NotLoggedIn from "@/components/NotLoggedIn";
 import { cn } from "@/lib/utils";
 import { cardLayout } from "@/utils/classnames";
 import { allowedLanguages } from "../languages/page";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { PostTypes } from "@/types/postTypes";
 
-export default function CreatePost() {
+export default function UpdatePost() {
   const searchParams = useSearchParams();
+  const postId = searchParams.get("postId");
   const [title, setTitle] = useState("");
   const [language, setLanguage] = useState(
     searchParams.get("language") ? searchParams.get("language") : "",
@@ -41,9 +44,47 @@ export default function CreatePost() {
   const [code, setCode] = useState("");
   const { toast } = useToast();
   const { isLoggedIn, userData } = useUserStore();
-  const [community, setCommunity] = useState(searchParams.get("community"));
+  const router = useRouter();
+  const {
+    data: post,
+    isError,
+    isLoading,
+  } = useQuery<PostTypes>({
+    queryKey: [postId],
+    queryFn: async () => {
+      return await fetcher.post("/posts/get-post", { postId }).then((res) => {
+        console.log(res);
+        setCode(res.content);
+        setDescription(res.description);
+        setTitle(res.title);
+        setLanguage(res.language);
+        return res;
+      });
+    },
+  });
+  const { mutate, isPending } = useMutation({
+    mutationKey: [postId],
+    mutationFn: async () => {
+      return await fetcher
+        .patch("/posts/update-post", {
+          postId: post?._id,
+          content: code,
+          language,
+          description,
+          title,
+        })
+        .then((res) => {
+          toast({
+            title: "Post Updated",
+            description: `You post in c/${post?.community} has been updated successfully`,
+          });
+        });
+    },
+  });
 
-  if (!community) setCommunity("all");
+  if (!postId) {
+    router.push("/create-post");
+  }
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -56,51 +97,39 @@ export default function CreatePost() {
       return;
     }
 
-    if (!userData?.communitiesJoined.includes(community!)) {
-      // FIXME: add better looking toasts
+    if (
+      language === post?.language &&
+      code === post?.content &&
+      title === post?.title &&
+      description === post?.description
+    ) {
       toast({
-        title: "You haven't joined this community yet",
-        description: `Cannot create post in c/${community}.`,
+        description: "You haven't updated anything yet",
       });
-
       return;
     }
 
-    fetcher
-      .post("/posts/create-post", {
-        content: code,
-        language,
-        description,
-        title,
-        community,
-      })
-      .then((res) => {
-        console.log(res);
-        setTitle("");
-        setCode("");
-        setDescription("");
-
-        toast({
-          title: "Post Created",
-          description: `Your post in c/${community} written in ${language} was created successfully.`,
-        });
-      });
+    mutate();
   }
 
   if (!isLoggedIn) {
-    return <NotLoggedIn description="Login or sign up to create posts" />;
+    return <NotLoggedIn description="Login or sign up to update posts" />;
   }
+
+  if (isError) return "Error";
+  // TODO: add loading skeletons
+  if (isLoading) return "Loading...";
 
   return (
     <Card className={cn(cardLayout, "mx-auto")}>
       <CardHeader>
-        <CardTitle className="text-2xl">Create Post</CardTitle>
+        <CardTitle className="text-2xl">Update Post</CardTitle>
         <CardDescription>
-          You are creating a post in{" "}
-          <Link href={`/c/${community}`} className="underline">
-            c/{community}
+          You are updating a post in{" "}
+          <Link href={`/c/${post?.community}`} className="underline">
+            c/{post?.community}
           </Link>
-          {community === "all" && (
+          {post?.community === "all" && (
             <span className="text-xs"> (default community)</span>
           )}
         </CardDescription>
@@ -164,8 +193,13 @@ export default function CreatePost() {
                 }}
               />
             </div>
-            <Button type="submit" className="w-full" color="primary">
-              Create post in c/{community}
+            <Button
+              type="submit"
+              className="w-full"
+              color="primary"
+              isLoading={isPending}
+            >
+              Update post
             </Button>
           </div>
         </form>

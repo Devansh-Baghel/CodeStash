@@ -11,6 +11,7 @@ import {
   getUpvotedPosts,
   removeSavedPost,
   savePost,
+  updatePost,
   upvotePost,
 } from "../controllers/post.controllers";
 import { verifyJWT } from "../middlewares/auth.middleware";
@@ -32,6 +33,6 @@ router.route("/remove-saved-post").patch(verifyJWT, removeSavedPost);
 router.route("/get-upvoted").get(verifyJWT, getUpvotedPosts);
 router.route("/get-downvoted").get(verifyJWT, getDownvotedPosts);
 router.route("/delete-post").post(verifyJWT, deletePost);
-router.route("/");
+router.route("/update-post").patch(verifyJWT, updatePost);
 
 export default router;
