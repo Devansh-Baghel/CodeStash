@@ -27,6 +27,19 @@ import { cn } from "@/lib/utils";
 import { cardLayout } from "@/utils/classnames";
 import BackButton from "@/components/BackButton";
 import { MdDelete as DeleteIcon } from "react-icons/md";
+import { LuPencilLine as EditIcon } from "react-icons/lu";
+import { Button as ShadButton } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function Post({ params }: { params: { postId: string } }) {
   const {
@@ -88,6 +101,12 @@ export default function Post({ params }: { params: { postId: string } }) {
     }
   }
 
+  async function deletePost() {
+    await fetcher.post("/posts/delete-post", { postId: post._id }).then(() => {
+      router.push("/");
+    });
+  }
+
   if (isError) return "Error";
   if (isLoading) return <PostSkeleton />;
 
@@ -95,26 +114,48 @@ export default function Post({ params }: { params: { postId: string } }) {
     <section className={cn(cardLayout)}>
       <div className="flex items-center justify-between">
         <BackButton />
-        <div>
-          <Button
-            className="mb-2 mr-2"
-            radius="full"
-            color="primary"
-            variant="flat"
-            size="sm"
-          >
-            Update
-          </Button>
-          <Button
-            className="mb-2"
-            radius="full"
-            color="primary"
-            variant="flat"
-            size="sm"
-          >
-            Delete
-          </Button>
-        </div>
+        {post.madeBy.username === userData?.username && (
+          <div>
+            <ShadButton
+              className="text-sm text-black hover:text-primary"
+              variant="link"
+              size="sm"
+            >
+              <EditIcon className="mr-1 h-4 w-4" />
+              Update Post
+            </ShadButton>
+
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <ShadButton
+                  className="text-sm text-black hover:text-red-500"
+                  variant="link"
+                  size="sm"
+                >
+                  <DeleteIcon className="mr-1 h-4 w-4" />
+                  Delete Post
+                </ShadButton>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    Are you sure that you want to delete this post?
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    your post and all its comments.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={deletePost}>
+                    Continue
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+        )}
       </div>
       <Card>
         <CardHeader className="flex flex-row items-center gap-4">

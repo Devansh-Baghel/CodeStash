@@ -306,7 +306,7 @@ export const deletePost = asyncHandler(async (req, res) => {
   if (!postId)
     throw new ApiError(400, "Post id is required to delete the post");
 
-  const post = Post.findOneAndDelete(postId);
+  const post = await Post.deleteOne({ _id: postId });
 
   if (!post) throw new ApiError(404, "Post with this id does not exist");
 
