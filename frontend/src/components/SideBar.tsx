@@ -30,13 +30,13 @@ export default function SideBar() {
   // TODO: use https://nextui.org/docs/components/link#polymorphic-component this instead of router.push
 
   return (
-    <aside className="hidden h-[87vh] min-w-80 pl-2 pr-10 pt-4 md:sticky md:top-20 md:block">
+    <aside className="hidden h-[85vh] min-w-80 pl-2 pr-10 md:sticky md:top-20 md:block">
       <div className="flex h-full flex-col justify-between">
         <div className="flex flex-col gap-2">
           {isLoggedIn && (
             <Button
               // variant="flat"
-              className="mb-2 flex w-full justify-normal py-7 pl-14"
+              className="flex w-full justify-normal py-4 pl-14 2xl:py-7"
               radius="full"
               size="lg"
               color="primary"
@@ -76,7 +76,7 @@ export default function SideBar() {
             <LangIcon className="ml-4 text-lg" />
             Popular languages
           </Button>
-          <Button
+          {/* <Button
             variant="flat"
             className="flex w-full justify-normal"
             radius="sm"
@@ -85,7 +85,7 @@ export default function SideBar() {
           >
             <CodeIcon className="ml-4 text-lg" />
             Best snippets
-          </Button>
+          </Button> */}
           {isLoggedIn && (
             <>
               <Button

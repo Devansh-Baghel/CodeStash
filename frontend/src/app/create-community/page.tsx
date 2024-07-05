@@ -14,12 +14,40 @@ import fetcher from "@/utils/axios";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { cardLayout } from "@/utils/classnames";
+import { useMutation } from "@tanstack/react-query";
+import { BiLoaderAlt as Loader } from "react-icons/bi";
 
 export default function CreateCommunity() {
   const { isLoggedIn } = useUserStore();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const router = useRouter();
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["create-community"],
+    mutationFn: async () => {
+      return await fetcher
+        .post("/community/create-community", { name, description })
+        .then((res) => {
+          console.log(res);
+
+          toast({
+            description: `Created c/${name} community successfully`,
+          });
+
+          router.push(`/c/${name}`);
+
+          setName("");
+          setDescription("");
+        })
+        .catch((error) => {
+          if (error.response.status === 409) {
+            toast({
+              description: "A community with this name already exists",
+            });
+          }
+        });
+    },
+  });
 
   async function createCommunity(e: FormEvent) {
     e.preventDefault();
@@ -31,27 +59,7 @@ export default function CreateCommunity() {
       return;
     }
 
-    await fetcher
-      .post("/community/create-community", { name, description })
-      .then((res) => {
-        console.log(res);
-
-        toast({
-          description: `Created c/${name} community successfully`,
-        });
-
-        router.push(`/c/${name}`);
-
-        setName("");
-        setDescription("");
-      })
-      .catch((error) => {
-        if (error.response.status === 409) {
-          toast({
-            description: "A community with this name already exists",
-          });
-        }
-      });
+    mutate();
   }
 
   if (!isLoggedIn) {
@@ -59,7 +67,7 @@ export default function CreateCommunity() {
   }
 
   return (
-    <Card className={cn(cardLayout, "mx-auto")}>
+    <Card className={cn(cardLayout)}>
       <CardHeader>
         <CardTitle className="text-2xl">Create Community</CardTitle>
       </CardHeader>
@@ -90,7 +98,8 @@ export default function CreateCommunity() {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full" disabled={isPending}>
+              {isPending && <Loader className="mr-2 h-4 w-4 animate-spin" />}
               Create community
             </Button>
           </div>
