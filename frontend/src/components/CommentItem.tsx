@@ -1,32 +1,26 @@
-import { BiUpvote as UpvoteIcon } from "react-icons/bi";
-import { BiSolidUpvote as SolidUpvoteIcon } from "react-icons/bi";
-import { BiDownvote as DownvoteIcon } from "react-icons/bi";
-import { BiSolidDownvote as SolidDownvoteIcon } from "react-icons/bi";
-import Link from "next/link";
-import { Badge } from "./ui/badge";
-import { Comment } from "@/types/commentTypes";
-import React, { FormEvent, useState } from "react";
-import { useUserStore } from "@/store/userStore";
-import { useRouter } from "next/navigation";
-import { MdDelete as DeleteIcon } from "react-icons/md";
-import { Textarea } from "@nextui-org/react";
-import { Button } from "./ui/button";
-import fetcher from "@/utils/axios";
-import { toast } from "./ui/use-toast";
-import { useMutation } from "@tanstack/react-query";
-import { BiLoaderAlt as Loader } from "react-icons/bi";
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import React, { FormEvent, useState } from 'react';
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { LuPencilLine as EditIcon } from "react-icons/lu";
+    BiDownvote as DownvoteIcon, BiLoaderAlt as Loader, BiSolidDownvote as SolidDownvoteIcon,
+    BiSolidUpvote as SolidUpvoteIcon, BiUpvote as UpvoteIcon
+} from 'react-icons/bi';
+import { LuPencilLine as EditIcon } from 'react-icons/lu';
+import { MdDelete as DeleteIcon } from 'react-icons/md';
+
+import {
+    AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription,
+    AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger
+} from '@/components/ui/alert-dialog';
+import { useUserStore } from '@/store/userStore';
+import { Comment } from '@/types/commentTypes';
+import fetcher from '@/utils/axios';
+import { Textarea } from '@nextui-org/react';
+import { useMutation } from '@tanstack/react-query';
+
+import { Badge } from './ui/badge';
+import { Button } from './ui/button';
+import { toast } from './ui/use-toast';
 
 type CommentItemPropTypes = {
   comment: Comment;

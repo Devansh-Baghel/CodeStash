@@ -1,13 +1,8 @@
-import { cn } from "@/lib/utils";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
-import { Button, Skeleton } from "@nextui-org/react";
-import { cardLayout } from "@/utils/classnames";
+import { cn } from '@/lib/utils';
+import { cardLayout } from '@/utils/classnames';
+import { Button, Skeleton } from '@nextui-org/react';
+
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
 
 export default function CommunitiesSkeleton() {
   return (

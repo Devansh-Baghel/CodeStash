@@ -1,16 +1,18 @@
 "use client";
 
-import fetcher from "@/utils/axios";
-import { useQuery } from "@tanstack/react-query";
-import { PostTypes } from "@/types/postTypes";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
-import PostItem from "./PostItem";
-import PostsLoading from "./skeletons/PostsLoading";
-import { cn } from "@/lib/utils";
-import { cardLayout } from "@/utils/classnames";
-import { Button } from "@nextui-org/react";
-import { TbError404 as NotFoundIcon } from "react-icons/tb";
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
+import { TbError404 as NotFoundIcon } from 'react-icons/tb';
+
+import { cn } from '@/lib/utils';
+import { PostTypes } from '@/types/postTypes';
+import fetcher from '@/utils/axios';
+import { cardLayout } from '@/utils/classnames';
+import { Button } from '@nextui-org/react';
+import { useQuery } from '@tanstack/react-query';
+
+import PostItem from './PostItem';
+import PostsLoading from './skeletons/PostsLoading';
 
 export default function Posts() {
   const searchParams = useSearchParams();

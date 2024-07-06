@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
-import "./globals.css";
-import { cn } from "@/lib/utils";
-import { ThemeProvider } from "@/components/theme-provider";
-import { NextUIProvider, useUser } from "@nextui-org/react";
-import ReactQueryProvider from "@/utils/providers/ReactQueryProvider";
-import { Toaster } from "@/components/ui/toaster";
-import Dashboard from "@/components/Dashboard";
+import './globals.css';
+
+import { Inter as FontSans } from 'next/font/google';
+
+import Dashboard from '@/components/Dashboard';
+import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/toaster';
+import { cn } from '@/lib/utils';
+import ReactQueryProvider from '@/utils/providers/ReactQueryProvider';
+import { NextUIProvider, useUser } from '@nextui-org/react';
 
 const fontSans = FontSans({
   subsets: ["latin"],

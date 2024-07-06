@@ -1,21 +1,15 @@
 "use client";
 
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { IoMenu as MenuIcon } from 'react-icons/io5';
+import { LuLogOut as LogoutIcon } from 'react-icons/lu';
+
 import {
-  Sheet,
-  SheetContent,
-  SheetFooter,
-  SheetHeader,
-  SheetOverlay,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Button } from "@nextui-org/react";
-import { IoMenu as MenuIcon } from "react-icons/io5";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useUserStore } from "@/store/userStore";
-import { Avatar } from "@nextui-org/react";
-import { LuLogOut as LogoutIcon } from "react-icons/lu";
+    Sheet, SheetContent, SheetFooter, SheetHeader, SheetOverlay, SheetTitle, SheetTrigger
+} from '@/components/ui/sheet';
+import { useUserStore } from '@/store/userStore';
+import { Avatar, Button } from '@nextui-org/react';
 
 export default function Hamburger() {
   const [open, setOpen] = useState(false);

@@ -1,5 +1,6 @@
-import Posts from "@/components/Posts";
-import { Metadata } from "next";
+import { Metadata } from 'next';
+
+import Posts from '@/components/Posts';
 
 export const metadata: Metadata = {
   title: "Home - CodeStash",

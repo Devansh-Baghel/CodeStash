@@ -1,18 +1,14 @@
-import { CommunityTypes } from "@/app/communities/page";
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+import { CommunityTypes } from '@/app/communities/page';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import Link from "next/link";
-import { Button } from "@nextui-org/react";
-import { useState } from "react";
-import { useUserStore } from "@/store/userStore";
-import { toast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
+    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
+} from '@/components/ui/card';
+import { toast } from '@/components/ui/use-toast';
+import { useUserStore } from '@/store/userStore';
+import { Button } from '@nextui-org/react';
 
 export default function CommunityItem({
   community,

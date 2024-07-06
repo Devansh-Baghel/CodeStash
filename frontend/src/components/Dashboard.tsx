@@ -1,10 +1,12 @@
 "use client";
 
-import { useUserStore } from "@/store/userStore";
-import { useEffect } from "react";
-import Navbar from "./NavBar";
-import SideBar from "./SideBar";
-import ProfileCard from "./ProfileCard";
+import { useEffect } from 'react';
+
+import { useUserStore } from '@/store/userStore';
+
+import Navbar from './NavBar';
+import ProfileCard from './ProfileCard';
+import SideBar from './SideBar';
 
 export default function Dashboard({ children }: { children: React.ReactNode }) {
   const { getCurrentUser } = useUserStore();

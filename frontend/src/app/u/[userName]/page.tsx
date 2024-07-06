@@ -1,19 +1,15 @@
 "use client";
 
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { useUserStore } from "@/store/userStore";
-import fetcher from "@/utils/axios";
-import { Avatar } from "@nextui-org/react";
-import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
+} from '@/components/ui/card';
+import { useUserStore } from '@/store/userStore';
+import fetcher from '@/utils/axios';
+import { Avatar } from '@nextui-org/react';
+import { useQuery } from '@tanstack/react-query';
 
 export default function UserProfile({
   params,

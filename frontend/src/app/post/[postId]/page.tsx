@@ -1,45 +1,34 @@
 "use client";
 
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { CodeBlock, dracula } from 'react-code-blocks';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { CodeBlock, dracula } from "react-code-blocks";
-import { BiUpvote as UpvoteIcon } from "react-icons/bi";
-import { BiSolidUpvote as SolidUpvoteIcon } from "react-icons/bi";
-import { BiDownvote as DownvoteIcon } from "react-icons/bi";
-import { BiSolidDownvote as SolidDownvoteIcon } from "react-icons/bi";
-import CopyCodeButton from "@/components/CopyCodeButton";
-import Link from "next/link";
-import fetcher from "@/utils/axios";
-import { useQuery } from "@tanstack/react-query";
-import { Button } from "@nextui-org/react";
-import { useUserStore } from "@/store/userStore";
-import Comments from "@/components/Comments";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import PostSkeleton from "@/components/skeletons/PostSkeleton";
-import { cn } from "@/lib/utils";
-import { cardLayout } from "@/utils/classnames";
-import BackButton from "@/components/BackButton";
-import { MdDelete as DeleteIcon } from "react-icons/md";
-import { LuPencilLine as EditIcon } from "react-icons/lu";
-import { Button as ShadButton } from "@/components/ui/button";
+    BiDownvote as DownvoteIcon, BiSolidDownvote as SolidDownvoteIcon,
+    BiSolidUpvote as SolidUpvoteIcon, BiUpvote as UpvoteIcon
+} from 'react-icons/bi';
+import { LuPencilLine as EditIcon } from 'react-icons/lu';
+import { MdDelete as DeleteIcon } from 'react-icons/md';
+
+import BackButton from '@/components/BackButton';
+import Comments from '@/components/Comments';
+import CopyCodeButton from '@/components/CopyCodeButton';
+import PostSkeleton from '@/components/skeletons/PostSkeleton';
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+    AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription,
+    AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger
+} from '@/components/ui/alert-dialog';
+import { Button as ShadButton } from '@/components/ui/button';
+import {
+    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
+} from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import { useUserStore } from '@/store/userStore';
+import fetcher from '@/utils/axios';
+import { cardLayout } from '@/utils/classnames';
+import { Button } from '@nextui-org/react';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Post({ params }: { params: { postId: string } }) {
   const {

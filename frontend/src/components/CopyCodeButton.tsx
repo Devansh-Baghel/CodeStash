@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
-import { useCopyToClipboard } from "@uidotdev/usehooks";
-import { LuClipboardCopy as CopyIcon } from "react-icons/lu";
-import { LuClipboardCheck as CheckIcon } from "react-icons/lu";
+import { LuClipboardCheck as CheckIcon, LuClipboardCopy as CopyIcon } from 'react-icons/lu';
+
+import { Button } from '@nextui-org/react';
+import { useCopyToClipboard } from '@uidotdev/usehooks';
 
 export default function CopyCodeButton({ code }: { code: string }) {
   const [copiedText, copyToClipboard] = useCopyToClipboard();

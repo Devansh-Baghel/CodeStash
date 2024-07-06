@@ -1,16 +1,11 @@
 "use client";
 
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { cardLayout } from "@/utils/classnames";
-import { Avatar, Button } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
+
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import { cardLayout } from '@/utils/classnames';
+import { Avatar, Button } from '@nextui-org/react';
 
 export default function NotLoggedIn({ description }: { description: string }) {
   const router = useRouter();

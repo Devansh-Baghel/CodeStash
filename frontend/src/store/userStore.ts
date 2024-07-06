@@ -1,5 +1,6 @@
-import fetcher, { axiosInstance } from "@/utils/axios";
-import { create } from "zustand";
+import { create } from 'zustand';
+
+import fetcher, { axiosInstance } from '@/utils/axios';
 
 interface UserState {
   isLoggedIn: boolean;

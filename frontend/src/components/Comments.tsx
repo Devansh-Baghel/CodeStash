@@ -1,16 +1,17 @@
 "use client";
 
-import fetcher from "@/utils/axios";
-import { Button, Textarea } from "@nextui-org/react";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
 
-import { FormEvent, useState } from "react";
-import { Comment } from "@/types/commentTypes";
-import { useUserStore } from "@/store/userStore";
-import { useRouter } from "next/navigation";
-import CommentsSkeleton from "./skeletons/CommentsSkeleton";
-import CommentItem from "./CommentItem";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useUserStore } from '@/store/userStore';
+import { Comment } from '@/types/commentTypes';
+import fetcher from '@/utils/axios';
+import { Button, Textarea } from '@nextui-org/react';
+import { useMutation, useQuery } from '@tanstack/react-query';
+
+import CommentItem from './CommentItem';
+import CommentsSkeleton from './skeletons/CommentsSkeleton';
 
 type CommentProps = {
   postId: string;

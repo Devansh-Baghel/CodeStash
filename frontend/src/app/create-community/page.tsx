@@ -1,21 +1,22 @@
 "use client";
 
-import NotLoggedIn from "@/components/NotLoggedIn";
-import { useUserStore } from "@/store/userStore";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import Link from "next/link";
-import { Textarea } from "@/components/ui/textarea";
-import { FormEvent, useState } from "react";
-import { toast } from "@/components/ui/use-toast";
-import fetcher from "@/utils/axios";
-import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { cardLayout } from "@/utils/classnames";
-import { useMutation } from "@tanstack/react-query";
-import { BiLoaderAlt as Loader } from "react-icons/bi";
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
+import { BiLoaderAlt as Loader } from 'react-icons/bi';
+
+import NotLoggedIn from '@/components/NotLoggedIn';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { toast } from '@/components/ui/use-toast';
+import { cn } from '@/lib/utils';
+import { useUserStore } from '@/store/userStore';
+import fetcher from '@/utils/axios';
+import { cardLayout } from '@/utils/classnames';
+import { useMutation } from '@tanstack/react-query';
 
 export default function CreateCommunity() {
   const { isLoggedIn, setUserData } = useUserStore();

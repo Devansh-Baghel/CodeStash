@@ -1,14 +1,9 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Metadata } from "next";
-import RegisterForm from "@/components/RegisterForm";
-import { cardLayout } from "@/utils/classnames";
-import { cn } from "@/lib/utils";
+import { Metadata } from 'next';
+
+import RegisterForm from '@/components/RegisterForm';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import { cardLayout } from '@/utils/classnames';
 
 export const metadata: Metadata = {
   title: "Sign up - CodeStash",

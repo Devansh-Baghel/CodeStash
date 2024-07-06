@@ -1,16 +1,17 @@
 "use client";
 
-import fetcher from "@/utils/axios";
-import { useQuery } from "@tanstack/react-query";
-import { useUserStore } from "@/store/userStore";
-import { useRouter } from "next/navigation";
-import { Button } from "@nextui-org/react";
-import CommunityItem from "@/components/CommunityItem";
-import PostsLoading from "@/components/skeletons/PostsLoading";
-import PostSkeleton from "@/components/skeletons/PostSkeleton";
-import CommunitiesSkeleton from "@/components/skeletons/CommunitiesSkeleton";
-import { cn } from "@/lib/utils";
-import { cardLayout } from "@/utils/classnames";
+import { useRouter } from 'next/navigation';
+
+import CommunityItem from '@/components/CommunityItem';
+import CommunitiesSkeleton from '@/components/skeletons/CommunitiesSkeleton';
+import PostSkeleton from '@/components/skeletons/PostSkeleton';
+import PostsLoading from '@/components/skeletons/PostsLoading';
+import { cn } from '@/lib/utils';
+import { useUserStore } from '@/store/userStore';
+import fetcher from '@/utils/axios';
+import { cardLayout } from '@/utils/classnames';
+import { Button } from '@nextui-org/react';
+import { useQuery } from '@tanstack/react-query';
 
 export type CommunityTypes = {
   madeBy: {
