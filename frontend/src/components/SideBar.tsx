@@ -3,9 +3,6 @@ import { Button } from "@nextui-org/react";
 import { RiHome6Fill as HomeIcon } from "react-icons/ri";
 import { FaUserGroup as PeopleIcon } from "react-icons/fa6";
 import { AiFillCode as LangIcon } from "react-icons/ai";
-import { FaCode as CodeIcon } from "react-icons/fa6";
-import { IoMdPerson as ProfileIcon } from "react-icons/io";
-import { IoMdSettings as SettingsIcon } from "react-icons/io";
 import { LuLogOut as LogoutIcon } from "react-icons/lu";
 import { FaPlus as PlusIcon } from "react-icons/fa";
 import { FaUserPlus as UserPlusIcon } from "react-icons/fa6";
@@ -32,11 +29,10 @@ export default function SideBar() {
   return (
     <aside className="hidden h-[85vh] min-w-80 pl-2 pr-10 md:sticky md:top-20 md:block">
       <div className="flex h-full flex-col justify-between">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1.5">
           {isLoggedIn && (
             <Button
-              // variant="flat"
-              className="flex w-full justify-normal py-4 pl-14 2xl:py-7"
+              className="mb-2 flex w-full justify-normal py-4 pl-14 2xl:py-7"
               radius="full"
               size="lg"
               color="primary"
@@ -49,7 +45,7 @@ export default function SideBar() {
           <Button
             variant="flat"
             className="flex w-full justify-normal"
-            radius="sm"
+            radius="md"
             color="primary"
             onClick={() => router.push("/")}
           >
@@ -59,7 +55,7 @@ export default function SideBar() {
           <Button
             variant="flat"
             className="flex w-full justify-normal"
-            radius="sm"
+            radius="md"
             color="primary"
             onClick={() => router.push("/communities")}
           >
@@ -69,23 +65,13 @@ export default function SideBar() {
           <Button
             variant="flat"
             className="flex w-full justify-normal"
-            radius="sm"
+            radius="md"
             color="primary"
             onClick={() => router.push("/languages")}
           >
             <LangIcon className="ml-4 text-lg" />
             Popular languages
           </Button>
-          {/* <Button
-            variant="flat"
-            className="flex w-full justify-normal"
-            radius="sm"
-            color="primary"
-            onClick={() => router.push("/")}
-          >
-            <CodeIcon className="ml-4 text-lg" />
-            Best snippets
-          </Button> */}
           {isLoggedIn && (
             <>
               <Button
@@ -105,44 +91,16 @@ export default function SideBar() {
 
         {/* // TODO: add ui here for not logged in user */}
         {isLoggedIn ? (
-          // FAQ page
-          // Upvoted posts
-          // Downvoted posts
-          // saved posts
-
-          <div className="flex flex-col gap-2">
-            <Button
-              variant="flat"
-              className="flex w-full justify-normal"
-              radius="sm"
-              color="primary"
-              onClick={() => router.push("/profile")}
-            >
-              <ProfileIcon className="ml-4 text-lg" />
-              Profile
-            </Button>
-            <Button
-              variant="flat"
-              className="flex w-full justify-normal"
-              radius="sm"
-              color="primary"
-              onClick={() => router.push("/")}
-            >
-              <SettingsIcon className="ml-4 text-lg" />
-              Settings
-            </Button>
-
-            <Button
-              variant="flat"
-              className="flex w-full justify-normal hover:text-danger-500"
-              radius="sm"
-              color="primary"
-              onClick={handleLogout}
-            >
-              <LogoutIcon className="ml-4 text-lg" />
-              Logout
-            </Button>
-          </div>
+          <Button
+            variant="flat"
+            className="flex w-full justify-normal hover:text-danger-500"
+            radius="md"
+            color="primary"
+            onClick={handleLogout}
+          >
+            <LogoutIcon className="ml-4 text-lg" />
+            Logout
+          </Button>
         ) : (
           <Card className="max-w-80">
             <CardHeader>

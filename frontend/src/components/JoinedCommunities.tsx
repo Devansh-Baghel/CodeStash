@@ -22,7 +22,7 @@ function JoinedCommunities() {
           </div>
         }
       >
-        <ScrollArea className="mt-[-8px] h-32 w-full">
+        <ScrollArea className="mt-[-8px] h-56 w-full">
           {userData?.communitiesJoined.map((community) => (
             <Button
               key={community}

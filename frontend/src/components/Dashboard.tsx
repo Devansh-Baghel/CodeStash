@@ -4,6 +4,7 @@ import { useUserStore } from "@/store/userStore";
 import { useEffect } from "react";
 import Navbar from "./NavBar";
 import SideBar from "./SideBar";
+import ProfileCard from "./ProfileCard";
 
 export default function Dashboard({ children }: { children: React.ReactNode }) {
   const { getCurrentUser } = useUserStore();
@@ -15,12 +16,13 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
   }, [getCurrentUser]);
 
   return (
-    <>
+    <div className="mx-auto max-w-[1400px]">
       <Navbar />
       <div className="flex">
         <SideBar />
         {children}
+        <ProfileCard />
       </div>
-    </>
+    </div>
   );
 }
