@@ -1,18 +1,18 @@
 "use client";
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
-import { TbError404 as NotFoundIcon } from 'react-icons/tb';
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { TbError404 as NotFoundIcon } from "react-icons/tb";
 
-import { cn } from '@/lib/utils';
-import { PostTypes } from '@/types/postTypes';
-import fetcher from '@/utils/axios';
-import { cardLayout } from '@/utils/classnames';
-import { Button } from '@nextui-org/react';
-import { useQuery } from '@tanstack/react-query';
+import { cn } from "@/lib/utils";
+import { PostTypes } from "@/types/postTypes";
+import fetcher from "@/utils/axios";
+import { cardLayout } from "@/utils/classnames";
+import { Button } from "@nextui-org/react";
+import { useQuery } from "@tanstack/react-query";
 
-import PostItem from './PostItem';
-import PostsLoading from './skeletons/PostsLoading';
+import PostItem from "./PostItem";
+import PostsLoading from "./skeletons/PostsLoading";
 
 export default function Posts() {
   const searchParams = useSearchParams();
@@ -37,12 +37,13 @@ export default function Posts() {
       }
     },
     retry: 1,
+    staleTime: 0,
   });
 
   // This is cause when user clicks on homepage icon to go to / , then it refetches the query
-  useEffect(() => {
-    refetch();
-  }, [refetch, searchParams]);
+  // useEffect(() => {
+  //   refetch();
+  // }, [refetch, searchParams]);
 
   if (isPending || isRefetching) return <PostsLoading />;
   if (isError || isRefetchError) {

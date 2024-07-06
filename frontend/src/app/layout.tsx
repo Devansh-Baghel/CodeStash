@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import './globals.css';
+import "./globals.css";
 
-import { Inter as FontSans } from 'next/font/google';
+import { Inter as FontSans } from "next/font/google";
 
-import Dashboard from '@/components/Dashboard';
-import { ThemeProvider } from '@/components/theme-provider';
-import { Toaster } from '@/components/ui/toaster';
-import { cn } from '@/lib/utils';
-import ReactQueryProvider from '@/utils/providers/ReactQueryProvider';
-import { NextUIProvider, useUser } from '@nextui-org/react';
+import Dashboard from "@/components/Dashboard";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
+import { cn } from "@/lib/utils";
+import ReactQueryProvider from "@/utils/providers/ReactQueryProvider";
+import { NextUIProvider } from "@nextui-org/react";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -46,6 +47,7 @@ export default function RootLayout({
                 <Toaster />
               </Dashboard>
             </NextUIProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
           </ReactQueryProvider>
         </ThemeProvider>
       </body>

@@ -1,27 +1,37 @@
 "use client";
 
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { FormEvent, useState } from "react";
 
-import NotLoggedIn from '@/components/NotLoggedIn';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import NotLoggedIn from "@/components/NotLoggedIn";
 import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/components/ui/use-toast';
-import { cn } from '@/lib/utils';
-import { useUserStore } from '@/store/userStore';
-import fetcher from '@/utils/axios';
-import { cardLayout } from '@/utils/classnames';
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
+import { useUserStore } from "@/store/userStore";
+import fetcher from "@/utils/axios";
+import { cardLayout } from "@/utils/classnames";
 // import { Button } from "@/components/ui/button";
-import { Button } from '@nextui-org/react';
-import CodeEditor from '@uiw/react-textarea-code-editor';
+import { Button } from "@nextui-org/react";
+import CodeEditor from "@uiw/react-textarea-code-editor";
 
-import { allowedLanguages } from '../languages/page';
+import { allowedLanguages } from "../languages/page";
 
 export default function CreatePost() {
   const searchParams = useSearchParams();
@@ -34,6 +44,7 @@ export default function CreatePost() {
   const { toast } = useToast();
   const { isLoggedIn, userData } = useUserStore();
   const [community, setCommunity] = useState(searchParams.get("community"));
+  const router = useRouter();
 
   if (!community) setCommunity("all");
 
@@ -76,6 +87,8 @@ export default function CreatePost() {
           title: "Post Created",
           description: `Your post in c/${community} written in ${language} was created successfully.`,
         });
+
+        router.push(`/post/${res._id}`);
       });
   }
 

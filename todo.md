@@ -30,7 +30,8 @@
 - [ ] add better errors in all page
 - [ ] add "remove from upvotes" in /upvotes similar to "remove from saved" in /saved
 - [ ] add "remove from downvotes" in /downvotes similar to "remove from saved" in /saved
-- [ ] sort all imports in all files
+- [x] sort all imports in all files
 - [ ] faq page maybe?
 - [ ] add custom scrollbar
 - [ ] show/hide option for profile card
+- [ ] delete post toast
