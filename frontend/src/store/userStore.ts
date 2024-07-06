@@ -22,6 +22,7 @@ interface UserState {
     verifyCodeExpiry?: Date;
     isVerified: boolean;
   };
+  setUserData: (userData: UserState["userData"]) => void;
   getCurrentUser: () => void;
   registerUser: ({
     firstName,
@@ -49,6 +50,9 @@ interface UserState {
 export const useUserStore = create<UserState>()((set, get) => ({
   isLoggedIn: false,
   userData: null,
+  setUserData: (userData) => {
+    set(() => ({ userData }));
+  },
   getCurrentUser: async () => {
     await axiosInstance
       .get("/users/get-current-user")

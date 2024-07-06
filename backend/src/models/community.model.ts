@@ -41,7 +41,7 @@ const communitySchema: Schema<CommunityTypes> = new Schema(
     },
     joinedMembers: {
       type: Number,
-      default: 0,
+      default: 1,
     },
     coverImage: { type: String },
     avatar: { type: String },

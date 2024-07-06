@@ -18,7 +18,7 @@ import { useMutation } from "@tanstack/react-query";
 import { BiLoaderAlt as Loader } from "react-icons/bi";
 
 export default function CreateCommunity() {
-  const { isLoggedIn } = useUserStore();
+  const { isLoggedIn, setUserData } = useUserStore();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const router = useRouter();
@@ -28,7 +28,7 @@ export default function CreateCommunity() {
       return await fetcher
         .post("/community/create-community", { name, description })
         .then((res) => {
-          console.log(res);
+          setUserData(res.user);
 
           toast({
             description: `Created c/${name} community successfully`,

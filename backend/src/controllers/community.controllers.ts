@@ -33,13 +33,19 @@ export const createCommunity = asyncHandler(async (req: UserRequest, res) => {
     );
   }
 
-  user?.communitiesJoined.push(community._id);
+  user?.communitiesJoined.push(community.name);
 
   await user?.save();
 
   return res
     .status(201)
-    .json(new ApiResponse(201, community, "Community created successfully"));
+    .json(
+      new ApiResponse(
+        201,
+        { user, community },
+        "Community created successfully"
+      )
+    );
 });
 
 export const getCommunities = asyncHandler(async (req, res) => {
