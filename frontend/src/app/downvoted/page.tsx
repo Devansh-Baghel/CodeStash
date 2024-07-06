@@ -18,6 +18,8 @@ import { useUserStore } from "@/store/userStore";
 import NotLoggedIn from "@/components/NotLoggedIn";
 import PostsLoading from "@/components/skeletons/PostsLoading";
 import PostsNotFound from "@/components/PostsNotFound";
+import { cn } from "@/lib/utils";
+import { cardLayout } from "@/utils/classnames";
 
 export default function DownvotedPosts() {
   const { isLoggedIn, userData } = useUserStore();
@@ -47,7 +49,7 @@ export default function DownvotedPosts() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className={cn(cardLayout, "flex flex-col gap-8")}>
       {data?.map((post) => (
         <Card key={post._id}>
           <CardHeader className="flex flex-row items-center gap-4">

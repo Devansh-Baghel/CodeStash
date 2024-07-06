@@ -55,7 +55,7 @@ export default function PostItem({ post }: { post: PostTypes }) {
   }
 
   return (
-    <Card className="bg-sky-50">
+    <Card className="border-none drop-shadow-lg">
       <CardHeader className="flex flex-row gap-4">
         <div className="flex flex-col items-center">
           {userData?.upvotedPosts.includes(post._id) ? (

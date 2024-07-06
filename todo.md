@@ -32,3 +32,5 @@
 - [ ] add "remove from downvotes" in /downvotes similar to "remove from saved" in /saved
 - [ ] sort all imports in all files
 - [ ] faq page maybe?
+- [ ] add custom scrollbar
+- [ ] show/hide option for profile card

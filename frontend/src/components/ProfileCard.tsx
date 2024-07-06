@@ -14,7 +14,10 @@ export default function () {
   const router = useRouter();
 
   return (
-    <Card className="sticky top-20 z-50 mr-4 hidden max-h-[85vh] w-full max-w-80 p-6 lg:block">
+    <Card
+      className="sticky top-20 z-50 mr-0 hidden max-h-[85vh] w-full max-w-80 p-4 lg:block"
+      shadow="sm"
+    >
       <CardHeader className="flex flex-col text-center">
         <Avatar src="" className="mx-auto mb-4 h-28 w-28" />
         <h1 className="text-xl">
@@ -77,9 +80,11 @@ export default function () {
           <SolidDownvoteIcon />
           Downvoted Posts
         </Button>
+      </CardBody>
+      <CardFooter className="absolute bottom-0 left-0 right-0 px-7 pb-4">
         <Button
           variant="flat"
-          className="mt-24 flex w-full justify-normal"
+          className="flex w-full justify-normal"
           radius="md"
           color="primary"
           onClick={() => router.push("/")}
@@ -87,7 +92,7 @@ export default function () {
           <SettingsIcon className="ml-4 text-lg" />
           Account Settings
         </Button>
-      </CardBody>
+      </CardFooter>
     </Card>
   );
 }

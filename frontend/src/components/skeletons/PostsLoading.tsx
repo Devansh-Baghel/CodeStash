@@ -16,7 +16,7 @@ export default function PostsLoading({ items }: { items?: number }) {
   return (
     <>
       {Array.from({ length: itemCount }).map((_, index) => (
-        <Card className={cn("mb-4", cardLayout)} key={index}>
+        <Card className={cn("mb-8", cardLayout)} key={index}>
           <CardHeader className="flex flex-row gap-4">
             <CardTitle>
               <Skeleton className="h-10 w-80 rounded-2xl" />

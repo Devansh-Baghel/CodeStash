@@ -18,6 +18,8 @@ import { useUserStore } from "@/store/userStore";
 import NotLoggedIn from "@/components/NotLoggedIn";
 import PostsLoading from "@/components/skeletons/PostsLoading";
 import PostsNotFound from "@/components/PostsNotFound";
+import { cn } from "@/lib/utils";
+import { cardLayout } from "@/utils/classnames";
 
 export default function UpvotedPosts() {
   const { isLoggedIn, userData } = useUserStore();
@@ -47,7 +49,7 @@ export default function UpvotedPosts() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className={cn(cardLayout, "flex flex-col gap-8")}>
       {/* TODO: add text like, "Posts that you have upvoted" */}
       {data?.map((post) => (
         <Card key={post._id}>

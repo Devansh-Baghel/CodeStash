@@ -54,14 +54,15 @@ export default function Posts() {
   }
 
   return (
-    <div className={cn(cardLayout, "flex flex-col gap-4")}>
+    <div className={cn(cardLayout, "flex flex-col gap-8")}>
       {data.length === 0 ? (
         <div className="mt-10 flex flex-col items-center justify-center gap-4">
-          <NotFoundIcon className="text-[300px] text-secondary" />
+          <NotFoundIcon className="text-[200px] text-secondary" />
           <p>Currenly there are no posts for {language}</p>
           <Button
             onClick={() => router.push(`/create-post?language=${language}`)}
             color="primary"
+            className="drop-shadow-xl"
           >
             Create post in {language}
           </Button>

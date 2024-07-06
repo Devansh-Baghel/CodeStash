@@ -28,7 +28,7 @@ function JoinedCommunities() {
               key={community}
               variant="flat"
               color="primary"
-              className="mb-1 flex h-8 w-full items-center justify-normal gap-2 pl-6 text-sm"
+              className="mb-1 flex h-8 w-60 items-center justify-normal gap-2 pl-6 text-sm"
               aria-label={`c/${community}}`}
               onClick={() => router.push(`/c/${community}`)}
             >

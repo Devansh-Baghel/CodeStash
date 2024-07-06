@@ -32,7 +32,7 @@ export default function SideBar() {
         <div className="flex flex-col gap-1.5">
           {isLoggedIn && (
             <Button
-              className="mb-2 flex w-full justify-normal py-4 pl-14 2xl:py-7"
+              className="mb-2 flex w-full justify-normal py-4 pl-14 drop-shadow-md 2xl:py-7"
               radius="full"
               size="lg"
               color="primary"
