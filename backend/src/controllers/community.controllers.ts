@@ -183,3 +183,47 @@ export const uploadAvatar = asyncHandler(async (req: UserRequest, res) => {
       )
     );
 });
+
+export const uploadCoverImage = asyncHandler(async (req: UserRequest, res) => {
+  const { name } = req.body;
+  const coverImageLocalPath = req?.file?.path;
+  const user = req.user;
+
+  if (!name) throw new ApiError(400, "Name of community is required");
+
+  if (!coverImageLocalPath)
+    throw new ApiError(400, "Cover image file is required");
+
+  const coverImage = await uploadOnCloudinary(coverImageLocalPath);
+
+  if (!coverImage) throw new ApiError(400, "Cover image file is required");
+
+  const community = await Community.findOne({ name });
+  if (!community) throw new ApiError(404, "Community not found");
+
+  if (community.madeBy.username !== user?.username) {
+    throw new ApiError(
+      401,
+      "You are not authorized to change the cover image of this community"
+    );
+  }
+
+  const updatedCommunity = await Community.findByIdAndUpdate(
+    community._id,
+    { coverImage: coverImage.url },
+    { new: true }
+  );
+
+  if (!updatedCommunity)
+    throw new ApiError(500, "Something went wrong uploading cover image");
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { community: updatedCommunity },
+        "Cover image uploaded sucessfully"
+      )
+    );
+});
