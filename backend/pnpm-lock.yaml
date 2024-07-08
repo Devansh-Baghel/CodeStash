@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@types/multer':
-        specifier: ^1.4.11
-        version: 1.4.11
       bcrypt:
         specifier: ^5.1.1
         version: 5.1.1
@@ -69,6 +66,9 @@ importers:
       '@types/jsonwebtoken':
         specifier: ^9.0.6
         version: 9.0.6
+      '@types/multer':
+        specifier: ^1.4.11
+        version: 1.4.11
       '@types/node':
         specifier: ^20.12.12
         version: 20.12.12

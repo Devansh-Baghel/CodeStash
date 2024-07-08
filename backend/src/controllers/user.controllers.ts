@@ -1,12 +1,13 @@
-import { Response } from 'express';
-import { generateUsername } from 'unique-username-generator';
+import { Response } from "express";
+import { generateUsername } from "unique-username-generator";
 
-import { cookieOptions } from '../constants';
-import { User, UserTypes } from '../models/user.model';
-import { UserRequest } from '../types/userTypes';
-import { ApiError } from '../utils/apiError';
-import { ApiResponse } from '../utils/apiResponse';
-import { asyncHandler } from '../utils/asyncHandler';
+import { cookieOptions } from "../constants";
+import { User, UserTypes } from "../models/user.model";
+import { UserRequest } from "../types/userTypes";
+import { ApiError } from "../utils/apiError";
+import { ApiResponse } from "../utils/apiResponse";
+import { asyncHandler } from "../utils/asyncHandler";
+import { uploadOnCloudinary } from "../utils/cloudinary";
 
 const generateAccessAndRefreshTokens = async (userId: string) => {
   try {
@@ -182,5 +183,31 @@ export const updateUsername = asyncHandler(async (req: UserRequest, res) => {
     .status(200)
     .json(
       new ApiResponse(200, { updatedUser }, "Username updated successfully")
+    );
+});
+
+export const uploadAvatar = asyncHandler(async (req: UserRequest, res) => {
+  const avatarLocalPath = req?.file?.path;
+  const user = req.user;
+
+  if (!avatarLocalPath) throw new ApiError(400, "Avatar file is required");
+
+  const avatar = await uploadOnCloudinary(avatarLocalPath);
+
+  if (!avatar) throw new ApiError(400, "Avatar file is required");
+
+  const updatedUser = await User.findByIdAndUpdate(
+    user?._id,
+    { avatar: avatar.url },
+    { new: true }
+  ).select("-password -refreshToken");
+
+  if (!updatedUser)
+    throw new ApiError(500, "Something went wrong uploading avatar");
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, { user: updatedUser }, "Avatar uploaded sucessfully")
     );
 });
