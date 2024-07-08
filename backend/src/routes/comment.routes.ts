@@ -1,13 +1,9 @@
-import { Router } from "express";
-import { verifyJWT } from "../middlewares/auth.middleware";
+import { Router } from 'express';
+
 import {
-  createComment,
-  deleteComment,
-  downvoteComment,
-  getComments,
-  updateComment,
-  upvoteComment,
-} from "../controllers/comment.controllers";
+    createComment, deleteComment, downvoteComment, getComments, updateComment, upvoteComment
+} from '../controllers/comment.controllers';
+import { verifyJWT } from '../middlewares/auth.middleware';
 
 const router = Router();
 

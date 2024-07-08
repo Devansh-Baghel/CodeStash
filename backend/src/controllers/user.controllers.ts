@@ -1,11 +1,12 @@
-import { asyncHandler } from "../utils/asyncHandler";
-import { ApiError } from "../utils/apiError";
-import { ApiResponse } from "../utils/apiResponse";
-import { User, UserTypes } from "../models/user.model";
-import { Response } from "express";
-import { UserRequest } from "../types/userTypes";
-import { cookieOptions } from "../constants";
-import { generateUsername } from "unique-username-generator";
+import { Response } from 'express';
+import { generateUsername } from 'unique-username-generator';
+
+import { cookieOptions } from '../constants';
+import { User, UserTypes } from '../models/user.model';
+import { UserRequest } from '../types/userTypes';
+import { ApiError } from '../utils/apiError';
+import { ApiResponse } from '../utils/apiResponse';
+import { asyncHandler } from '../utils/asyncHandler';
 
 const generateAccessAndRefreshTokens = async (userId: string) => {
   try {

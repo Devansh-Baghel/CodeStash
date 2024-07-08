@@ -35,3 +35,4 @@
 - [ ] add custom scrollbar
 - [ ] show/hide option for profile card
 - [ ] delete post toast
+- [ ] add more allowed languages

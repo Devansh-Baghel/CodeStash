@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
-import { DB_NAME } from "../constants";
-import logger from "../utils/logger";
+import mongoose from 'mongoose';
+
+import { DB_NAME } from '../constants';
+import logger from '../utils/logger';
 
 async function connectDB() {
   try {

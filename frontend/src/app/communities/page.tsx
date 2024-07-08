@@ -1,11 +1,10 @@
 "use client";
 
 import { useRouter } from 'next/navigation';
+import { FaPlus as PlusIcon } from 'react-icons/fa';
 
 import CommunityItem from '@/components/CommunityItem';
 import CommunitiesSkeleton from '@/components/skeletons/CommunitiesSkeleton';
-import PostSkeleton from '@/components/skeletons/PostSkeleton';
-import PostsLoading from '@/components/skeletons/PostsLoading';
 import { cn } from '@/lib/utils';
 import { useUserStore } from '@/store/userStore';
 import fetcher from '@/utils/axios';
@@ -48,7 +47,7 @@ export default function Communities() {
             variant="flat"
             onClick={() => router.push("/create-community")}
           >
-            {/* <GroupIcon /> */}
+            <PlusIcon />
             Create your own community
           </Button>
           <p className="text-grey-700 text-center text-sm">Or join one below</p>

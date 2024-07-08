@@ -1,9 +1,9 @@
-import { asyncHandler } from "../utils/asyncHandler";
-import { ApiResponse } from "../utils/apiResponse";
-import { Post } from "../models/post.model";
-import { ApiError } from "../utils/apiError";
-import { Comment } from "../models/comment.model";
-import { UserRequest } from "../types/userTypes";
+import { Comment } from '../models/comment.model';
+import { Post } from '../models/post.model';
+import { UserRequest } from '../types/userTypes';
+import { ApiError } from '../utils/apiError';
+import { ApiResponse } from '../utils/apiResponse';
+import { asyncHandler } from '../utils/asyncHandler';
 
 export const getComments = asyncHandler(async (req, res) => {
   const { postId } = req.body;

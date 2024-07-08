@@ -1,7 +1,14 @@
-import express from "express";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import helmet from "helmet";
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import express from 'express';
+import helmet from 'helmet';
+
+import commentRouter from './routes/comment.routes';
+import communityRouter from './routes/community.routes';
+// Routes
+import healthCheckRouter from './routes/healthCheck.routes';
+import postRouter from './routes/post.routes';
+import userRouter from './routes/user.routes';
 
 const app = express();
 
@@ -17,13 +24,6 @@ app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
 app.use(cookieParser());
 app.use(helmet());
-
-// Routes
-import healthCheckRouter from "./routes/healthCheck.routes";
-import userRouter from "./routes/user.routes";
-import postRouter from "./routes/post.routes";
-import commentRouter from "./routes/comment.routes";
-import communityRouter from "./routes/community.routes";
 
 app.use("/api", healthCheckRouter);
 app.use("/api/users", userRouter);

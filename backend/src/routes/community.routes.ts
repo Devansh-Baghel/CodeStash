@@ -1,12 +1,9 @@
-import { Router } from "express";
-import { verifyJWT } from "../middlewares/auth.middleware";
+import { Router } from 'express';
+
 import {
-  createCommunity,
-  getCommunities,
-  getCommunity,
-  joinCommunity,
-  leaveCommunity,
-} from "../controllers/community.controllers";
+    createCommunity, getCommunities, getCommunity, joinCommunity, leaveCommunity
+} from '../controllers/community.controllers';
+import { verifyJWT } from '../middlewares/auth.middleware';
 
 const router = Router();
 

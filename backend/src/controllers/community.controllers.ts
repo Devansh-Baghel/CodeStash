@@ -1,8 +1,8 @@
-import { asyncHandler } from "../utils/asyncHandler";
-import { ApiResponse } from "../utils/apiResponse";
-import { ApiError } from "../utils/apiError";
-import { UserRequest } from "../types/userTypes";
-import { Community } from "../models/community.model";
+import { Community } from '../models/community.model';
+import { UserRequest } from '../types/userTypes';
+import { ApiError } from '../utils/apiError';
+import { ApiResponse } from '../utils/apiResponse';
+import { asyncHandler } from '../utils/asyncHandler';
 
 // TODO: Add extra validation for name of cummunity, it cant contain whitespace for example
 export const createCommunity = asyncHandler(async (req: UserRequest, res) => {

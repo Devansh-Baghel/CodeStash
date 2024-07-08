@@ -20,9 +20,8 @@ export const allowedLanguages = [
 export default function Languages() {
   return (
     <section className={cn(cardLayout)}>
-      <h1 className="mb-10 mr-10 text-xl font-medium text-gray-700">
-        Click on any programming language to view all code snippets in that
-        language
+      <h1 className="mb-4 text-2xl font-bold text-gray-600">
+        Popular Languages
       </h1>
       <div className="flex flex-wrap gap-8">
         {allowedLanguages.map((lang) => (

@@ -1,20 +1,10 @@
-import { Router } from "express";
+import { Router } from 'express';
+
 import {
-  createPost,
-  deletePost,
-  downvotePost,
-  getDownvotedPosts,
-  getPost,
-  getPosts,
-  getPostsByLang,
-  getSavedPosts,
-  getUpvotedPosts,
-  removeSavedPost,
-  savePost,
-  updatePost,
-  upvotePost,
-} from "../controllers/post.controllers";
-import { verifyJWT } from "../middlewares/auth.middleware";
+    createPost, deletePost, downvotePost, getDownvotedPosts, getPost, getPosts, getPostsByLang,
+    getSavedPosts, getUpvotedPosts, removeSavedPost, savePost, updatePost, upvotePost
+} from '../controllers/post.controllers';
+import { verifyJWT } from '../middlewares/auth.middleware';
 
 const router = Router();
 

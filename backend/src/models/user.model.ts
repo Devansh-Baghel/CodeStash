@@ -1,6 +1,6 @@
-import mongoose, { Schema, Document } from "mongoose";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface UserTypes extends Document {
   username: string;

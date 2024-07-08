@@ -1,8 +1,9 @@
-import dotenv from "dotenv";
-import connectDB from "./db/db";
-import app from "./app";
-import { PORT } from "./constants";
-import logger from "./utils/logger";
+import dotenv from 'dotenv';
+
+import app from './app';
+import { PORT } from './constants';
+import connectDB from './db/db';
+import logger from './utils/logger';
 
 dotenv.config({
   path: "../.env",

@@ -1,5 +1,6 @@
-import { z } from "zod";
-import { allowedLanguages } from "../models/post.model";
+import { z } from 'zod';
+
+import { allowedLanguages } from '../models/post.model';
 
 export const postSchema = z.object({
   title: z.string().max(200).trim(),
