@@ -1,6 +1,6 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import mongoose, { Document, Schema } from 'mongoose';
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface UserTypes extends Document {
   username: string;
@@ -18,6 +18,7 @@ export interface UserTypes extends Document {
   verifyCode?: string;
   verifyCodeExpiry?: Date;
   isVerified: boolean;
+  avatar: string;
   generateRefreshToken: () => string;
   generateAccessToken: () => string;
   isPasswordCorrect: (password: string) => Promise<boolean>;
@@ -108,6 +109,9 @@ const userSchema: Schema<UserTypes> = new Schema(
         default: "all",
       },
     ],
+    avatar: {
+      type: String,
+    },
   },
   {
     timestamps: true,
