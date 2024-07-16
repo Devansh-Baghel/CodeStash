@@ -1,21 +1,26 @@
 "use client";
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-import NotLoggedIn from '@/components/NotLoggedIn';
-import PostsNotFound from '@/components/PostsNotFound';
-import PostsLoading from '@/components/skeletons/PostsLoading';
+import NotLoggedIn from "@/components/NotLoggedIn";
+import PostsNotFound from "@/components/PostsNotFound";
+import PostsLoading from "@/components/skeletons/PostsLoading";
 import {
-    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
-} from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { useUserStore } from '@/store/userStore';
-import { PostTypes } from '@/types/postTypes';
-import fetcher from '@/utils/axios';
-import { cardLayout } from '@/utils/classnames';
-import { Button } from '@nextui-org/react';
-import { useQuery } from '@tanstack/react-query';
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { useUserStore } from "@/store/userStore";
+import { PostTypes } from "@/types/postTypes";
+import fetcher from "@/utils/axios";
+import { cardLayout } from "@/utils/classnames";
+import { Button } from "@nextui-org/react";
+import { useQuery } from "@tanstack/react-query";
 
 export default function DownvotedPosts() {
   const { isLoggedIn, userData } = useUserStore();
@@ -33,7 +38,10 @@ export default function DownvotedPosts() {
 
   if (!isLoggedIn) {
     return (
-      <NotLoggedIn description="Login or sign up to view your downvoted posts" />
+      <NotLoggedIn
+        title="Downvoted Posts"
+        description="Login or sign up to view your downvoted posts"
+      />
     );
   }
   if (isError) return "Error";

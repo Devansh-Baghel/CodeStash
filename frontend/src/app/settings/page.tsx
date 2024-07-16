@@ -9,7 +9,7 @@ import { cardLayout } from "@/utils/classnames";
 export default function AccountSettings() {
   const { isLoggedIn } = useUserStore();
 
-  if (isLoggedIn) {
+  if (!isLoggedIn) {
     return (
       <NotLoggedIn
         title="Account Settings"

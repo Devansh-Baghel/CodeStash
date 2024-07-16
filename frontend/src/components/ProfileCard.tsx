@@ -25,7 +25,7 @@ export default function () {
       shadow="sm"
     >
       <CardHeader className="flex flex-col text-center">
-        <Avatar src={userData.avatar} className="mx-auto mb-4 h-28 w-28" />
+        <Avatar src={userData?.avatar} className="mx-auto mb-4 h-28 w-28" />
         <h1 className="text-xl">
           {userData?.firstName} {userData?.lastName}
         </h1>
