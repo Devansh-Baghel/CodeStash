@@ -28,7 +28,7 @@ export default function NotLoggedIn({ description, title }: PageProps) {
       <Card>
         <CardHeader className="flex flex-col items-center">
           <Avatar
-            src="https://i.seadn.io/gcs/files/ccb8c81826526eb68f002bd3fabaa05c.png?auto=format&dpr=1&w=1000"
+            src="https://i.seadn.io/gcs/files/ccb8c81826526eb68f002bd3fabaa05c.png?auto=format&dpr=1&w=100"
             size="lg"
             className="mx-auto mb-6 h-32 w-32"
           />

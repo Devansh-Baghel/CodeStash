@@ -175,14 +175,17 @@ export const updateUsername = asyncHandler(async (req: UserRequest, res) => {
   if (userExists)
     throw new ApiError(409, "User with this username already exists");
 
-  const updatedUser = await User.findByIdAndUpdate(user?._id, {
-    username: newUsername,
-  });
+  user.username = newUsername;
+  await user?.save();
 
   return res
     .status(200)
     .json(
-      new ApiResponse(200, { updatedUser }, "Username updated successfully")
+      new ApiResponse(
+        200,
+        { updatedUser: user },
+        "Username updated successfully"
+      )
     );
 });
 

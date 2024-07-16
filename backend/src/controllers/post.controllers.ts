@@ -1,11 +1,11 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
-import { allowedLanguages, Post } from '../models/post.model';
-import { postSchema } from '../schemas/postSchema';
-import { UserRequest } from '../types/userTypes';
-import { ApiError } from '../utils/apiError';
-import { ApiResponse } from '../utils/apiResponse';
-import { asyncHandler } from '../utils/asyncHandler';
+import { allowedLanguages, Post } from "../models/post.model";
+import { postSchema } from "../schemas/postSchema";
+import { UserRequest } from "../types/userTypes";
+import { ApiError } from "../utils/apiError";
+import { ApiResponse } from "../utils/apiResponse";
+import { asyncHandler } from "../utils/asyncHandler";
 
 export const getPosts = asyncHandler(async (req: Request, res: Response) => {
   // TODO: don't send the post.content to client, cause the coed can be very large
