@@ -1,15 +1,19 @@
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import {
-    BiSolidDownvote as SolidDownvoteIcon, BiSolidUpvote as SolidUpvoteIcon
-} from 'react-icons/bi';
-import { FaBookmark as SaveIcon } from 'react-icons/fa';
-import { IoMdPerson as ProfileIcon, IoMdSettings as SettingsIcon } from 'react-icons/io';
+  BiSolidDownvote as SolidDownvoteIcon,
+  BiSolidUpvote as SolidUpvoteIcon,
+} from "react-icons/bi";
+import { FaBookmark as SaveIcon } from "react-icons/fa";
+import {
+  IoMdPerson as ProfileIcon,
+  IoMdSettings as SettingsIcon,
+} from "react-icons/io";
 
-import { useUserStore } from '@/store/userStore';
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
-import { Avatar, Button } from '@nextui-org/react';
+import { useUserStore } from "@/store/userStore";
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
+import { Avatar, Button } from "@nextui-org/react";
 
-import { CardDescription } from './ui/card';
+import { CardDescription } from "./ui/card";
 
 export default function () {
   const { userData } = useUserStore();
@@ -89,7 +93,7 @@ export default function () {
           className="flex w-full justify-normal"
           radius="md"
           color="primary"
-          onClick={() => router.push("/")}
+          onClick={() => router.push("/settings")}
         >
           <SettingsIcon className="ml-4 text-lg" />
           Account Settings
