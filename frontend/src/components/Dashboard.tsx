@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import { useUserStore } from '@/store/userStore';
+import { useUserStore } from "@/store/userStore";
 
-import Navbar from './NavBar';
-import ProfileCard from './ProfileCard';
-import SideBar from './SideBar';
+import Navbar from "./NavBar";
+import ProfileCard from "./ProfileCard";
+import SideBar from "./SideBar";
 
 export default function Dashboard({ children }: { children: React.ReactNode }) {
-  const { getCurrentUser } = useUserStore();
+  const { getCurrentUser, isLoggedIn } = useUserStore();
 
   // TODO: add Loading user data... screen like monkeytype
   // FIXME: only run this if accessToken and refreshToken exist
@@ -23,7 +23,8 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
       <div className="flex">
         <SideBar />
         {children}
-        <ProfileCard />
+        {/* TODO: add some other card here when user isn't logged in */}
+        {isLoggedIn && <ProfileCard />}
       </div>
     </div>
   );

@@ -1,16 +1,16 @@
 "use client";
 
-import { useRouter } from 'next/navigation';
-import { FaPlus as PlusIcon } from 'react-icons/fa';
+import { useRouter } from "next/navigation";
+import { FaPlus as PlusIcon } from "react-icons/fa";
 
-import CommunityItem from '@/components/CommunityItem';
-import CommunitiesSkeleton from '@/components/skeletons/CommunitiesSkeleton';
-import { cn } from '@/lib/utils';
-import { useUserStore } from '@/store/userStore';
-import fetcher from '@/utils/axios';
-import { cardLayout } from '@/utils/classnames';
-import { Button } from '@nextui-org/react';
-import { useQuery } from '@tanstack/react-query';
+import CommunityItem from "@/components/CommunityItem";
+import CommunitiesSkeleton from "@/components/skeletons/CommunitiesSkeleton";
+import { cn } from "@/lib/utils";
+import { useUserStore } from "@/store/userStore";
+import fetcher from "@/utils/axios";
+import { cardLayout } from "@/utils/classnames";
+import { Button } from "@nextui-org/react";
+import { useQuery } from "@tanstack/react-query";
 
 export type CommunityTypes = {
   madeBy: {
@@ -39,6 +39,7 @@ export default function Communities() {
 
   return (
     <section className={cn(cardLayout, "flex flex-col gap-4")}>
+      <h1 className="text-2xl font-bold text-gray-600">Communities</h1>
       {isLoggedIn && (
         <>
           <Button
