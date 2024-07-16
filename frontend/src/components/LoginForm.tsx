@@ -1,13 +1,13 @@
 "use client";
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { FormEvent, useEffect, useState } from 'react';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { FormEvent, useEffect, useState } from "react";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useUserStore } from '@/store/userStore';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useUserStore } from "@/store/userStore";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -62,9 +62,10 @@ export default function LoginForm() {
         <Button type="submit" className="w-full">
           Login
         </Button>
-        <Button variant="outline" className="w-full" type="button">
+        {/* TODO: add login with google */}
+        {/* <Button variant="outline" className="w-full" type="button">
           Login with Google
-        </Button>
+        </Button> */}
       </div>
       <div className="mt-4 text-center text-sm">
         Don&apos;t have an account?{" "}

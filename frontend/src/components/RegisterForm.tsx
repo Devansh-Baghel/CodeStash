@@ -1,13 +1,13 @@
 "use client";
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { FormEvent, useEffect, useState } from 'react';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { FormEvent, useEffect, useState } from "react";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useUserStore } from '@/store/userStore';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useUserStore } from "@/store/userStore";
 
 export default function RegisterForm() {
   const [firstName, setFirstName] = useState("");
@@ -81,9 +81,9 @@ export default function RegisterForm() {
         <Button type="submit" className="w-full">
           Create an account
         </Button>
-        <Button variant="outline" className="w-full" type="button">
+        {/* <Button variant="outline" className="w-full" type="button">
           Sign up with GitHub
-        </Button>
+        </Button> */}
       </div>
       <div className="mt-4 text-center text-sm">
         Already have an account?{" "}
