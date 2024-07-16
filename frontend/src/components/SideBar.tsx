@@ -1,15 +1,18 @@
-import { useRouter } from 'next/navigation';
-import { AiFillCode as LangIcon } from 'react-icons/ai';
-import { FaPlus as PlusIcon } from 'react-icons/fa';
-import { FaUserGroup as PeopleIcon, FaUserPlus as UserPlusIcon } from 'react-icons/fa6';
-import { LuLogOut as LogoutIcon } from 'react-icons/lu';
-import { RiHome6Fill as HomeIcon } from 'react-icons/ri';
+import { useRouter } from "next/navigation";
+import { AiFillCode as LangIcon } from "react-icons/ai";
+import { FaPlus as PlusIcon } from "react-icons/fa";
+import {
+  FaUserGroup as PeopleIcon,
+  FaUserPlus as UserPlusIcon,
+} from "react-icons/fa6";
+import { LuLogOut as LogoutIcon } from "react-icons/lu";
+import { RiHome6Fill as HomeIcon } from "react-icons/ri";
 
-import { useUserStore } from '@/store/userStore';
-import { Button, Card } from '@nextui-org/react';
+import { useUserStore } from "@/store/userStore";
+import { Button, Card } from "@nextui-org/react";
 
-import JoinedCommunities from './JoinedCommunities';
-import { CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import JoinedCommunities from "./JoinedCommunities";
+import { CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 export default function SideBar() {
   const { isLoggedIn, logoutUser, loginUser } = useUserStore();

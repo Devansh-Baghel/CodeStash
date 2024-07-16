@@ -1,6 +1,6 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
-import fetcher, { axiosInstance } from '@/utils/axios';
+import fetcher, { axiosInstance } from "@/utils/axios";
 
 interface UserState {
   isLoggedIn: boolean;
@@ -13,6 +13,7 @@ interface UserState {
       fullName: string;
       _id: string;
     };
+    avatar: string;
     upvotedPosts: string[];
     downvotedPosts: string[];
     upvotedComments: string[];

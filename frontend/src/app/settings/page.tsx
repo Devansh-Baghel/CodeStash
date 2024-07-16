@@ -11,7 +11,10 @@ export default function AccountSettings() {
 
   if (isLoggedIn) {
     return (
-      <NotLoggedIn description="Login or sign up to view your account settings" />
+      <NotLoggedIn
+        title="Account Settings"
+        description="Login or sign up to view your account settings"
+      />
     );
   }
 
