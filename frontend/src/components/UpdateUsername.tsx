@@ -42,9 +42,9 @@ export default function UpdateUsername() {
   }
 
   return (
-    <Card className="mx-auto">
+    <Card className="mx-auto mb-8">
       <CardHeader>
-        <CardTitle className="text-xl">Update Username</CardTitle>
+        <CardTitle className="text-xl">Change Username</CardTitle>
         <CardDescription>Create a new username below</CardDescription>
       </CardHeader>
       <CardContent>
@@ -60,9 +60,9 @@ export default function UpdateUsername() {
                 value={newUsername}
                 onChange={(e) => setNewUsername(e.target.value)}
               />
-              <Button type="submit" className="w-80" disabled={isPending}>
+              <Button type="submit" className="w-40" disabled={isPending}>
                 {isPending && <Loader className="mr-2 h-4 w-4 animate-spin" />}
-                Update Username
+                Save
               </Button>
             </div>
           </div>

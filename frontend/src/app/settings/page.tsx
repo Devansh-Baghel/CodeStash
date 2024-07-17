@@ -1,5 +1,6 @@
 "use client";
 
+import ChangePassword from "@/components/ChangePassword";
 import NotLoggedIn from "@/components/NotLoggedIn";
 import UpdateUsername from "@/components/UpdateUsername";
 import { cn } from "@/lib/utils";
@@ -24,6 +25,7 @@ export default function AccountSettings() {
         Account Settings
       </h1>
       <UpdateUsername />
+      <ChangePassword />
     </section>
   );
 }
