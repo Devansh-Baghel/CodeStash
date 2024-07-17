@@ -11,13 +11,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import fetcher from "@/utils/axios";
 import { FormEvent, useState } from "react";
-import { toast } from "./ui/use-toast";
+import { toast as shadToast } from "./ui/use-toast";
+import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 
 export default function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const { mutate, isPending } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationKey: ["update-password"],
     mutationFn: () => {
       return fetcher
@@ -28,17 +29,24 @@ export default function ChangePassword() {
         .then((res) => {
           setOldPassword("");
           setNewPassword("");
-
-          toast({
-            description: "Password updated successfully",
-          });
         });
     },
   });
 
-  function updatePassword(e: FormEvent) {
+  async function updatePassword(e: FormEvent) {
     e.preventDefault();
-    mutate();
+    if (oldPassword === newPassword) {
+      // FIXME: add "info" toast like in spendsync
+      toast.error("New password can't be the same as the current password");
+      return;
+    }
+    const updatePasswordPromise = mutateAsync();
+
+    toast.promise(updatePasswordPromise, {
+      loading: "Changing current password",
+      success: "Changed password successfully",
+      error: "Failed to change current password",
+    });
   }
 
   return (
@@ -52,7 +60,7 @@ export default function ChangePassword() {
       <CardContent>
         <form onSubmit={updatePassword} className="grid max-w-[400px] gap-4">
           <div>
-            <Label htmlFor="old-password">Old Password</Label>
+            <Label htmlFor="old-password">Current Password</Label>
             <Input
               id="old-password"
               autoComplete="current-password"
