@@ -11,14 +11,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import fetcher from "@/utils/axios";
 import { FormEvent, useState } from "react";
-import { toast as shadToast } from "./ui/use-toast";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError, AxiosPromise } from "axios";
 
 export default function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const { mutateAsync, isPending } = useMutation({
+  const { mutateAsync, isPending, error } = useMutation<any, AxiosError>({
     mutationKey: ["update-password"],
     mutationFn: () => {
       return fetcher
@@ -26,7 +26,7 @@ export default function ChangePassword() {
           newPassword,
           oldPassword,
         })
-        .then((res) => {
+        .then(() => {
           setOldPassword("");
           setNewPassword("");
         });
@@ -45,7 +45,10 @@ export default function ChangePassword() {
     toast.promise(updatePasswordPromise, {
       loading: "Changing current password",
       success: "Changed password successfully",
-      error: "Failed to change current password",
+      error:
+        error?.response?.status === 401
+          ? "Invalid current password"
+          : "Failed to change current password",
     });
   }
 

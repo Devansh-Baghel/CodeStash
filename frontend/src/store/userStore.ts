@@ -5,6 +5,7 @@ import fetcher, { axiosInstance } from "@/utils/axios";
 interface UserState {
   isLoggedIn: boolean;
   userData: null | {
+    _id: string;
     firstName: string;
     lastName: string;
     email: string;

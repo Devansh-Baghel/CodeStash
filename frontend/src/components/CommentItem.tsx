@@ -1,26 +1,36 @@
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React, { FormEvent, useState } from 'react';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { FormEvent, useState } from "react";
 import {
-    BiDownvote as DownvoteIcon, BiLoaderAlt as Loader, BiSolidDownvote as SolidDownvoteIcon,
-    BiSolidUpvote as SolidUpvoteIcon, BiUpvote as UpvoteIcon
-} from 'react-icons/bi';
-import { LuPencilLine as EditIcon } from 'react-icons/lu';
-import { MdDelete as DeleteIcon } from 'react-icons/md';
+  BiDownvote as DownvoteIcon,
+  BiLoaderAlt as Loader,
+  BiSolidDownvote as SolidDownvoteIcon,
+  BiSolidUpvote as SolidUpvoteIcon,
+  BiUpvote as UpvoteIcon,
+} from "react-icons/bi";
+import { LuPencilLine as EditIcon } from "react-icons/lu";
+import { MdDelete as DeleteIcon } from "react-icons/md";
 
 import {
-    AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription,
-    AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger
-} from '@/components/ui/alert-dialog';
-import { useUserStore } from '@/store/userStore';
-import { Comment } from '@/types/commentTypes';
-import fetcher from '@/utils/axios';
-import { Textarea } from '@nextui-org/react';
-import { useMutation } from '@tanstack/react-query';
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { useUserStore } from "@/store/userStore";
+import { Comment } from "@/types/commentTypes";
+import fetcher from "@/utils/axios";
+import { Textarea } from "@nextui-org/react";
+import { useMutation } from "@tanstack/react-query";
 
-import { Badge } from './ui/badge';
-import { Button } from './ui/button';
-import { toast } from './ui/use-toast';
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
+import { toast } from "./ui/use-toast";
 
 type CommentItemPropTypes = {
   comment: Comment;
@@ -162,7 +172,7 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
             )}
           </Link>
 
-          {comment.madeBy.username === userData?.username && !isUpdating && (
+          {comment.madeBy.userId === userData?._id && !isUpdating && (
             <div className="flex items-center gap-2 text-xs">
               <button onClick={() => setIsUpdating(true)}>
                 <Badge

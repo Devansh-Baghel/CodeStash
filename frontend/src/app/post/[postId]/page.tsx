@@ -1,34 +1,48 @@
 "use client";
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { CodeBlock, dracula } from 'react-code-blocks';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { CodeBlock, dracula } from "react-code-blocks";
 import {
-    BiDownvote as DownvoteIcon, BiSolidDownvote as SolidDownvoteIcon,
-    BiSolidUpvote as SolidUpvoteIcon, BiUpvote as UpvoteIcon
-} from 'react-icons/bi';
-import { LuPencilLine as EditIcon } from 'react-icons/lu';
-import { MdDelete as DeleteIcon } from 'react-icons/md';
+  BiDownvote as DownvoteIcon,
+  BiSolidDownvote as SolidDownvoteIcon,
+  BiSolidUpvote as SolidUpvoteIcon,
+  BiUpvote as UpvoteIcon,
+} from "react-icons/bi";
+import { LuPencilLine as EditIcon } from "react-icons/lu";
+import { MdDelete as DeleteIcon } from "react-icons/md";
 
-import BackButton from '@/components/BackButton';
-import Comments from '@/components/Comments';
-import CopyCodeButton from '@/components/CopyCodeButton';
-import PostSkeleton from '@/components/skeletons/PostSkeleton';
+import BackButton from "@/components/BackButton";
+import Comments from "@/components/Comments";
+import CopyCodeButton from "@/components/CopyCodeButton";
+import PostSkeleton from "@/components/skeletons/PostSkeleton";
 import {
-    AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription,
-    AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger
-} from '@/components/ui/alert-dialog';
-import { Button as ShadButton } from '@/components/ui/button';
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button as ShadButton } from "@/components/ui/button";
 import {
-    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
-} from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { useUserStore } from '@/store/userStore';
-import fetcher from '@/utils/axios';
-import { cardLayout } from '@/utils/classnames';
-import { Button } from '@nextui-org/react';
-import { useQuery } from '@tanstack/react-query';
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { useUserStore } from "@/store/userStore";
+import fetcher from "@/utils/axios";
+import { cardLayout } from "@/utils/classnames";
+import { Button } from "@nextui-org/react";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Post({ params }: { params: { postId: string } }) {
   const {
@@ -103,7 +117,7 @@ export default function Post({ params }: { params: { postId: string } }) {
     <section className={cn(cardLayout)}>
       <div className="flex items-center justify-between">
         <BackButton />
-        {post.madeBy.username === userData?.username && (
+        {post.madeBy.userId === userData?._id && (
           <div>
             <ShadButton
               className="text-sm text-black hover:text-primary"

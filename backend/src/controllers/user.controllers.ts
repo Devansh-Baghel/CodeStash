@@ -8,6 +8,9 @@ import { ApiError } from "../utils/apiError";
 import { ApiResponse } from "../utils/apiResponse";
 import { asyncHandler } from "../utils/asyncHandler";
 import { uploadOnCloudinary } from "../utils/cloudinary";
+import { Post } from "../models/post.model";
+import { Comment } from "../models/comment.model";
+import { Community } from "../models/community.model";
 
 const generateAccessAndRefreshTokens = async (userId: string) => {
   try {
@@ -174,6 +177,22 @@ export const updateUsername = asyncHandler(async (req: UserRequest, res) => {
   const userExists = await User.findOne({ username: newUsername });
   if (userExists)
     throw new ApiError(409, "User with this username already exists");
+
+  // Updating posts, comments and communities made by the user
+  await Post.updateMany(
+    { "madeBy.username": user?.username },
+    { $set: { "madeBy.username": newUsername } }
+  );
+
+  await Comment.updateMany(
+    { "madeBy.username": user?.username },
+    { $set: { "madeBy.username": newUsername } }
+  );
+
+  await Community.updateMany(
+    { "madeBy.username": user?.username },
+    { $set: { "madeBy.username": newUsername } }
+  );
 
   user!.username = newUsername;
   await user?.save();
