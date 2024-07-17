@@ -12,7 +12,6 @@ import { Label } from "@/components/ui/label";
 import fetcher from "@/utils/axios";
 import { FormEvent, useState } from "react";
 import { toast } from "./ui/use-toast";
-import { useUserStore } from "@/store/userStore";
 import { useMutation } from "@tanstack/react-query";
 
 export default function ChangePassword() {
@@ -22,15 +21,16 @@ export default function ChangePassword() {
     mutationKey: ["update-password"],
     mutationFn: () => {
       return fetcher
-        .patch("/users/update-username", {
-          newUsername,
+        .patch("/users/update-password", {
+          newPassword,
+          oldPassword,
         })
         .then((res) => {
           setOldPassword("");
           setNewPassword("");
 
           toast({
-            description: "Username updated successfully",
+            description: "Password updated successfully",
           });
         });
     },
@@ -52,20 +52,20 @@ export default function ChangePassword() {
       <CardContent>
         <form onSubmit={updatePassword} className="grid max-w-[400px] gap-4">
           <div>
-            <Label htmlFor="email">Old username</Label>
+            <Label htmlFor="old-password">Old Password</Label>
             <Input
-              id="old-username"
-              autoComplete="username"
+              id="old-password"
+              autoComplete="current-password"
               required
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
             />
           </div>
           <div>
-            <Label htmlFor="email">New username</Label>
+            <Label htmlFor="new-password">New Password</Label>
             <Input
-              id="username"
-              autoComplete="username"
+              id="new-password"
+              autoComplete="new-password"
               required
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
