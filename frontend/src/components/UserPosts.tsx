@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-import NotLoggedIn from "@/components/NotLoggedIn";
 import PostsNotFound from "@/components/PostsNotFound";
 import PostsLoading from "@/components/skeletons/PostsLoading";
 import {
@@ -22,44 +20,30 @@ import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 
-export default function SavedPosts({ hasTitle = true }) {
-  const { isLoggedIn, removeSavedPost, userData } = useUserStore();
-  const { data, isError, isLoading, refetch, isRefetchError, isRefetching } =
-    useQuery<PostTypes[]>({
-      queryKey: ["saved-posts"],
-      queryFn: async () => {
-        // FIXME: make sure to not run the query when user isn't logged in
-        // if (isLoggedIn) {
-        return await fetcher.get("/posts/get-saved-posts");
-        // } else return [];
-      },
-    });
+export default function UserPosts() {
+  const { userData } = useUserStore();
+  const { data, isError, isLoading } = useQuery<PostTypes[]>({
+    queryKey: ["user-posts"],
+    queryFn: () => {
+      return fetcher.post("/posts/get-posts-by-username", {
+        username: userData?.username,
+      });
+    },
+  });
 
   const router = useRouter();
 
-  if (!isLoggedIn) {
-    return (
-      <NotLoggedIn
-        title="Saved Posts"
-        description="Login or sign up to view your saved posts"
-      />
-    );
-  }
-
-  if (isError || isRefetchError) return "Error";
-  if (isLoading || isRefetching)
-    return <PostsLoading items={userData?.savedPosts.length || 2} />;
+  if (isError) return "Error";
+  if (isLoading) return <PostsLoading items={2} />;
 
   if (data?.length === 0) {
-    return <PostsNotFound description="You haven't saved any posts yet" />;
+    return <PostsNotFound description="You haven't created any posts yet" />;
   }
 
   return (
     <section className={cn(cardLayout)}>
-      {hasTitle && (
-        <h1 className="mb-4 text-2xl font-bold text-gray-600">Saved Posts</h1>
-      )}
-      <div className="flex flex-col gap-4">
+      {/* <h1 className="mb-4 text-2xl font-bold text-gray-600">Your Posts</h1> */}
+      <div className="flex flex-col gap-8">
         {data?.map((post) => (
           <Card key={post._id}>
             <CardHeader className="flex flex-row items-center gap-4">
@@ -92,17 +76,18 @@ export default function SavedPosts({ hasTitle = true }) {
               >
                 Show code
               </Button>
-              <Button
-                variant="flat"
-                color="primary"
-                className="w-full rounded-[20px]"
-                onClick={async () => {
-                  await removeSavedPost(post._id);
-                  refetch();
-                }}
-              >
-                Remove from saved
-              </Button>
+              {/* TODO: Maybe add a remove from upvotes button here? */}
+              {/* <Button
+              variant="flat"
+              color="primary"
+              className="w-full rounded-[20px]"
+              // onClick={async () => {
+              //   await removeSavedPost(post._id);
+              //   refetch();
+              // }}
+            >
+              Remove from saved
+            </Button> */}
             </CardFooter>
           </Card>
         ))}

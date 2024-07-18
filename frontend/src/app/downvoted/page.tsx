@@ -22,7 +22,7 @@ import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 
-export default function DownvotedPosts() {
+export default function DownvotedPosts({ hasTitle = true }) {
   const { isLoggedIn, userData } = useUserStore();
   const { data, isError, isLoading } = useQuery<PostTypes[]>({
     queryKey: ["downvoted-posts"],
@@ -54,7 +54,11 @@ export default function DownvotedPosts() {
 
   return (
     <section className={cn(cardLayout)}>
-      <h1 className="mb-4 text-2xl font-bold text-gray-600">Downvoted Posts</h1>
+      {hasTitle && (
+        <h1 className="mb-4 text-2xl font-bold text-gray-600">
+          Downvoted Posts
+        </h1>
+      )}
       <div className="flex flex-col gap-8">
         {data?.map((post) => (
           <Card key={post._id}>

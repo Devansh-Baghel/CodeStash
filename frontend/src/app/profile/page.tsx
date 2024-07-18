@@ -16,6 +16,7 @@ import { Tabs, Tab, Card as NextCard, CardBody } from "@nextui-org/react";
 import SavedPosts from "../saved/page";
 import UpvotedPosts from "../upvoted/page";
 import DownvotedPosts from "../downvoted/page";
+import UserPosts from "@/components/UserPosts";
 
 // TODO: This page should show the user's personal details, saved posts, etc (i.e. everything that is publically visible + everything that is NOT publically visible)
 export default function Profile() {
@@ -61,14 +62,17 @@ export default function Profile() {
           variant="underlined"
           color="primary"
         >
+          <Tab key="your-posts" title="Your Posts">
+            <UserPosts />
+          </Tab>
           <Tab key="saved" title="Saved Posts">
-            <SavedPosts />
+            <SavedPosts hasTitle={false} />
           </Tab>
           <Tab key="upvoted" title="Upvoted Posts">
-            <UpvotedPosts />
+            <UpvotedPosts hasTitle={false} />
           </Tab>
           <Tab key="downvoted" title="Downvoted Posts">
-            <DownvotedPosts />
+            <DownvotedPosts hasTitle={false} />
           </Tab>
         </Tabs>
       </div>
