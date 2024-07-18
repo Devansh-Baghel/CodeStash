@@ -15,6 +15,7 @@ import { toast } from "./ui/use-toast";
 import { useUserStore } from "@/store/userStore";
 import { useMutation } from "@tanstack/react-query";
 
+// TODO: check if username is available, if not: send a toast to say "Username taken"
 export default function UpdateUsername() {
   const [newUsername, setNewUsername] = useState("");
   const { setUserData } = useUserStore();
