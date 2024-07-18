@@ -1,10 +1,22 @@
-import { Router } from 'express';
+import { Router } from "express";
 
 import {
-    createPost, deletePost, downvotePost, getDownvotedPosts, getPost, getPosts, getPostsByLang,
-    getSavedPosts, getUpvotedPosts, removeSavedPost, savePost, updatePost, upvotePost
-} from '../controllers/post.controllers';
-import { verifyJWT } from '../middlewares/auth.middleware';
+  createPost,
+  deletePost,
+  downvotePost,
+  getDownvotedPosts,
+  getPost,
+  getPosts,
+  getPostsByLang,
+  getPostsByUsername,
+  getSavedPosts,
+  getUpvotedPosts,
+  removeSavedPost,
+  savePost,
+  updatePost,
+  upvotePost,
+} from "../controllers/post.controllers";
+import { verifyJWT } from "../middlewares/auth.middleware";
 
 const router = Router();
 
@@ -12,6 +24,7 @@ const router = Router();
 router.route("/get-posts").get(getPosts);
 router.route("/get-posts-by-language").post(getPostsByLang);
 router.route("/get-post").post(getPost);
+router.route("/get-posts-by-username").post(getPostsByUsername);
 
 // secure posts
 router.route("/create-post").post(verifyJWT, createPost);

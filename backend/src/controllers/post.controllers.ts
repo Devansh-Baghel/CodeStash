@@ -6,6 +6,7 @@ import { UserRequest } from "../types/userTypes";
 import { ApiError } from "../utils/apiError";
 import { ApiResponse } from "../utils/apiResponse";
 import { asyncHandler } from "../utils/asyncHandler";
+import { User } from "../models/user.model";
 
 export const getPosts = asyncHandler(async (req: Request, res: Response) => {
   // TODO: don't send the post.content to client, cause the coed can be very large
@@ -45,6 +46,22 @@ export const getPostsByLang = asyncHandler(
 
     const posts = await Post.find({ language });
     if (!posts) throw new ApiError(404, "There aren't any posts");
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, posts, "Posts got successfully"));
+  }
+);
+
+export const getPostsByUsername = asyncHandler(
+  async (req: UserRequest, res: Response) => {
+    const { username } = req.body;
+    if (!username) throw new ApiError(400, "Username is required");
+
+    const findUser = await User.findOne({ username });
+    if (!findUser) throw new ApiError(404, "User not found");
+
+    const posts = await Post.find({ "madeBy.username": username });
 
     return res
       .status(200)
