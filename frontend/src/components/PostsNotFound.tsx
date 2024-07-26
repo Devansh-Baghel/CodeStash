@@ -1,11 +1,11 @@
-import { useRouter } from 'next/navigation';
-import React from 'react';
+import { useRouter } from "next/navigation";
+import React from "react";
 
-import { cn } from '@/lib/utils';
-import { cardLayout } from '@/utils/classnames';
-import { Button } from '@nextui-org/react';
+import { cn } from "@/lib/utils";
+import { cardLayout } from "@/utils/classnames";
+import { Button } from "@nextui-org/react";
 
-import { Card, CardContent, CardHeader } from './ui/card';
+import { Card, CardContent, CardHeader } from "./ui/card";
 
 function PostsNotFound({ description }: { description: string }) {
   const router = useRouter();

@@ -1,10 +1,10 @@
-import { NextFunction, Response } from 'express';
-import jwt from 'jsonwebtoken';
+import { NextFunction, Response } from "express";
+import jwt from "jsonwebtoken";
 
-import { User } from '../models/user.model';
-import { UserRequest } from '../types/userTypes';
-import { ApiError } from '../utils/apiError';
-import { asyncHandler } from '../utils/asyncHandler';
+import { User } from "../models/user.model";
+import { UserRequest } from "../types/userTypes";
+import { ApiError } from "../utils/apiError";
+import { asyncHandler } from "../utils/asyncHandler";
 
 interface JwtPayload {
   _id: string;

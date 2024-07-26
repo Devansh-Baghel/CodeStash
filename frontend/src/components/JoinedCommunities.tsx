@@ -1,10 +1,10 @@
-import { useRouter } from 'next/navigation';
-import { BiMessageDots as MessageIcon } from 'react-icons/bi';
-import { FaUserGroup as PeopleIcon } from 'react-icons/fa6';
+import { useRouter } from "next/navigation";
+import { BiMessageDots as MessageIcon } from "react-icons/bi";
+import { FaUserGroup as PeopleIcon } from "react-icons/fa6";
 
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { useUserStore } from '@/store/userStore';
-import { Accordion, AccordionItem, Button } from '@nextui-org/react';
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useUserStore } from "@/store/userStore";
+import { Accordion, AccordionItem, Button } from "@nextui-org/react";
 
 function JoinedCommunities() {
   const { userData } = useUserStore();

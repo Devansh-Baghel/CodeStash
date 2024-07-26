@@ -1,9 +1,9 @@
-import { Comment } from '../models/comment.model';
-import { Post } from '../models/post.model';
-import { UserRequest } from '../types/userTypes';
-import { ApiError } from '../utils/apiError';
-import { ApiResponse } from '../utils/apiResponse';
-import { asyncHandler } from '../utils/asyncHandler';
+import { Comment } from "../models/comment.model";
+import { Post } from "../models/post.model";
+import { UserRequest } from "../types/userTypes";
+import { ApiError } from "../utils/apiError";
+import { ApiResponse } from "../utils/apiResponse";
+import { asyncHandler } from "../utils/asyncHandler";
 
 export const getComments = asyncHandler(async (req, res) => {
   const { postId } = req.body;
@@ -72,7 +72,7 @@ export const upvoteComment = asyncHandler(async (req: UserRequest, res) => {
     });
 
     user.upvotedComments = user.upvotedComments.filter(
-      (item) => item.toString() !== commentId
+      (item) => item.toString() !== commentId,
     );
 
     await user.save();
@@ -83,8 +83,8 @@ export const upvoteComment = asyncHandler(async (req: UserRequest, res) => {
         new ApiResponse(
           200,
           { updatedComment, user },
-          "Comment was already upvoted, so removed it from upvotedComments"
-        )
+          "Comment was already upvoted, so removed it from upvotedComments",
+        ),
       );
   }
 
@@ -96,7 +96,7 @@ export const upvoteComment = asyncHandler(async (req: UserRequest, res) => {
       $inc: { upvotes: +1, downvotes: -1 },
     });
     user.downvotedComments = user.downvotedComments.filter(
-      (item) => item.toString() !== commentId
+      (item) => item.toString() !== commentId,
     );
   } else {
     updatedComment = await Comment.findByIdAndUpdate(commentId, {
@@ -117,8 +117,8 @@ export const upvoteComment = asyncHandler(async (req: UserRequest, res) => {
       new ApiResponse(
         200,
         { updatedComment, user },
-        "Post upvoted successfully"
-      )
+        "Post upvoted successfully",
+      ),
     );
 });
 
@@ -137,7 +137,7 @@ export const downvoteComment = asyncHandler(async (req: UserRequest, res) => {
     });
 
     user.downvotedComments = user.downvotedComments.filter(
-      (item) => item.toString() !== commentId
+      (item) => item.toString() !== commentId,
     );
 
     await user.save();
@@ -148,8 +148,8 @@ export const downvoteComment = asyncHandler(async (req: UserRequest, res) => {
         new ApiResponse(
           200,
           { updatedComment, user },
-          "Comment was downvoted already, so removing the downvote instead"
-        )
+          "Comment was downvoted already, so removing the downvote instead",
+        ),
       );
   }
 
@@ -162,7 +162,7 @@ export const downvoteComment = asyncHandler(async (req: UserRequest, res) => {
     });
 
     user.upvotedComments = user.upvotedComments.filter(
-      (item) => item.toString() !== commentId
+      (item) => item.toString() !== commentId,
     );
   } else {
     updatedComment = await Comment.findByIdAndUpdate(commentId, {
@@ -183,8 +183,8 @@ export const downvoteComment = asyncHandler(async (req: UserRequest, res) => {
       new ApiResponse(
         200,
         { updatedComment, user },
-        "Post downvoted successfully"
-      )
+        "Post downvoted successfully",
+      ),
     );
 });
 

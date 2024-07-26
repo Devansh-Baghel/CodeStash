@@ -1,17 +1,24 @@
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import {
-    BiDownvote as DownvoteIcon, BiSolidDownvote as SolidDownvoteIcon,
-    BiSolidUpvote as SolidUpvoteIcon, BiUpvote as UpvoteIcon
-} from 'react-icons/bi';
+  BiDownvote as DownvoteIcon,
+  BiSolidDownvote as SolidDownvoteIcon,
+  BiSolidUpvote as SolidUpvoteIcon,
+  BiUpvote as UpvoteIcon,
+} from "react-icons/bi";
 
 import {
-    Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle
-} from '@/components/ui/card';
-import { useUserStore } from '@/store/userStore';
-import { PostTypes } from '@/types/postTypes';
-import { Button } from '@nextui-org/react';
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useUserStore } from "@/store/userStore";
+import { PostTypes } from "@/types/postTypes";
+import { Button } from "@nextui-org/react";
 
 export default function PostItem({ post }: { post: PostTypes }) {
   const router = useRouter();

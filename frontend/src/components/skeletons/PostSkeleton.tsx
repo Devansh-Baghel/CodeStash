@@ -1,8 +1,14 @@
-import { cn } from '@/lib/utils';
-import { cardLayout } from '@/utils/classnames';
-import { Button, Skeleton } from '@nextui-org/react';
+import { cn } from "@/lib/utils";
+import { cardLayout } from "@/utils/classnames";
+import { Button, Skeleton } from "@nextui-org/react";
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 
 export default function PostSkeleton() {
   return (

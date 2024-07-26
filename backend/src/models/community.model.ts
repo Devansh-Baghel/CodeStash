@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface CommunityTypes extends Document {
   madeBy: {
@@ -46,7 +46,7 @@ const communitySchema: Schema<CommunityTypes> = new Schema(
     coverImage: { type: String },
     avatar: { type: String },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Community = mongoose.model("Community", communitySchema);

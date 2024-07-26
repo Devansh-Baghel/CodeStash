@@ -1,6 +1,6 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
-import { CommentTypes } from './comment.model';
+import { CommentTypes } from "./comment.model";
 
 export const allowedLanguages = [
   "javascript",
@@ -75,7 +75,7 @@ const postSchema: Schema<PostTypes> = new Schema(
     upvotes: { type: Number, default: 0 },
     downvotes: { type: Number, default: 0 },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Post = mongoose.model<PostTypes>("Post", postSchema);

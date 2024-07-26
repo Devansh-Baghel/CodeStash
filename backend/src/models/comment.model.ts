@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface CommentTypes extends Document {
   madeBy: {
@@ -56,7 +56,7 @@ const commentSchema: Schema<CommentTypes> = new Schema(
       default: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Comment = mongoose.model("Comment", commentSchema);

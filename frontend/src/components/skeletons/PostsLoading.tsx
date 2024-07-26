@@ -1,7 +1,13 @@
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { cardLayout } from '@/utils/classnames';
-import { Button, Skeleton } from '@nextui-org/react';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { cardLayout } from "@/utils/classnames";
+import { Button, Skeleton } from "@nextui-org/react";
 
 export default function PostsLoading({ items }: { items?: number }) {
   const itemCount = items ? items : 4;

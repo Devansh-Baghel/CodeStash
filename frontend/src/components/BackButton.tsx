@@ -1,7 +1,7 @@
-import { useRouter } from 'next/navigation';
-import { IoMdArrowRoundBack as BackIcon } from 'react-icons/io';
+import { useRouter } from "next/navigation";
+import { IoMdArrowRoundBack as BackIcon } from "react-icons/io";
 
-import { Button } from '@nextui-org/react';
+import { Button } from "@nextui-org/react";
 
 export default function () {
   const router = useRouter();
