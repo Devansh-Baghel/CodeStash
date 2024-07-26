@@ -1,6 +1,6 @@
 import { create } from "zustand";
-
 import fetcher, { axiosInstance } from "@/utils/axios";
+import toast from "react-hot-toast";
 
 interface UserState {
   isLoggedIn: boolean;
@@ -81,10 +81,18 @@ export const useUserStore = create<UserState>()((set, get) => ({
         get().loginUser({ email, password });
       });
   },
-  loginUser: async ({ email, password }) => {
-    await fetcher.post("/users/login", { email, password }).then((res) => {
-      set(() => ({ userData: res.user }));
-      set(() => ({ isLoggedIn: true }));
+  loginUser: ({ email, password }) => {
+    const loginToastPromise = fetcher
+      .post("/users/login", { email, password })
+      .then((res) => {
+        set(() => ({ userData: res.user }));
+        set(() => ({ isLoggedIn: true }));
+      });
+
+    toast.promise(loginToastPromise, {
+      loading: "Logging in...",
+      success: "Login successful",
+      error: "Failed to login",
     });
   },
   logoutUser: async () => {
