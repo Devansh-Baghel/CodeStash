@@ -18,10 +18,6 @@ export default function SideBar() {
   const { isLoggedIn, logoutUser, loginUser } = useUserStore();
   const router = useRouter();
 
-  function handleLogout() {
-    logoutUser();
-  }
-
   // FIXME: add a better demo user
   function loginDemoUser() {
     loginUser({ email: "test@test.com", password: "test" });
@@ -99,7 +95,7 @@ export default function SideBar() {
             className="flex w-full justify-normal hover:text-danger-500"
             radius="md"
             color="primary"
-            onClick={handleLogout}
+            onClick={logoutUser}
           >
             <LogoutIcon className="ml-4 text-lg" />
             Logout

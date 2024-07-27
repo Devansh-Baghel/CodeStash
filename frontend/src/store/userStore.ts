@@ -97,21 +97,21 @@ export const useUserStore = create<UserState>()((set, get) => ({
 
     toast.promise(loginToastPromise, {
       loading: "Logging in...",
-      success: "Login successful",
+      success: "Logged in successfully",
       error: "Failed to login",
     });
   },
-  logoutUser: async () => {
-    const logoutUserPromise = fetcher.post("/users/logout").then(() => {
+  logoutUser: () => {
+    const logoutToastPromise = fetcher.post("/users/logout").then(() => {
       set(() => ({ isLoggedIn: false }));
       set(() => ({ userData: null }));
     });
 
-    toast.promise(logoutUserPromise, {
+    toast.promise(logoutToastPromise, {
       loading: "Logging out...",
       success: "Logged out successfully",
-      error: "Failed to log out"
-    })
+      error: "Failed to logout",
+    });
   },
   upvotePost: async (postId) => {
     await fetcher.patch(`/posts/upvote`, { postId }).then((res) => {
@@ -149,16 +149,31 @@ export const useUserStore = create<UserState>()((set, get) => ({
       set(() => ({ userData: res.user }));
     });
   },
-  savePost: async (postId) => {
-    await fetcher.post("/posts/save", { postId }).then((res) => {
-      console.log(res);
-      set(() => ({ userData: res.user }));
+  savePost: (postId) => {
+    const savePostToastPromise = fetcher
+      .post("/posts/save", { postId })
+      .then((res) => {
+        set(() => ({ userData: res.user }));
+      });
+
+    toast.promise(savePostToastPromise, {
+      loading: "Saving post...",
+      success: "Saved post successfully",
+      error: "Error saving post",
     });
   },
-  removeSavedPost: async (postId) => {
-    await fetcher.patch("/posts/remove-saved-post", { postId }).then((res) => {
-      console.log(res);
-      set(() => ({ userData: res.user }));
+  removeSavedPost: (postId) => {
+    const removeSavedPostPromise = fetcher
+      .patch("/posts/remove-saved-post", { postId })
+      .then((res) => {
+        console.log(res);
+        set(() => ({ userData: res.user }));
+      });
+
+    toast.promise(removeSavedPostPromise, {
+      loading: "Removing post from saved...",
+      success: "Removed post from saved",
+      error: "Error removing post from saved",
     });
   },
 }));

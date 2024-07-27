@@ -43,6 +43,7 @@ import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 export default function Post({ params }: { params: { postId: string } }) {
   const {
@@ -104,9 +105,17 @@ export default function Post({ params }: { params: { postId: string } }) {
     }
   }
 
-  async function deletePost() {
-    await fetcher.post("/posts/delete-post", { postId: post._id }).then(() => {
-      router.push("/");
+  function deletePost() {
+    const deletePostPromise = fetcher
+      .post("/posts/delete-post", { postId: post._id })
+      .then(() => {
+        router.push("/");
+      });
+
+    toast.promise(deletePostPromise, {
+      loading: "Deleting post...",
+      success: "Deleted post successfully",
+      error: "Failed to delete post",
     });
   }
 
