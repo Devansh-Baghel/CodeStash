@@ -137,16 +137,32 @@ export const useUserStore = create<UserState>()((set, get) => ({
       set(() => ({ userData: res.user }));
     });
   },
-  joinCommunity: async (name) => {
-    await fetcher.post("/community/join", { community: name }).then((res) => {
-      console.log(res);
-      set(() => ({ userData: res.user }));
+  joinCommunity: (name) => {
+    const joinCommunityPromise = fetcher
+      .post("/community/join", { community: name })
+      .then((res) => {
+        console.log(res);
+        set(() => ({ userData: res.user }));
+      });
+
+    toast.promise(joinCommunityPromise, {
+      loading: `Joining c/${name}`,
+      success: `Joined c/${name} successfully`,
+      error: `Failed to join c/${name}`,
     });
   },
-  leaveCommunity: async (name) => {
-    await fetcher.post("/community/leave", { community: name }).then((res) => {
-      console.log(res);
-      set(() => ({ userData: res.user }));
+  leaveCommunity: (name) => {
+    const leaveCommunityPromise = fetcher
+      .post("/community/leave", { community: name })
+      .then((res) => {
+        console.log(res);
+        set(() => ({ userData: res.user }));
+      });
+
+    toast.promise(leaveCommunityPromise, {
+      loading: `Leaving c/${name}`,
+      success: `Left c/${name} successfully`,
+      error: `Failed to leave c/${name}`,
     });
   },
   savePost: (postId) => {
