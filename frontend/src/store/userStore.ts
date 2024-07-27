@@ -70,7 +70,7 @@ export const useUserStore = create<UserState>()((set, get) => ({
       });
   },
   registerUser: async ({ firstName, lastName, email, password }) => {
-    await fetcher
+    const registerUserPromise = fetcher
       .post("/users/register", {
         firstName,
         lastName,
@@ -80,6 +80,12 @@ export const useUserStore = create<UserState>()((set, get) => ({
       .then(() => {
         get().loginUser({ email, password });
       });
+
+    toast.promise(registerUserPromise, {
+      loading: "Signing up...",
+      success: "Sign up successful",
+      error: "Failed to sign up",
+    });
   },
   loginUser: ({ email, password }) => {
     const loginToastPromise = fetcher
@@ -96,10 +102,16 @@ export const useUserStore = create<UserState>()((set, get) => ({
     });
   },
   logoutUser: async () => {
-    await fetcher.post("/users/logout").then(() => {
+    const logoutUserPromise = fetcher.post("/users/logout").then(() => {
       set(() => ({ isLoggedIn: false }));
       set(() => ({ userData: null }));
     });
+
+    toast.promise(logoutUserPromise, {
+      loading: "Logging out...",
+      success: "Logged out successfully",
+      error: "Failed to log out"
+    })
   },
   upvotePost: async (postId) => {
     await fetcher.patch(`/posts/upvote`, { postId }).then((res) => {
