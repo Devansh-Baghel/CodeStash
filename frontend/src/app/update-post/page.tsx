@@ -93,7 +93,8 @@ export default function UpdatePost() {
     if (!language) {
       toast({
         title: "Programming language not selected",
-        description: "Please selected a programming language to create a post",
+        description:
+          "Please select a programming language to update this post",
       });
       return;
     }
@@ -114,7 +115,12 @@ export default function UpdatePost() {
   }
 
   if (!isLoggedIn) {
-    return <NotLoggedIn description="Login or sign up to update posts" />;
+    return (
+      <NotLoggedIn
+        title="Update Post"
+        description="Login or sign up to update posts"
+      />
+    );
   }
 
   // TODO: add better looking error here

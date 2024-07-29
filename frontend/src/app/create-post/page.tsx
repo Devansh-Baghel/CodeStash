@@ -54,7 +54,7 @@ export default function CreatePost() {
     if (!language) {
       toast({
         title: "Programming language not selected",
-        description: "Please selected a programming language to create a post",
+        description: "Please select a programming language to create a post",
       });
       return;
     }

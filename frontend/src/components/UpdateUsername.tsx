@@ -11,9 +11,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import fetcher from "@/utils/axios";
 import { FormEvent, useState } from "react";
-import { toast } from "./ui/use-toast";
 import { useUserStore } from "@/store/userStore";
 import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 // TODO: check if username is available, if not: send a toast to say "Username taken"
 export default function UpdateUsername() {
@@ -22,18 +22,22 @@ export default function UpdateUsername() {
   const { mutate, isPending } = useMutation({
     mutationKey: ["update-username"],
     mutationFn: () => {
-      return fetcher
+      const updateUsernamePromise = fetcher
         .patch("/users/update-username", {
           newUsername,
         })
         .then((res) => {
           setUserData(res.updatedUser);
           setNewUsername("");
-
-          toast({
-            description: "Username updated successfully",
-          });
         });
+
+      toast.promise(updateUsernamePromise, {
+        loading: "Updating username...",
+        success: "Username updated successfully",
+        error: "Failed to update username",
+      });
+
+      return updateUsernamePromise;
     },
   });
 
