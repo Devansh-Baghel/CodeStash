@@ -30,7 +30,7 @@ export const createCommunity = asyncHandler(async (req: UserRequest, res) => {
   if (!community) {
     throw new ApiError(
       500,
-      "Something went wrong while creating the community",
+      "Something went wrong while creating the community"
     );
   }
 
@@ -44,8 +44,8 @@ export const createCommunity = asyncHandler(async (req: UserRequest, res) => {
       new ApiResponse(
         201,
         { user, community },
-        "Community created successfully",
-      ),
+        "Community created successfully"
+      )
     );
 });
 
@@ -62,14 +62,14 @@ export const getCommunity = asyncHandler(async (req, res) => {
   if (!name)
     throw new ApiError(400, "Community name is required to get it's details");
 
-  const community = await Community.find({ name });
-  if (!community || community.length === 0)
+  const community = await Community.findOne({ name });
+  if (!community)
     throw new ApiError(404, "Community with this name does not exist");
 
   return res
     .status(200)
     .json(
-      new ApiResponse(200, community, "Community details sent successfully"),
+      new ApiResponse(200, community, "Community details sent successfully")
     );
 });
 
@@ -86,7 +86,7 @@ export const joinCommunity = asyncHandler(async (req: UserRequest, res) => {
 
   const updatedCommunity = await Community.findOneAndUpdate(
     { name: community },
-    { $inc: { joinedMembers: +1 } },
+    { $inc: { joinedMembers: +1 } }
   );
 
   if (!updatedCommunity)
@@ -101,8 +101,8 @@ export const joinCommunity = asyncHandler(async (req: UserRequest, res) => {
       new ApiResponse(
         200,
         { updatedCommunity, user },
-        "Community joined successfully",
-      ),
+        "Community joined successfully"
+      )
     );
 });
 
@@ -115,17 +115,17 @@ export const leaveCommunity = asyncHandler(async (req: UserRequest, res) => {
   if (!user?.communitiesJoined.includes(community)) {
     throw new ApiError(
       400,
-      "You haven't joined this community yet, can't remove",
+      "You haven't joined this community yet, can't remove"
     );
   }
 
   const updatedCommunity = await Community.findOneAndUpdate(
     { name: community },
-    { $inc: { joinedMembers: -1 } },
+    { $inc: { joinedMembers: -1 } }
   );
 
   user.communitiesJoined = user.communitiesJoined.filter(
-    (item) => item !== community,
+    (item) => item !== community
   );
 
   await user?.save();
@@ -136,8 +136,8 @@ export const leaveCommunity = asyncHandler(async (req: UserRequest, res) => {
       new ApiResponse(
         200,
         { updatedCommunity, user },
-        "Left the community successfully",
-      ),
+        "Left the community successfully"
+      )
     );
 });
 
@@ -160,14 +160,14 @@ export const uploadAvatar = asyncHandler(async (req: UserRequest, res) => {
   if (community.madeBy.username !== user?.username) {
     throw new ApiError(
       401,
-      "You are not authorized to change the avatar image of this community",
+      "You are not authorized to change the avatar image of this community"
     );
   }
 
   const updatedCommunity = await Community.findByIdAndUpdate(
     community._id,
     { avatar: avatar.url },
-    { new: true },
+    { new: true }
   );
 
   if (!updatedCommunity)
@@ -179,8 +179,8 @@ export const uploadAvatar = asyncHandler(async (req: UserRequest, res) => {
       new ApiResponse(
         200,
         { community: updatedCommunity },
-        "Avatar uploaded sucessfully",
-      ),
+        "Avatar uploaded sucessfully"
+      )
     );
 });
 
@@ -204,14 +204,14 @@ export const uploadCoverImage = asyncHandler(async (req: UserRequest, res) => {
   if (community.madeBy.username !== user?.username) {
     throw new ApiError(
       401,
-      "You are not authorized to change the cover image of this community",
+      "You are not authorized to change the cover image of this community"
     );
   }
 
   const updatedCommunity = await Community.findByIdAndUpdate(
     community._id,
     { coverImage: coverImage.url },
-    { new: true },
+    { new: true }
   );
 
   if (!updatedCommunity)
@@ -223,7 +223,7 @@ export const uploadCoverImage = asyncHandler(async (req: UserRequest, res) => {
       new ApiResponse(
         200,
         { community: updatedCommunity },
-        "Cover image uploaded sucessfully",
-      ),
+        "Cover image uploaded sucessfully"
+      )
     );
 });
