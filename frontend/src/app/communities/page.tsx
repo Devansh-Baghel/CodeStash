@@ -21,6 +21,8 @@ export type CommunityTypes = {
   name: string;
   description: string;
   joinedMembers: number;
+  avatar: string;
+  coverImage: string;
 };
 
 export default function Communities() {
