@@ -1,6 +1,7 @@
 "use client";
 
 import { CommunityTypes } from "@/app/communities/page";
+import CommunityPosts from "@/components/CommunityPosts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import fetcher from "@/utils/axios";

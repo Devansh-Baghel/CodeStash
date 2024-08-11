@@ -7,6 +7,7 @@ import { ApiError } from "../utils/apiError";
 import { ApiResponse } from "../utils/apiResponse";
 import { asyncHandler } from "../utils/asyncHandler";
 import { User } from "../models/user.model";
+import { Community } from "../models/community.model";
 
 export const getPosts = asyncHandler(async (req: Request, res: Response) => {
   // TODO: don't send the post.content to client, cause the coed can be very large
@@ -50,7 +51,7 @@ export const getPostsByLang = asyncHandler(
     return res
       .status(200)
       .json(new ApiResponse(200, posts, "Posts got successfully"));
-  },
+  }
 );
 
 export const getPostsByUsername = asyncHandler(
@@ -65,9 +66,25 @@ export const getPostsByUsername = asyncHandler(
 
     return res
       .status(200)
-      .json(new ApiResponse(200, posts, "Posts got successfully"));
-  },
+      .json(new ApiResponse(200, posts, "Posts sent successfully"));
+  }
 );
+
+export const getPostsByCommunity = asyncHandler(async (req, res) => {
+  const { community } = req.body;
+  if (!community)
+    throw new ApiError(400, "Name of community is required to get posts");
+
+  const findCommunity = await Community.findOne({ name: community });
+  if (!findCommunity)
+    throw new ApiError(404, "Community with this name does not exist");
+
+  const posts = await Post.find({ community });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, posts, "Posts sent successfully"));
+});
 
 export const createPost = asyncHandler(
   async (req: UserRequest, res: Response) => {
@@ -93,10 +110,10 @@ export const createPost = asyncHandler(
         new ApiResponse(
           200,
           post,
-          `Post created successfully in c/${community}`,
-        ),
+          `Post created successfully in c/${community}`
+        )
       );
-  },
+  }
 );
 
 export const upvotePost = asyncHandler(async (req: UserRequest, res) => {
@@ -114,7 +131,7 @@ export const upvotePost = asyncHandler(async (req: UserRequest, res) => {
     });
 
     user.upvotedPosts = user.upvotedPosts.filter(
-      (item) => item.toString() !== postId,
+      (item) => item.toString() !== postId
     );
 
     await user.save();
@@ -125,8 +142,8 @@ export const upvotePost = asyncHandler(async (req: UserRequest, res) => {
         new ApiResponse(
           200,
           { updatedPost, user },
-          "Post was already upvoted, so removed it from upvotedPosts",
-        ),
+          "Post was already upvoted, so removed it from upvotedPosts"
+        )
       );
   }
 
@@ -138,7 +155,7 @@ export const upvotePost = asyncHandler(async (req: UserRequest, res) => {
       $inc: { upvotes: +1, downvotes: -1 },
     });
     user.downvotedPosts = user.downvotedPosts.filter(
-      (item) => item.toString() !== postId,
+      (item) => item.toString() !== postId
     );
   } else {
     updatedPost = await Post.findByIdAndUpdate(postId, {
@@ -156,7 +173,7 @@ export const upvotePost = asyncHandler(async (req: UserRequest, res) => {
   return res
     .status(200)
     .json(
-      new ApiResponse(200, { updatedPost, user }, "Post upvoted successfully"),
+      new ApiResponse(200, { updatedPost, user }, "Post upvoted successfully")
     );
 });
 
@@ -175,7 +192,7 @@ export const downvotePost = asyncHandler(async (req: UserRequest, res) => {
     });
 
     user.downvotedPosts = user.downvotedPosts.filter(
-      (item) => item.toString() !== postId,
+      (item) => item.toString() !== postId
     );
 
     await user.save();
@@ -186,8 +203,8 @@ export const downvotePost = asyncHandler(async (req: UserRequest, res) => {
         new ApiResponse(
           200,
           { updatedPost, user },
-          "Post was downvoted already, so removing the downvote instead",
-        ),
+          "Post was downvoted already, so removing the downvote instead"
+        )
       );
   }
 
@@ -200,7 +217,7 @@ export const downvotePost = asyncHandler(async (req: UserRequest, res) => {
     });
 
     user.upvotedPosts = user.upvotedPosts.filter(
-      (item) => item.toString() !== postId,
+      (item) => item.toString() !== postId
     );
   } else {
     updatedPost = await Post.findByIdAndUpdate(postId, {
@@ -218,11 +235,7 @@ export const downvotePost = asyncHandler(async (req: UserRequest, res) => {
   return res
     .status(200)
     .json(
-      new ApiResponse(
-        200,
-        { updatedPost, user },
-        "Post downvoted successfully",
-      ),
+      new ApiResponse(200, { updatedPost, user }, "Post downvoted successfully")
     );
 });
 
@@ -272,7 +285,7 @@ export const removeSavedPost = asyncHandler(async (req: UserRequest, res) => {
   }
 
   user.savedPosts = user.savedPosts.filter(
-    (item) => item.toString() !== postId,
+    (item) => item.toString() !== postId
   );
 
   await user.save();
@@ -298,7 +311,7 @@ export const getUpvotedPosts = asyncHandler(async (req: UserRequest, res) => {
   return res
     .status(200)
     .json(
-      new ApiResponse(200, upvotedPosts, "Upvoted posts sent successfully"),
+      new ApiResponse(200, upvotedPosts, "Upvoted posts sent successfully")
     );
 });
 
@@ -318,7 +331,7 @@ export const getDownvotedPosts = asyncHandler(async (req: UserRequest, res) => {
   return res
     .status(200)
     .json(
-      new ApiResponse(200, downvotedPosts, "Downvoted posts sent successfully"),
+      new ApiResponse(200, downvotedPosts, "Downvoted posts sent successfully")
     );
 });
 
@@ -334,7 +347,7 @@ export const deletePost = asyncHandler(async (req: UserRequest, res) => {
   if (postToDelete?.madeBy.username !== user?.username) {
     throw new ApiError(
       401,
-      "Cannot delete post as this post hasn't been created by you",
+      "Cannot delete post as this post hasn't been created by you"
     );
   }
 
@@ -358,7 +371,7 @@ export const updatePost = asyncHandler(async (req: UserRequest, res) => {
   if (post.madeBy.username !== user?.username) {
     throw new ApiError(
       401,
-      "Cannot update post as this post hasn't been created by you",
+      "Cannot update post as this post hasn't been created by you"
     );
   }
 

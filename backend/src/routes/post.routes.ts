@@ -7,6 +7,7 @@ import {
   getDownvotedPosts,
   getPost,
   getPosts,
+  getPostsByCommunity,
   getPostsByLang,
   getPostsByUsername,
   getSavedPosts,
@@ -25,6 +26,7 @@ router.route("/get-posts").get(getPosts);
 router.route("/get-posts-by-language").post(getPostsByLang);
 router.route("/get-post").post(getPost);
 router.route("/get-posts-by-username").post(getPostsByUsername);
+router.route("/get-posts-by-community").post(getPostsByCommunity);
 
 // secure posts
 router.route("/create-post").post(verifyJWT, createPost);
