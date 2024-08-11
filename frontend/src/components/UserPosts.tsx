@@ -64,8 +64,8 @@ export default function UserPosts() {
             <CardFooter className="flex flex-col gap-2">
               <p>
                 Posted in{" "}
-                <Link href={`/c/${post.language}`} className="underline">
-                  c/{post.language}
+                <Link href={`/c/${post.community}`} className="underline">
+                  c/{post.community}
                 </Link>{" "}
                 community
               </p>

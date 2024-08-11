@@ -12,20 +12,26 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import { useUserStore } from "@/store/userStore";
 import { PostTypes } from "@/types/postTypes";
 import fetcher from "@/utils/axios";
-import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
+import { cn } from "@/lib/utils";
+import { cardLayout } from "@/utils/classnames";
 
-export default function CommunityPosts() {
+export default function CommunityPosts({
+  communityName,
+}: {
+  communityName: string;
+}) {
   const { userData } = useUserStore();
   const { data, isError, isLoading } = useQuery<PostTypes[]>({
-    queryKey: ["upvoted-posts"],
+    queryKey: [`c/${communityName}/posts`],
     queryFn: async () => {
-      return await fetcher.get("/community/get-upvoted");
+      return await fetcher.post("/posts/get-posts-by-community", {
+        community: communityName,
+      });
     },
   });
 
@@ -42,7 +48,7 @@ export default function CommunityPosts() {
   }
 
   return (
-    <section className={cn(cardLayout)}>
+    <section className={cn(cardLayout, "my-6")}>
       <div className="flex flex-col gap-8">
         {data?.map((post) => (
           <Card key={post._id}>
@@ -64,8 +70,8 @@ export default function CommunityPosts() {
             <CardFooter className="flex flex-col gap-2">
               <p>
                 Posted in{" "}
-                <Link href={`/c/${post.language}`} className="underline">
-                  c/{post.language}
+                <Link href={`/c/${post.community}`} className="underline">
+                  c/{post.community}
                 </Link>{" "}
                 community
               </p>
@@ -76,18 +82,6 @@ export default function CommunityPosts() {
               >
                 Show code
               </Button>
-              {/* TODO: Maybe add a remove from upvotes button here? */}
-              {/* <Button
-              variant="flat"
-              color="primary"
-              className="w-full rounded-[20px]"
-              // onClick={async () => {
-              //   await removeSavedPost(post._id);
-              //   refetch();
-              // }}
-            >
-              Remove from saved
-            </Button> */}
             </CardFooter>
           </Card>
         ))}
