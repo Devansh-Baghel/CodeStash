@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import PostsNotFound from "@/components/PostsNotFound";
 import PostsLoading from "@/components/skeletons/PostsLoading";
 import {
   Card,
@@ -43,7 +42,29 @@ export default function CommunityPosts({
 
   if (data?.length === 0) {
     return (
-      <PostsNotFound description="This community does not have any posts yet" />
+      <Card
+        className={cn(
+          cardLayout,
+          "mt-4 flex flex-col items-center justify-center",
+        )}
+      >
+        {/* TODO: add an icon/svg here for no saved/downvoted/upvoted posts */}
+        <CardHeader>
+          <p className="">
+            This community does not have any posts yet, <br /> be the first one
+            to create a post in c/{communityName}!
+          </p>
+        </CardHeader>
+        <CardContent>
+          <Button
+            color="primary"
+            as={Link}
+            href={`/create-post?community=${communityName}`}
+          >
+            create post in c/{communityName}
+          </Button>
+        </CardContent>
+      </Card>
     );
   }
 

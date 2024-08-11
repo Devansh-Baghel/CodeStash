@@ -107,8 +107,8 @@ export default function SideBar() {
                 Want to see the full app?
               </CardTitle>
               <CardDescription>
-                Login to a demo account to get temporary access to all features
-                of this app
+                Login to a demo account to get access to all features of this
+                app
               </CardDescription>
             </CardHeader>
             <CardContent className="w-full">
