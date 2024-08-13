@@ -1,6 +1,7 @@
 "use client";
 
 import { CommunityTypes } from "@/app/communities/page";
+import CommunityOptionsModal from "@/components/CommunityOptionsModal";
 import CommunityPosts from "@/components/CommunityPosts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -81,25 +82,29 @@ export default function Page({ params }: { params: { community: string } }) {
                 <p className="">{data.description}</p>
               </div>
             </div>
-            {hasJoinedCommunity ? (
-              <Button
-                color="danger"
-                variant="flat"
-                radius="md"
-                onClick={() => handleLeaveAndJoin(data.name, "leave")}
-              >
-                - Leave community
-              </Button>
-            ) : (
-              <Button
-                color="primary"
-                variant="flat"
-                radius="md"
-                onClick={() => handleLeaveAndJoin(data.name, "join")}
-              >
-                + Join community
-              </Button>
-            )}
+            <div className="flex gap-2">
+              {hasJoinedCommunity ? (
+                <Button
+                  color="danger"
+                  variant="flat"
+                  radius="md"
+                  onClick={() => handleLeaveAndJoin(data.name, "leave")}
+                >
+                  - Leave community
+                </Button>
+              ) : (
+                <Button
+                  color="primary"
+                  variant="flat"
+                  radius="md"
+                  onClick={() => handleLeaveAndJoin(data.name, "join")}
+                >
+                  + Join community
+                </Button>
+              )}
+
+              <CommunityOptionsModal />
+            </div>
           </CardHeader>
           <CardContent className="pb-3 text-center text-sm">
             <p>
