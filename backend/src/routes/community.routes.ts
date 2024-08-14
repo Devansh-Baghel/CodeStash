@@ -5,6 +5,7 @@ import {
   getCommunity,
   joinCommunity,
   leaveCommunity,
+  updateCommunityInfo,
   uploadAvatar,
   uploadCoverImage,
 } from "../controllers/community.controllers";
@@ -27,5 +28,6 @@ router
 router
   .route("/upload-cover-image")
   .post(verifyJWT, upload.single("cover-image"), uploadCoverImage);
+router.route("/update-info").put(verifyJWT, updateCommunityInfo);
 
 export default router;

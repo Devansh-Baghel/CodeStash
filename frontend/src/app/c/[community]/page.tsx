@@ -103,7 +103,9 @@ export default function Page({ params }: { params: { community: string } }) {
                 </Button>
               )}
 
-              <CommunityOptionsModal />
+              {data.madeBy.username === userData?.username && (
+                <CommunityOptionsModal />
+              )}
             </div>
           </CardHeader>
           <CardContent className="pb-3 text-center text-sm">

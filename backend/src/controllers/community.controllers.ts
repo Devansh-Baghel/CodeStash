@@ -227,3 +227,30 @@ export const uploadCoverImage = asyncHandler(async (req: UserRequest, res) => {
       )
     );
 });
+
+export const updateCommunityInfo = asyncHandler(
+  async (req: UserRequest, res) => {
+    const { description, communityName } = req.body;
+    const user = req.user;
+
+    if (!description)
+      throw new ApiError(400, "Description is required to update info.");
+
+    const community = await Community.findOne({ name: communityName });
+
+    if (!community) throw new ApiError(404, "Community does not exist");
+
+    if (user?.username !== community.madeBy.username)
+      throw new ApiError(401, "You are not allowed to update this community");
+
+    community.description = description;
+
+    await community.save();
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(200, { community }, "Community updated successfully")
+      );
+  }
+);
