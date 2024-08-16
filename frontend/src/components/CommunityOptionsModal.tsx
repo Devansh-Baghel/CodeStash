@@ -1,3 +1,4 @@
+import { CommunityTypes } from "@/app/communities/page";
 import {
   Modal,
   ModalContent,
@@ -6,11 +7,20 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
+  Textarea,
+  Input,
 } from "@nextui-org/react";
+import { useState } from "react";
 import { FaGears as AccountOptionsIcon } from "react-icons/fa6";
+import { Label } from "./ui/label";
 
-export default function CommunityOptionsModal() {
+export default function CommunityOptionsModal({
+  community,
+}: {
+  community: CommunityTypes;
+}) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [description, setDescription] = useState(community.description);
 
   return (
     <>
@@ -25,19 +35,36 @@ export default function CommunityOptionsModal() {
               <ModalHeader className="flex flex-col gap-1">
                 Community Options
               </ModalHeader>
-              <ModalBody>
-                <p>Change community description</p>
-                <p>Upload/change avatar</p>
-                <p>Upload/change background image</p>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
-                </Button>
-              </ModalFooter>
+              <form>
+                <ModalBody>
+                  <Label htmlFor="description">Description</Label>
+                  <Textarea
+                    variant="bordered"
+                    color="primary"
+                    id="description"
+                    required
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                  {/* <div>
+                  <Button color="primary" variant="flat">
+                    Upload community avatar
+                  </Button>
+                  <Button color="primary" variant="flat">
+                    Upload cover image
+                  </Button>
+                  <Input type="file" />
+                </div> */}
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="primary" variant="light" onPress={onClose}>
+                    Close
+                  </Button>
+                  <Button color="primary" onPress={onClose}>
+                    Save changes
+                  </Button>
+                </ModalFooter>
+              </form>
             </>
           )}
         </ModalContent>

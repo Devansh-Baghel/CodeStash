@@ -104,7 +104,7 @@ export default function Page({ params }: { params: { community: string } }) {
               )}
 
               {data.madeBy.username === userData?.username && (
-                <CommunityOptionsModal />
+                <CommunityOptionsModal community={data} />
               )}
             </div>
           </CardHeader>
