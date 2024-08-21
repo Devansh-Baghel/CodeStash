@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { FaPlus as PlusIcon } from "react-icons/fa";
 
 export type FilterTypes = "Latest" | "Oldest" | "Popular";
 
@@ -77,7 +78,7 @@ export default function Page({ params }: { params: { community: string } }) {
           />
         )}
         <Card className="border-t-5 border-primary">
-          <CardHeader className="flex flex-row justify-between">
+          <CardHeader className="flex flex-row items-start justify-between">
             <div className="ml-1 flex gap-4">
               <Avatar
                 src={data.avatar}
@@ -90,8 +91,30 @@ export default function Page({ params }: { params: { community: string } }) {
                 <p className="">{data.description}</p>
               </div>
             </div>
-            <div className="flex gap-2">
-              {hasJoinedCommunity ? (
+            {hasJoinedCommunity ? (
+              <Button
+                color="primary"
+                radius="full"
+                as={Link}
+                href={`/create-post?community=${data.name}`}
+              >
+                <PlusIcon className="" />
+                Create Post in c/{data.name}
+              </Button>
+            ) : (
+              <Button
+                color="primary"
+                variant="flat"
+                radius="md"
+                onClick={() => handleLeaveAndJoin(data.name, "join")}
+              >
+                + Join community
+              </Button>
+            )}
+          </CardHeader>
+          <CardContent>
+            <div className="mb-4 flex justify-end gap-2">
+              {hasJoinedCommunity && (
                 <Button
                   color="danger"
                   variant="flat"
@@ -100,35 +123,26 @@ export default function Page({ params }: { params: { community: string } }) {
                 >
                   - Leave community
                 </Button>
-              ) : (
-                <Button
-                  color="primary"
-                  variant="flat"
-                  radius="md"
-                  onClick={() => handleLeaveAndJoin(data.name, "join")}
-                >
-                  + Join community
-                </Button>
               )}
 
               {data.madeBy.username === userData?.username && (
                 <CommunityOptionsModal community={data} />
               )}
             </div>
-          </CardHeader>
-          <CardContent className="pb-3 text-center text-sm">
-            <p>
-              {members} {members === 1 ? "member" : "members"}
-            </p>
-            <p>
-              community created by{" "}
-              <Link
-                href={`/u/${data.madeBy.username}`}
-                className="text-primary underline"
-              >
-                c/{data.madeBy.username}
-              </Link>
-            </p>
+            <div className="pb-3 text-center text-sm">
+              <p>
+                {members} {members === 1 ? "member" : "members"}
+              </p>
+              <p>
+                community created by{" "}
+                <Link
+                  href={`/u/${data.madeBy.username}`}
+                  className="text-primary underline"
+                >
+                  c/{data.madeBy.username}
+                </Link>
+              </p>
+            </div>
           </CardContent>
         </Card>
       </section>
