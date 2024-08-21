@@ -71,7 +71,7 @@ export const getPostsByUsername = asyncHandler(
 );
 
 export const getPostsByCommunity = asyncHandler(async (req, res) => {
-  const { community } = req.body;
+  const { community, filter } = req.body;
   if (!community)
     throw new ApiError(400, "Name of community is required to get posts");
 
@@ -79,7 +79,16 @@ export const getPostsByCommunity = asyncHandler(async (req, res) => {
   if (!findCommunity)
     throw new ApiError(404, "Community with this name does not exist");
 
-  const posts = await Post.find({ community });
+  let posts;
+  if (filter === "Oldest") {
+    posts = await Post.find({ community }).sort({ createdAt: "asc" });
+  } else if (filter === "Latest") {
+    posts = await Post.find({ community }).sort({ createdAt: "desc" });
+  } else if (filter === "Popular") {
+    posts = await Post.find({ community }).sort({ comments: "desc" });
+  } else {
+    throw new ApiError(400, "Filter option must be included");
+  }
 
   return res
     .status(200)
