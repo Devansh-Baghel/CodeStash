@@ -30,6 +30,7 @@ export default function Page({ params }: { params: { community: string } }) {
     userData?.communitiesJoined.includes(params.community),
   );
   const [members, setMembers] = useState(0);
+  const [description, setDescription] = useState("");
   const { data, isLoading, isError } = useQuery<CommunityTypes>({
     queryKey: [`c/${params.community}`],
     queryFn: () => {
@@ -40,6 +41,7 @@ export default function Page({ params }: { params: { community: string } }) {
         })
         .then((res) => {
           setMembers(res.joinedMembers);
+          setDescription(res.description);
           return res;
         });
     },
@@ -88,7 +90,7 @@ export default function Page({ params }: { params: { community: string } }) {
               />
               <div>
                 <h1 className="text-xl font-semibold">c/{data.name}</h1>
-                <p className="">{data.description}</p>
+                <p className="">{description}</p>
               </div>
             </div>
             {hasJoinedCommunity ? (
@@ -126,7 +128,11 @@ export default function Page({ params }: { params: { community: string } }) {
               )}
 
               {data.madeBy.username === userData?.username && (
-                <CommunityOptionsModal community={data} />
+                <CommunityOptionsModal
+                  community={data}
+                  description={description}
+                  setDescription={setDescription}
+                />
               )}
             </div>
             <div className="pb-3 text-center text-sm">

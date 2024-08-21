@@ -10,17 +10,43 @@ import {
   Textarea,
   Input,
 } from "@nextui-org/react";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { FaGears as AccountOptionsIcon } from "react-icons/fa6";
 import { Label } from "./ui/label";
+import toast from "react-hot-toast";
+import fetcher from "@/utils/axios";
 
 export default function CommunityOptionsModal({
   community,
+  description,
+  setDescription,
 }: {
   community: CommunityTypes;
+  description: any;
+  setDescription: any;
 }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [description, setDescription] = useState(community.description);
+
+  function updateDescription(e: FormEvent) {
+    e.preventDefault();
+
+    // FIXME: This doesn't work now
+    if (!description) {
+      toast.error("Description can't be empty");
+      return;
+    }
+
+    const updateDescriptionPromise = fetcher.put("/community/update-info", {
+      description,
+      communityName: community.name,
+    });
+
+    toast.promise(updateDescriptionPromise, {
+      loading: "Updating description...",
+      success: "Updated description successfully",
+      error: "Error updating description",
+    });
+  }
 
   return (
     <>
@@ -35,7 +61,7 @@ export default function CommunityOptionsModal({
               <ModalHeader className="flex flex-col gap-1">
                 Community Options
               </ModalHeader>
-              <form>
+              <form onSubmit={updateDescription}>
                 <ModalBody>
                   <Label htmlFor="description">Description</Label>
                   <Textarea
@@ -57,10 +83,15 @@ export default function CommunityOptionsModal({
                 </div> */}
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary" variant="light" onPress={onClose}>
+                  <Button
+                    color="primary"
+                    variant="light"
+                    onPress={onClose}
+                    type="button"
+                  >
                     Close
                   </Button>
-                  <Button color="primary" onPress={onClose}>
+                  <Button color="primary" onPress={onClose} type="submit">
                     Save changes
                   </Button>
                 </ModalFooter>
