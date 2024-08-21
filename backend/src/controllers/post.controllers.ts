@@ -80,14 +80,19 @@ export const getPostsByCommunity = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Community with this name does not exist");
 
   let posts;
-  if (filter === "Oldest") {
-    posts = await Post.find({ community }).sort({ createdAt: "asc" });
-  } else if (filter === "Latest") {
-    posts = await Post.find({ community }).sort({ createdAt: "desc" });
-  } else if (filter === "Popular") {
-    posts = await Post.find({ community }).sort({ comments: "desc" });
-  } else {
-    throw new ApiError(400, "Filter option must be included");
+
+  switch (filter) {
+    case "Oldest":
+      posts = await Post.find({ community }).sort({ createdAt: "asc" });
+      break;
+    case "Latest":
+      posts = await Post.find({ community }).sort({ createdAt: "desc" });
+      break;
+    case "Popular":
+      posts = await Post.find({ community }).sort({ comments: "desc" });
+      break;
+    default:
+      throw new ApiError(400, "Filter option must be included");
   }
 
   return res

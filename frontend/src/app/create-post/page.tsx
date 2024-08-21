@@ -101,6 +101,18 @@ export default function CreatePost() {
     );
   }
 
+  // TODO: better ui for this
+  if (!userData?.communitiesJoined.includes(community!))
+    return (
+      <Card className={cn(cardLayout)}>
+        <CardHeader>
+          <CardTitle>
+            You can't create a post in c/{community} before joining it
+          </CardTitle>
+        </CardHeader>
+      </Card>
+    );
+
   return (
     <Card className={cn(cardLayout, "mx-auto")}>
       <CardHeader>
