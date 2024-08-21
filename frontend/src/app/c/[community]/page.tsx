@@ -21,6 +21,7 @@ export default function Page({ params }: { params: { community: string } }) {
     userData?.communitiesJoined.includes(params.community),
   );
   const [members, setMembers] = useState(0);
+  const [filterOption, setFilterOption] = useState("latest");
   const { data, isLoading, isError } = useQuery<CommunityTypes>({
     queryKey: [`c/${params.community}`],
     queryFn: () => {
@@ -124,6 +125,33 @@ export default function Page({ params }: { params: { community: string } }) {
           </CardContent>
         </Card>
       </section>
+      <div className="mt-6 flex items-center gap-2">
+        <p className="ml-2 mr-4 font-medium">Sort By</p>
+        <Button
+          size="sm"
+          color="primary"
+          variant={filterOption === "popular" ? "solid" : "flat"}
+          onClick={() => setFilterOption("popular")}
+        >
+          Popular
+        </Button>
+        <Button
+          size="sm"
+          color="primary"
+          variant={filterOption === "latest" ? "solid" : "flat"}
+          onClick={() => setFilterOption("latest")}
+        >
+          Latest
+        </Button>
+        <Button
+          size="sm"
+          color="primary"
+          variant={filterOption === "oldest" ? "solid" : "flat"}
+          onClick={() => setFilterOption("oldest")}
+        >
+          Oldest
+        </Button>
+      </div>
       <CommunityPosts communityName={data.name} />
     </>
   );
