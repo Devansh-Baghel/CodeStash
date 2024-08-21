@@ -18,18 +18,23 @@ import { Button } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { cardLayout } from "@/utils/classnames";
+import { FilterTypes } from "@/app/c/[community]/page";
+import { useEffect } from "react";
 
 export default function CommunityPosts({
   communityName,
+  filter,
 }: {
   communityName: string;
+  filter: FilterTypes;
 }) {
   const { userData } = useUserStore();
-  const { data, isError, isLoading } = useQuery<PostTypes[]>({
+  const { data, isError, isLoading, isRefetching } = useQuery<PostTypes[]>({
     queryKey: [`c/${communityName}/posts`],
     queryFn: async () => {
       return await fetcher.post("/posts/get-posts-by-community", {
         community: communityName,
+        filter,
       });
     },
   });
@@ -37,7 +42,7 @@ export default function CommunityPosts({
   const router = useRouter();
 
   if (isError) return "Error";
-  if (isLoading)
+  if (isLoading || isRefetching)
     return <PostsLoading items={userData?.upvotedPosts.length || 4} />;
 
   if (data?.length === 0) {
@@ -69,7 +74,7 @@ export default function CommunityPosts({
   }
 
   return (
-    <section className={cn(cardLayout, "my-6")}>
+    <section className={cn(cardLayout, "mb-6 mt-2")}>
       <div className="flex flex-col gap-8">
         {data?.map((post) => (
           <Card key={post._id}>
