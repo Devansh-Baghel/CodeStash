@@ -8,8 +8,7 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
+  CardFooter,
 } from "@/components/ui/card";
 import { Avatar } from "@nextui-org/react";
 import { Tabs, Tab, Card as NextCard, CardBody } from "@nextui-org/react";
@@ -17,6 +16,7 @@ import SavedPosts from "../saved/page";
 import UpvotedPosts from "../upvoted/page";
 import DownvotedPosts from "../downvoted/page";
 import UserPosts from "@/components/UserPosts";
+import UploadAvatar from "@/components/UploadAvatar";
 
 // TODO: This page should show the user's personal details, saved posts, etc (i.e. everything that is publically visible + everything that is NOT publically visible)
 export default function Profile() {
@@ -54,6 +54,11 @@ export default function Profile() {
             <h3>Downvoted Posts: {userData?.downvotedPosts.length}</h3>
           </div>
         </CardContent>
+        <CardFooter>
+          <UploadAvatar
+            buttonText={userData?.avatar ? "Update Avatar" : "Upload Avatar"}
+          />
+        </CardFooter>
       </Card>
       <div className="flex w-full flex-col">
         <Tabs
