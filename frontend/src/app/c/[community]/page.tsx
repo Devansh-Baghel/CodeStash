@@ -3,7 +3,7 @@
 import { CommunityTypes } from "@/app/communities/page";
 import CommunityOptionsModal from "@/components/CommunityOptionsModal";
 import CommunityPosts from "@/components/CommunityPosts";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useUserStore } from "@/store/userStore";
 import fetcher from "@/utils/axios";
@@ -11,6 +11,7 @@ import { cardLayout } from "@/utils/classnames";
 import { Avatar, Button, Tab, Tabs } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaPlus as PlusIcon } from "react-icons/fa";
@@ -31,6 +32,7 @@ export default function Page({ params }: { params: { community: string } }) {
   );
   const [members, setMembers] = useState(0);
   const [description, setDescription] = useState("");
+  const router = useRouter();
   const { data, isLoading, isError } = useQuery<CommunityTypes>({
     queryKey: [`c/${params.community}`],
     queryFn: () => {
@@ -46,6 +48,8 @@ export default function Page({ params }: { params: { community: string } }) {
         });
     },
   });
+
+  if (params.community === "all") router.push("/");
 
   // FIXME: Loading screen here
   if (isLoading) return "Loading...";

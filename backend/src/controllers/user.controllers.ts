@@ -50,8 +50,6 @@ export const registerUser = asyncHandler(
       username,
       email,
       password,
-      // TODO: c/all page in frontend doesn't work, remove this!
-      communitiesJoined: ["all"],
     });
 
     const createdUser = await User.findById(user._id).select(
@@ -86,7 +84,7 @@ export const loginUser = asyncHandler(
     if (!isPasswordValid) throw new ApiError(401, "Invalid Password");
 
     const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
-      user._id
+      user._id!
     );
 
     const loggedInUser = await User.findById(user._id).select(
