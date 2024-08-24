@@ -13,7 +13,17 @@ import toast from "react-hot-toast";
 import { axiosInstance } from "@/utils/axios";
 import { useUserStore } from "@/store/userStore";
 
-export default function UploadAvatar({ buttonText }: { buttonText: string }) {
+export default function UploadAvatar({
+  buttonText,
+  type,
+  communityName,
+  refetch,
+}: {
+  buttonText: string;
+  communityName?: string;
+  refetch?: () => void;
+  type: "user" | "community";
+}) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [avatar, setAvatar] = useState<File>();
   const { setUserData } = useUserStore();
@@ -34,14 +44,23 @@ export default function UploadAvatar({ buttonText }: { buttonText: string }) {
     const formData = new FormData();
     formData.append("avatar", avatar);
 
+    let postRoute;
+    if (type === "user") {
+      postRoute = "/users/upload-avatar";
+    } else {
+      postRoute = "/community/upload-avatar";
+      formData.append("name", communityName!);
+    }
+
     const toastPromise = axiosInstance
-      .post("/users/upload-avatar", formData, {
+      .post(postRoute, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
-        setUserData(res.data.data.user);
+        if (type === "user") setUserData(res.data.data.user);
+        else refetch!();
       });
 
     toast.promise(toastPromise, {
@@ -66,6 +85,7 @@ export default function UploadAvatar({ buttonText }: { buttonText: string }) {
               <form onSubmit={uploadAvatar}>
                 <ModalBody>
                   <Input
+                    color="primary"
                     type="file"
                     id="avatar"
                     name="avatar"

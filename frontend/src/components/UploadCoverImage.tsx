@@ -83,6 +83,7 @@ export default function UploadCoverImage({
                     <LinkIcon className="ml-1 inline" />
                   </Link>
                   <Input
+                    color="primary"
                     type="file"
                     id="cover-image"
                     name="cover-image"

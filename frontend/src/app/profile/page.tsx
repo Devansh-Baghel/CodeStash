@@ -57,6 +57,7 @@ export default function Profile() {
         <CardFooter>
           <UploadAvatar
             buttonText={userData?.avatar ? "Update Avatar" : "Upload Avatar"}
+            type="user"
           />
         </CardFooter>
       </Card>

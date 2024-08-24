@@ -4,6 +4,7 @@ import { CommunityTypes } from "@/app/communities/page";
 import CommunityOptionsModal from "@/components/CommunityOptionsModal";
 import CommunityPosts from "@/components/CommunityPosts";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import UploadAvatar from "@/components/UploadAvatar";
 import UploadCoverImage from "@/components/UploadCoverImage";
 import { cn } from "@/lib/utils";
 import { useUserStore } from "@/store/userStore";
@@ -132,24 +133,33 @@ export default function Page({ params }: { params: { community: string } }) {
                 </Button>
               )}
 
-              {data.madeBy.username === userData?.username && (
-                <>
-                  <CommunityOptionsModal
-                    community={data}
-                    description={description}
-                    setDescription={setDescription}
-                  />
-                  <UploadCoverImage
-                    buttonText={
-                      data.coverImage
-                        ? "Update cover image"
-                        : "Upload cover image"
-                    }
-                    communityName={data.name}
-                    refetch={refetch}
-                  />
-                </>
-              )}
+              {data.madeBy.username === userData?.username &&
+                hasJoinedCommunity && (
+                  <>
+                    <CommunityOptionsModal
+                      community={data}
+                      description={description}
+                      setDescription={setDescription}
+                    />
+                    <UploadAvatar
+                      buttonText={
+                        userData?.avatar ? "Update Avatar" : "Upload Avatar"
+                      }
+                      type="community"
+                      communityName={data.name}
+                      refetch={refetch}
+                    />
+                    <UploadCoverImage
+                      buttonText={
+                        data.coverImage
+                          ? "Update cover image"
+                          : "Upload cover image"
+                      }
+                      communityName={data.name}
+                      refetch={refetch}
+                    />
+                  </>
+                )}
             </div>
             <div className="-mb-2 text-center text-sm">
               <p>
