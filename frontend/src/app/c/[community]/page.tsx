@@ -4,6 +4,7 @@ import { CommunityTypes } from "@/app/communities/page";
 import CommunityOptionsModal from "@/components/CommunityOptionsModal";
 import CommunityPosts from "@/components/CommunityPosts";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import UploadCoverImage from "@/components/UploadCoverImage";
 import { cn } from "@/lib/utils";
 import { useUserStore } from "@/store/userStore";
 import fetcher from "@/utils/axios";
@@ -33,7 +34,7 @@ export default function Page({ params }: { params: { community: string } }) {
   const [members, setMembers] = useState(0);
   const [description, setDescription] = useState("");
   const router = useRouter();
-  const { data, isLoading, isError } = useQuery<CommunityTypes>({
+  const { data, isLoading, isError, refetch } = useQuery<CommunityTypes>({
     queryKey: [`c/${params.community}`],
     queryFn: () => {
       // TODO: if community does not exist, show error page.
@@ -132,14 +133,25 @@ export default function Page({ params }: { params: { community: string } }) {
               )}
 
               {data.madeBy.username === userData?.username && (
-                <CommunityOptionsModal
-                  community={data}
-                  description={description}
-                  setDescription={setDescription}
-                />
+                <>
+                  <CommunityOptionsModal
+                    community={data}
+                    description={description}
+                    setDescription={setDescription}
+                  />
+                  <UploadCoverImage
+                    buttonText={
+                      data.coverImage
+                        ? "Update cover image"
+                        : "Upload cover image"
+                    }
+                    communityName={data.name}
+                    refetch={refetch}
+                  />
+                </>
               )}
             </div>
-            <div className="pb-3 text-center text-sm">
+            <div className="-mb-2 text-center text-sm">
               <p>
                 {members} {members === 1 ? "member" : "members"}
               </p>
@@ -149,7 +161,7 @@ export default function Page({ params }: { params: { community: string } }) {
                   href={`/u/${data.madeBy.username}`}
                   className="text-primary underline"
                 >
-                  c/{data.madeBy.username}
+                  u/{data.madeBy.username}
                 </Link>
               </p>
             </div>

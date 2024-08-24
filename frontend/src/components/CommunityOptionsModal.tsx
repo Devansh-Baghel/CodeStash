@@ -16,6 +16,7 @@ import { Label } from "./ui/label";
 import toast from "react-hot-toast";
 import fetcher from "@/utils/axios";
 
+// TODO: add delete community option here in this modal
 export default function CommunityOptionsModal({
   community,
   description,

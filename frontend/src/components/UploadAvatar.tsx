@@ -45,8 +45,8 @@ export default function UploadAvatar({ buttonText }: { buttonText: string }) {
       });
 
     toast.promise(toastPromise, {
-      loading: "Saving Avatar",
-      success: "Saved Avatar",
+      loading: "Saving avatar...",
+      success: "Saved avatar",
       error: "Error saving avatar",
     });
   }
