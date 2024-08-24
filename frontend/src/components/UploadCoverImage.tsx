@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { axiosInstance } from "@/utils/axios";
 import Link from "next/link";
 import { FiExternalLink as LinkIcon } from "react-icons/fi";
+import { FaRegImage as CoverImageIcon } from "react-icons/fa";
 
 export default function UploadCoverImage({
   buttonText,
@@ -62,7 +63,8 @@ export default function UploadCoverImage({
 
   return (
     <>
-      <Button onPress={onOpen} color="primary">
+      <Button onPress={onOpen} color="primary" radius="md" size="sm">
+        <CoverImageIcon />
         {buttonText}
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

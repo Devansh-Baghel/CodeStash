@@ -17,6 +17,7 @@ import UpvotedPosts from "../upvoted/page";
 import DownvotedPosts from "../downvoted/page";
 import UserPosts from "@/components/UserPosts";
 import UploadAvatar from "@/components/UploadAvatar";
+import Link from "next/link";
 
 // TODO: This page should show the user's personal details, saved posts, etc (i.e. everything that is publically visible + everything that is NOT publically visible)
 export default function Profile() {
@@ -35,12 +36,10 @@ export default function Profile() {
     <section className={cn(cardLayout)}>
       <h1 className="mb-4 text-2xl font-bold text-gray-600">Your Profile</h1>
       <Card className="mx-auto mb-8">
-        {/* <CardHeader> */}
-        {/* <CardTitle className="text-xl">Change Username</CardTitle> */}
-        {/* <CardDescription>Create a new username below</CardDescription> */}
-        {/* </CardHeader> */}
         <CardContent className="flex gap-10 p-10">
-          <Avatar src={userData?.avatar} size="lg" className="h-32 w-32" />
+          <Link target="_blank" href={userData?.avatar!}>
+            <Avatar src={userData?.avatar} size="lg" className="h-32 w-32" />
+          </Link>
           <div>
             <h2 className="text-grey-900 text-2xl font-medium">
               {userData?.firstName} {userData?.lastName}
@@ -54,7 +53,7 @@ export default function Profile() {
             <h3>Downvoted Posts: {userData?.downvotedPosts.length}</h3>
           </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="px-10">
           <UploadAvatar
             buttonText={userData?.avatar ? "Update Avatar" : "Upload Avatar"}
             type="user"

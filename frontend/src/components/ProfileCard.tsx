@@ -14,6 +14,7 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Avatar, Button } from "@nextui-org/react";
 
 import { CardDescription } from "./ui/card";
+import Link from "next/link";
 
 export default function () {
   const { userData } = useUserStore();
@@ -25,7 +26,9 @@ export default function () {
       shadow="sm"
     >
       <CardHeader className="flex flex-col text-center">
-        <Avatar src={userData?.avatar} className="mx-auto mb-4 h-28 w-28" />
+        <Link target="_blank" href={userData?.avatar!}>
+          <Avatar src={userData?.avatar} className="mx-auto mb-4 h-28 w-28" />
+        </Link>
         <h1 className="text-xl">
           {userData?.firstName} {userData?.lastName}
         </h1>

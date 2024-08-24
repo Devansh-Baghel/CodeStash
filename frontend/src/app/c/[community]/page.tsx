@@ -127,6 +127,7 @@ export default function Page({ params }: { params: { community: string } }) {
                   color="danger"
                   variant="flat"
                   radius="md"
+                  size="sm"
                   onClick={() => handleLeaveAndJoin(data.name, "leave")}
                 >
                   - Leave community
@@ -143,7 +144,7 @@ export default function Page({ params }: { params: { community: string } }) {
                     />
                     <UploadAvatar
                       buttonText={
-                        userData?.avatar ? "Update Avatar" : "Upload Avatar"
+                        userData?.avatar ? "Update avatar" : "Upload avatar"
                       }
                       type="community"
                       communityName={data.name}

@@ -12,6 +12,7 @@ import {
 import toast from "react-hot-toast";
 import { axiosInstance } from "@/utils/axios";
 import { useUserStore } from "@/store/userStore";
+import { FaImagePortrait as AvatarIcon } from "react-icons/fa6";
 
 export default function UploadAvatar({
   buttonText,
@@ -72,7 +73,8 @@ export default function UploadAvatar({
 
   return (
     <>
-      <Button onPress={onOpen} color="primary">
+      <Button onPress={onOpen} color="primary" radius="md" size="sm">
+        <AvatarIcon />
         {buttonText}
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -84,6 +86,7 @@ export default function UploadAvatar({
               </ModalHeader>
               <form onSubmit={uploadAvatar}>
                 <ModalBody>
+                  <p>1 : 1 image ratio recommended.</p>
                   <Input
                     color="primary"
                     type="file"

@@ -51,7 +51,13 @@ export default function CommunityOptionsModal({
 
   return (
     <>
-      <Button color="primary" variant="flat" radius="md" onPress={onOpen}>
+      <Button
+        color="primary"
+        variant="flat"
+        radius="md"
+        onPress={onOpen}
+        size="sm"
+      >
         <AccountOptionsIcon />
         Options
       </Button>
