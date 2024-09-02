@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton, Textarea } from "@nextui-org/react";
 
-export default function () {
+export default function CommentsSkeleton() {
   return (
     <Card className="my-6">
       <CardHeader>

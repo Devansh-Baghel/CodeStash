@@ -3,7 +3,7 @@ import { IoMdArrowRoundBack as BackIcon } from "react-icons/io";
 
 import { Button } from "@nextui-org/react";
 
-export default function () {
+export default function BackButton() {
   const router = useRouter();
 
   return (

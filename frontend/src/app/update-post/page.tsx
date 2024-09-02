@@ -93,8 +93,7 @@ export default function UpdatePost() {
     if (!language) {
       toast({
         title: "Programming language not selected",
-        description:
-          "Please select a programming language to update this post",
+        description: "Please select a programming language to update this post",
       });
       return;
     }
@@ -167,7 +166,9 @@ export default function UpdatePost() {
                 </SelectTrigger>
                 <SelectContent>
                   {[...allowedLanguages].map((lang) => (
-                    <SelectItem value={lang}>{lang}</SelectItem>
+                    <SelectItem value={lang} key={lang}>
+                      {lang}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>

@@ -107,7 +107,7 @@ export default function CreatePost() {
       <Card className={cn(cardLayout)}>
         <CardHeader>
           <CardTitle>
-            You can't create a post in c/{community} before joining it
+            You can&apos;t create a post in c/{community} before joining it
           </CardTitle>
         </CardHeader>
       </Card>
@@ -152,7 +152,9 @@ export default function CreatePost() {
                 </SelectTrigger>
                 <SelectContent>
                   {[...allowedLanguages].map((lang) => (
-                    <SelectItem value={lang}>{lang}</SelectItem>
+                    <SelectItem value={lang} key={lang}>
+                      {lang}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>

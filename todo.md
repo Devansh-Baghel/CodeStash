@@ -36,3 +36,5 @@
 - [ ] show/hide option for profile card
 - [ ] delete post toast
 - [ ] add more allowed languages
+
+- [ ] run prettier on file before upload

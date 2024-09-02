@@ -16,7 +16,7 @@ import { Avatar, Button } from "@nextui-org/react";
 import { CardDescription } from "./ui/card";
 import Link from "next/link";
 
-export default function () {
+export default function ProfileCard() {
   const { userData } = useUserStore();
   const router = useRouter();
 
