@@ -29,8 +29,7 @@ import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-
-import { allowedLanguages } from "../languages/page";
+import { allowedLanguages } from "@/utils/constants";
 
 // TODO: if user is trying to create a post in c/community and they haven't joined that community then show them a banner that says to join the community before trying to make the post
 export default function CreatePost() {

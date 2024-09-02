@@ -38,3 +38,5 @@
 - [ ] add more allowed languages
 
 - [ ] run prettier on file before upload
+- [ ] add in vscode feature
+- [ ] organise all components into folders

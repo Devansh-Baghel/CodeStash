@@ -31,8 +31,7 @@ import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-
-import { allowedLanguages } from "../languages/page";
+import { allowedLanguages } from "@/utils/constants";
 
 export default function UpdatePost() {
   const searchParams = useSearchParams();

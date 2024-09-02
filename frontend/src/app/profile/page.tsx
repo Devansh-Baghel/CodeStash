@@ -12,12 +12,12 @@ import {
 } from "@/components/ui/card";
 import { Avatar } from "@nextui-org/react";
 import { Tabs, Tab, Card as NextCard, CardBody } from "@nextui-org/react";
-import SavedPosts from "../saved/page";
-import UpvotedPosts from "../upvoted/page";
-import DownvotedPosts from "../downvoted/page";
 import UserPosts from "@/components/UserPosts";
 import UploadAvatar from "@/components/UploadAvatar";
 import Link from "next/link";
+import SavedPosts from "@/components/SavedPosts";
+import UpvotedPosts from "@/components/UpvotedPosts";
+import DownvotedPosts from "@/components/DownvotedPosts";
 
 // TODO: This page should show the user's personal details, saved posts, etc (i.e. everything that is publically visible + everything that is NOT publically visible)
 export default function Profile() {
