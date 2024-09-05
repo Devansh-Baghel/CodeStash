@@ -40,3 +40,4 @@
 - [ ] run prettier on file before upload
 - [ ] add in vscode feature
 - [ ] organise all components into folders
+- [ ] only make get current user if the localstorage has userData or loggedIn
