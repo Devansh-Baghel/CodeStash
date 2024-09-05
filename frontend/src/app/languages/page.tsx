@@ -4,6 +4,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { cardLayout } from "@/utils/classnames";
 import { allowedLanguages } from "@/utils/constants";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Popular Languages - CodeStash",
+};
 
 // TODO: in this page add a button below for user to make a request to add more programming language
 export default function Languages() {

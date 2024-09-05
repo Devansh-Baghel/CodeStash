@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 function useTitle(title: string) {
   useEffect(() => {
-    document.title = `${title} - SpendSync`;
+    document.title = `${title} - CodeStash`;
   }, [title]);
 }
 export default useTitle;

@@ -11,6 +11,7 @@ import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
+import useTitle from "@/hooks/useTitle";
 
 export type CommunityTypes = {
   madeBy: {
@@ -27,6 +28,7 @@ export type CommunityTypes = {
 
 export default function Communities() {
   // TODO: add community types
+  useTitle("Communities");
   const { data, isLoading, isError } = useQuery<CommunityTypes[]>({
     queryKey: ["communities"],
     queryFn: async () => {

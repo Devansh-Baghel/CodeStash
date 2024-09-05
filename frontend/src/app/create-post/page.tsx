@@ -30,9 +30,12 @@ import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { allowedLanguages } from "@/utils/constants";
+import useTitle from "@/hooks/useTitle";
 
 // TODO: if user is trying to create a post in c/community and they haven't joined that community then show them a banner that says to join the community before trying to make the post
 export default function CreatePost() {
+  useTitle("Create Post");
+
   const searchParams = useSearchParams();
   const [title, setTitle] = useState("");
   const [language, setLanguage] = useState(

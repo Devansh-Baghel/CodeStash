@@ -3,11 +3,14 @@
 import ChangePassword from "@/components/ChangePassword";
 import NotLoggedIn from "@/components/NotLoggedIn";
 import UpdateUsername from "@/components/UpdateUsername";
+import useTitle from "@/hooks/useTitle";
 import { cn } from "@/lib/utils";
 import { useUserStore } from "@/store/userStore";
 import { cardLayout } from "@/utils/classnames";
 
 export default function AccountSettings() {
+  useTitle("Account Settings");
+
   const { isLoggedIn } = useUserStore();
 
   if (!isLoggedIn) {

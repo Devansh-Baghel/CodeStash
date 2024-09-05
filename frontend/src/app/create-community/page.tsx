@@ -17,8 +17,11 @@ import { useUserStore } from "@/store/userStore";
 import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
 import { useMutation } from "@tanstack/react-query";
+import useTitle from "@/hooks/useTitle";
 
 export default function CreateCommunity() {
+  useTitle("Create Community");
+
   const { isLoggedIn, setUserData } = useUserStore();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");

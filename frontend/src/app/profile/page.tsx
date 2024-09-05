@@ -18,9 +18,12 @@ import Link from "next/link";
 import SavedPosts from "@/components/SavedPosts";
 import UpvotedPosts from "@/components/UpvotedPosts";
 import DownvotedPosts from "@/components/DownvotedPosts";
+import useTitle from "@/hooks/useTitle";
 
 // TODO: This page should show the user's personal details, saved posts, etc (i.e. everything that is publically visible + everything that is NOT publically visible)
 export default function Profile() {
+  useTitle("Profile");
+
   const { isLoggedIn, userData } = useUserStore();
 
   if (!isLoggedIn) {

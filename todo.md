@@ -41,3 +41,5 @@
 - [ ] add in vscode feature
 - [ ] organise all components into folders
 - [ ] only make get current user if the localstorage has userData or loggedIn
+- [ ] add useTitle hook to every page
+- [x] find a good favicon

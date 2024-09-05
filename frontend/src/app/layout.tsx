@@ -20,6 +20,9 @@ const fontSans = FontSans({
 export const metadata: Metadata = {
   title: "CodeStash",
   description: "The best solution for keeping code snippets",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
