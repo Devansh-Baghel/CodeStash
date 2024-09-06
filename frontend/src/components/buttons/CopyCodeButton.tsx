@@ -17,18 +17,19 @@ export default function CopyCodeButton({ code }: { code: string }) {
       // variant="ghost"
       color="primary"
       radius="full"
-      className="w-full py-4 text-lg"
+      // className="w-full py-4 text-lg"
+      className="w-full"
       onClick={() => copyToClipboard(code)}
     >
       {hasCopiedText ? (
         <>
-          Copied!
           <CheckIcon className="h-5 w-5" />
+          Copied!
         </>
       ) : (
         <>
-          Copy to clipboard
           <CopyIcon className="h-5 w-5" />
+          Copy to clipboard
         </>
       )}
     </Button>

@@ -53,3 +53,4 @@
 - [ ] download file > then select file > then open in vs code
 - [ ] paginate / that currently sends all the posts
 - [ ] replace all icons for lucide icons or animated icons
+- [ ] replace all h-5 w-5, h-4 w-4 with size-5, size-4 etc

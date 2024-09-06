@@ -12,9 +12,11 @@ import {
 } from "react-icons/bi";
 import { LuPencilLine as EditIcon } from "react-icons/lu";
 import { BsStars as StarsIcon } from "react-icons/bs";
-import BackButton from "@/components/BackButton";
+import { MdBookmarkAdd as BookmarkAddIcon } from "react-icons/md";
+import { MdBookmarkRemove as BookmarkRemoveIcon } from "react-icons/md";
+import BackButton from "@/components/buttons/BackButton";
 import Comments from "@/components/Comments";
-import CopyCodeButton from "@/components/CopyCodeButton";
+import CopyCodeButton from "@/components/buttons/CopyCodeButton";
 import PostSkeleton from "@/components/skeletons/PostSkeleton";
 
 import { Button as ShadButton } from "@/components/ui/button";
@@ -32,7 +34,9 @@ import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
-import DeletePostButton from "@/components/DeletePostButton";
+import DeletePostButton from "@/components/buttons/DeletePostButton";
+import VSCodeButton from "@/components/buttons/VSCodeButton";
+import { PostTypes } from "@/types/postTypes";
 
 export default function Post({ params }: { params: { postId: string } }) {
   const {
@@ -45,12 +49,11 @@ export default function Post({ params }: { params: { postId: string } }) {
   } = useUserStore();
   const router = useRouter();
   const [upvoteCount, setUpvoteCount] = useState(0);
-  // FIXME: add post types
   const {
     data: post,
     isError,
     isLoading,
-  } = useQuery({
+  } = useQuery<PostTypes>({
     queryKey: [params.postId],
     queryFn: async () => {
       return await fetcher
@@ -94,8 +97,8 @@ export default function Post({ params }: { params: { postId: string } }) {
     }
   }
 
-  if (isError) return "Error";
   if (isLoading) return <PostSkeleton />;
+  if (isError || !post) return "Error";
 
   return (
     <section className={cn(cardLayout)}>
@@ -109,14 +112,14 @@ export default function Post({ params }: { params: { postId: string } }) {
               size="sm"
               onClick={() => router.push(`/update-post?postId=${post._id}`)}
             >
-              <EditIcon className="mr-1 h-4 w-4" />
+              <EditIcon className="mr-1 size-4" />
               Update Post
             </ShadButton>
             <DeletePostButton postId={post._id} />
           </div>
         )}
         <Button className="mb-2" color="primary" variant="flat">
-          <StarsIcon className="h-5 w-5" />
+          <StarsIcon className="size-5" />
           Explain this
         </Button>
       </div>
@@ -142,7 +145,7 @@ export default function Post({ params }: { params: { postId: string } }) {
               />
             ) : (
               <DownvoteIcon
-                className="h-5 w-5 cursor-pointer"
+                className="size-5 cursor-pointer"
                 onClick={() => handleInteraction(post._id, "downvote")}
               />
             )}
@@ -156,41 +159,50 @@ export default function Post({ params }: { params: { postId: string } }) {
             </CardDescription>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex flex-col gap-4">
           <p>{post.description}</p>
-          <br />
+          <VSCodeButton
+            snippet={post.content}
+            fileName={post.title}
+            fileType={post.language}
+          />
           <CodeBlock
             text={post.content}
             language={post.language}
             theme={dracula}
             showLineNumbers={false}
           />
-          <div className="mt-6 flex flex-col gap-4">
-            <CopyCodeButton code={post.content} />
+          <div className="flex gap-2">
             {isLoggedIn && (
               <>
                 {userData?.savedPosts.includes(post._id) ? (
                   <Button
                     variant="flat"
-                    color="primary"
-                    className="w-full rounded-[20px] text-lg"
+                    color="danger"
+                    radius="full"
+                    className="w-full"
+                    // className="w-full rounded-[20px] text-lg"
                     onClick={() => removeSavedPost(post._id)}
                   >
+                    <BookmarkRemoveIcon className="size-5" />
                     Remove from saved
                   </Button>
                 ) : (
                   <Button
                     variant="flat"
-                    color="primary"
+                    color="success"
                     radius="full"
-                    className="w-full text-lg"
+                    className="w-full"
+                    // className="w-full text-lg"
                     onClick={() => savePost(post._id)}
                   >
+                    <BookmarkAddIcon className="size-5" />
                     Save post
                   </Button>
                 )}
               </>
             )}
+            <CopyCodeButton code={post.content} />
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-2">
