@@ -38,8 +38,18 @@
 - [ ] add more allowed languages
 
 - [ ] run prettier on file before upload
-- [ ] add in vscode feature
 - [ ] organise all components into folders
 - [ ] only make get current user if the localstorage has userData or loggedIn
 - [ ] add useTitle hook to every page
 - [x] find a good favicon
+- [ ] allow user to import all snippets from github gist
+- [ ] create post from github link
+- [ ] create post from github raw link
+- [ ] create post from github gist link
+- [ ] create post from local file
+- [ ] explain this snippet ai feature
+- [ ] upload snippet as github gist
+- [ ] add download file option in post/[postID]
+- [ ] download file > then select file > then open in vs code
+- [ ] paginate / that currently sends all the posts
+- [ ] replace all icons for lucide icons or animated icons

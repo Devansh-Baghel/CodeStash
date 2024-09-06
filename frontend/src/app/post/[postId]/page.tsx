@@ -11,23 +11,12 @@ import {
   BiUpvote as UpvoteIcon,
 } from "react-icons/bi";
 import { LuPencilLine as EditIcon } from "react-icons/lu";
-import { MdDelete as DeleteIcon } from "react-icons/md";
-
+import { BsStars as StarsIcon } from "react-icons/bs";
 import BackButton from "@/components/BackButton";
 import Comments from "@/components/Comments";
 import CopyCodeButton from "@/components/CopyCodeButton";
 import PostSkeleton from "@/components/skeletons/PostSkeleton";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+
 import { Button as ShadButton } from "@/components/ui/button";
 import {
   Card,
@@ -43,7 +32,7 @@ import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import DeletePostButton from "@/components/DeletePostButton";
 
 export default function Post({ params }: { params: { postId: string } }) {
   const {
@@ -105,20 +94,6 @@ export default function Post({ params }: { params: { postId: string } }) {
     }
   }
 
-  function deletePost() {
-    const deletePostPromise = fetcher
-      .post("/posts/delete-post", { postId: post._id })
-      .then(() => {
-        router.push("/");
-      });
-
-    toast.promise(deletePostPromise, {
-      loading: "Deleting post...",
-      success: "Deleted post successfully",
-      error: "Failed to delete post",
-    });
-  }
-
   if (isError) return "Error";
   if (isLoading) return <PostSkeleton />;
 
@@ -137,38 +112,13 @@ export default function Post({ params }: { params: { postId: string } }) {
               <EditIcon className="mr-1 h-4 w-4" />
               Update Post
             </ShadButton>
-
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <ShadButton
-                  className="text-sm text-black hover:text-red-500"
-                  variant="link"
-                  size="sm"
-                >
-                  <DeleteIcon className="mr-1 h-4 w-4" />
-                  Delete Post
-                </ShadButton>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>
-                    Are you sure that you want to delete this post?
-                  </AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your post and all its comments.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={deletePost}>
-                    Continue
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+            <DeletePostButton postId={post._id} />
           </div>
         )}
+        <Button className="mb-2" color="primary" variant="flat">
+          <StarsIcon className="h-5 w-5" />
+          Explain this
+        </Button>
       </div>
       <Card>
         <CardHeader className="flex flex-row items-center gap-4">
