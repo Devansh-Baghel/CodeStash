@@ -29,7 +29,7 @@ export default function PostsByUsername({ username }: { username: string }) {
       {data.length === 0 ? (
         <div className="mt-10 flex flex-col items-center justify-center gap-4">
           <NotFoundIcon className="text-[200px] text-secondary" />
-          <p>u/{username} hasn't created any post yet</p>
+          <p>u/{username} hasn&apos;t created any post yet</p>
         </div>
       ) : (
         data.map((post) => <PostItem post={post} key={post._id} />)
