@@ -41,7 +41,7 @@ export default function UserPosts() {
   }
 
   return (
-    <section className={cn(cardLayout)}>
+    <section>
       {/* <h1 className="mb-4 text-2xl font-bold text-gray-600">Your Posts</h1> */}
       <div className="flex flex-col gap-8">
         {data?.map((post) => (

@@ -11,7 +11,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Avatar } from "@nextui-org/react";
-import { Tabs, Tab, Card as NextCard, CardBody } from "@nextui-org/react";
+import { Tabs, Tab } from "@nextui-org/react";
 import UserPosts from "@/components/UserPosts";
 import UploadAvatar from "@/components/UploadAvatar";
 import Link from "next/link";

@@ -55,7 +55,7 @@ export default function SavedPosts({ hasTitle = true }) {
   }
 
   return (
-    <section className={cn(cardLayout)}>
+    <section className={cn(hasTitle ? cardLayout : "")}>
       {hasTitle && (
         <h1 className="mb-4 text-2xl font-bold text-gray-600">Saved Posts</h1>
       )}

@@ -37,6 +37,7 @@ import { useQuery } from "@tanstack/react-query";
 import DeletePostButton from "@/components/buttons/DeletePostButton";
 import VSCodeButton from "@/components/buttons/VSCodeButton";
 import { PostTypes } from "@/types/postTypes";
+import toast from "react-hot-toast";
 
 export default function Post({ params }: { params: { postId: string } }) {
   const {
@@ -118,7 +119,12 @@ export default function Post({ params }: { params: { postId: string } }) {
             <DeletePostButton postId={post._id} />
           </div>
         )}
-        <Button className="mb-2" color="primary" variant="flat">
+        <Button
+          className="mb-2"
+          color="primary"
+          variant="flat"
+          onClick={() => toast("This feature isn't implemented yet")}
+        >
           <StarsIcon className="size-5" />
           Explain this
         </Button>

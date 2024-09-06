@@ -1,13 +1,16 @@
-import { Button } from "@nextui-org/react";
-import { useState } from "react";
+import { Button, Input } from "@nextui-org/react";
+import { FormEvent, useState } from "react";
 import { IoCodeDownload as DownloadIcon } from "react-icons/io5";
 import { VscVscode as VSCodeIcon } from "react-icons/vsc";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@nextui-org/modal";
+import toast from "react-hot-toast";
 
 type VSCodeButtonProps = {
   snippet: string;
@@ -46,7 +49,8 @@ export default function VSCodeButton({
   fileType,
 }: VSCodeButtonProps) {
   const fileExtension = getFileExtension(fileType);
-  const [hasDownloaded, setHasDownloaded] = useState(false);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [filePath, setFilePath] = useState<File>();
 
   function downloadFile() {
     const blob = new Blob([snippet], { type: `text/${fileType}` });
@@ -58,7 +62,18 @@ export default function VSCodeButton({
     a.click();
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
-    setHasDownloaded(true);
+
+    toast.success("File downloaded successfully");
+  }
+
+  function openInVSCode(e: FormEvent) {
+    e.preventDefault();
+    if (!filePath) {
+      toast.error("File path is required to open the snippet in VS Code");
+      return;
+    }
+    console.log(filePath);
+    // window.location.href = `vscode://file${filePath}`;
   }
 
   //  TODO: better ui for this button
@@ -67,32 +82,67 @@ export default function VSCodeButton({
       <Button
         color="success"
         radius="full"
-        // variant="flat"
+        variant="flat"
         size="sm"
         onClick={downloadFile}
       >
         <DownloadIcon className="size-6" />
+        {/* <VSCodeIcon className="size-6" /> */}
         Download
       </Button>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger>
-            <Button
-              color="primary"
-              radius="full"
-              //   variant="flat"
-              size="sm"
-              disabled={!hasDownloaded}
-            >
-              <VSCodeIcon className="size-6" />
-              Open in VS Code
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent className="bg-background text-primary">
-            <p>You need to download the file first</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+
+      <Button
+        color="primary"
+        radius="full"
+        variant="flat"
+        size="sm"
+        // onPress={onOpen}
+        onClick={() => toast("This feature isn't implemented yet")}
+      >
+        <VSCodeIcon className="size-6" />
+        Open in VS Code
+      </Button>
+
+      {/* <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex items-center gap-2">
+                <VSCodeIcon className="size-6 text-primary" />
+                Download & Open in VS Code
+              </ModalHeader>
+              <form onSubmit={openInVSCode}>
+                <ModalBody>
+                  <Button color="success" radius="md" onClick={downloadFile}>
+                    <DownloadIcon className="size-6" />
+                    Download File
+                  </Button>
+                  <p>Select the file that you just downloaded.</p>
+                  <Input
+                    color="primary"
+                    type="file"
+                    id="code"
+                    name="code"
+                    required
+                    onChange={(e) => {
+                      if (!e.target.files) return;
+                      setFilePath(e.target.files[0]);
+                    }}
+                  />
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="danger" variant="light" onPress={onClose}>
+                    Close
+                  </Button>
+                  <Button color="primary" onPress={onClose} type="submit">
+                    Open in VS Code
+                  </Button>
+                </ModalFooter>
+              </form>
+            </>
+          )}
+        </ModalContent>
+      </Modal> */}
     </div>
   );
 }
