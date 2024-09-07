@@ -138,24 +138,24 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
       <div className="flex flex-col items-center">
         {userData?.upvotedComments.includes(comment._id) ? (
           <SolidUpvoteIcon
-            className="h-5 w-5 cursor-pointer"
+            className="size-5 cursor-pointer"
             onClick={() => handleInteraction("upvote")}
           />
         ) : (
           <UpvoteIcon
-            className="h-5 w-5 cursor-pointer"
+            className="size-5 cursor-pointer"
             onClick={() => handleInteraction("upvote")}
           />
         )}
         {upvoteCount}
         {userData?.downvotedComments.includes(comment._id) ? (
           <SolidDownvoteIcon
-            className="h-5 w-5 cursor-pointer"
+            className="size-5 cursor-pointer"
             onClick={() => handleInteraction("downvote")}
           />
         ) : (
           <DownvoteIcon
-            className="h-5 w-5 cursor-pointer"
+            className="size-5 cursor-pointer"
             onClick={() => handleInteraction("downvote")}
           />
         )}
@@ -185,7 +185,7 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <button>
-                    <DeleteIcon className="h-5 w-5 hover:cursor-pointer hover:text-red-500" />
+                    <DeleteIcon className="size-5 hover:cursor-pointer hover:text-red-500" />
                   </button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
@@ -220,7 +220,7 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
             />
             <div className="flex gap-2">
               <Button size="sm" disabled={isPending}>
-                {isPending && <Loader className="mr-2 h-4 w-4 animate-spin" />}
+                {isPending && <Loader className="mr-2 size-4 animate-spin" />}
                 Save changes
               </Button>
               <Button

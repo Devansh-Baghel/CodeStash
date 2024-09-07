@@ -1,26 +1,23 @@
 - [x] login page
 - [x] register page
-- [ ] infinite scrolling posts/snippets in homepage
 - [x] restructure project
 - [x] write backend boilerplate
 - [x] convert js boilerplate to ts
-- [ ] view raw option in each post
-- [ ] Loading components
-
-  - [x] in /post/[postId]
-  - [x] in /post/[postId] Comments
-  - [ ] in /login
-  - [ ] in /register
-  - [x] in /
-  - [x] in /saved
-  - [ ] in /upvotes
-  - [ ] in /downvotes
-
+- [x] Loading components in /post/[postId]
+- [x] Loading components in /post/[postId] Comments
+- [x] Loading components in /
+- [x] Loading components in /saved
+- [x] Loading components in /upvotes
+- [x] Loading components in /downvotes
 - [x] redirect user to / when loggedin
-- [ ] change upvote downvote icons when clicked, also will have to save the upvotes and downvotes in user's model
 - [x] /profile ui for not-logged-in user
-- [ ] /profile ui for logged-in user
 - [x] save post feature for logged-in user
+- [x] find a good favicon
+- [x] change upvote downvote icons when clicked, also will have to save the upvotes and downvotes in user's model
+- [x] add useTitle hook to every page
+
+- [ ] infinite scrolling posts/snippets in homepage
+- [ ] view raw option in each post
 - [ ] make a generic Posts component that takes posts[] as a prop and displays them
 - [ ] add formatting for number of comments, posts, upvotes, downvotes, etc like 1k, 2k, 3k, 1M, 2M, 3M etc
 - [ ] create list feature for users to create a list of snippets etc.
@@ -30,18 +27,12 @@
 - [ ] add better errors in all page
 - [ ] add "remove from upvotes" in /upvotes similar to "remove from saved" in /saved
 - [ ] add "remove from downvotes" in /downvotes similar to "remove from saved" in /saved
-- [x] sort all imports in all files
 - [ ] faq page maybe?
-- [ ] add custom scrollbar
 - [ ] show/hide option for profile card
 - [ ] delete post toast
 - [ ] add more allowed languages
-
-- [ ] run prettier on file before upload
 - [ ] organise all components into folders
 - [ ] only make get current user if the localstorage has userData or loggedIn
-- [ ] add useTitle hook to every page
-- [x] find a good favicon
 - [ ] allow user to import all snippets from github gist
 - [ ] create post from github link
 - [ ] create post from github raw link
@@ -49,8 +40,6 @@
 - [ ] create post from local file
 - [ ] explain this snippet ai feature
 - [ ] upload snippet as github gist
-- [ ] add download file option in post/[postID]
-- [ ] download file > then select file > then open in vs code
+- [x] add download file option in post/[postID]
 - [ ] paginate / that currently sends all the posts
-- [ ] replace all icons for lucide icons or animated icons
 - [ ] replace all h-5 w-5, h-4 w-4 with size-5, size-4 etc

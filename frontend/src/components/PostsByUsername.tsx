@@ -1,9 +1,7 @@
 import { useRouter } from "next/navigation";
 import { TbError404 as NotFoundIcon } from "react-icons/tb";
-import { cn } from "@/lib/utils";
 import { PostTypes } from "@/types/postTypes";
 import fetcher from "@/utils/axios";
-import { cardLayout } from "@/utils/classnames";
 import { useQuery } from "@tanstack/react-query";
 import PostItem from "./PostItem";
 import PostsLoading from "./skeletons/PostsLoading";

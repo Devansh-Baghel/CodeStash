@@ -40,7 +40,7 @@ export default function DeletePostButton({ postId }: { postId: string }) {
           variant="link"
           size="sm"
         >
-          <DeleteIcon className="mr-1 h-4 w-4" />
+          <DeleteIcon className="mr-1 size-4" />
           Delete Post
         </ShadButton>
       </AlertDialogTrigger>

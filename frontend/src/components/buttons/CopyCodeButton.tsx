@@ -23,12 +23,12 @@ export default function CopyCodeButton({ code }: { code: string }) {
     >
       {hasCopiedText ? (
         <>
-          <CheckIcon className="h-5 w-5" />
+          <CheckIcon className="size-5" />
           Copied!
         </>
       ) : (
         <>
-          <CopyIcon className="h-5 w-5" />
+          <CopyIcon className="size-5" />
           Copy to clipboard
         </>
       )}

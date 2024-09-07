@@ -66,7 +66,7 @@ export default function UpdateUsername() {
                 onChange={(e) => setNewUsername(e.target.value)}
               />
               <Button type="submit" className="w-40" disabled={isPending}>
-                {isPending && <Loader className="mr-2 h-4 w-4 animate-spin" />}
+                {isPending && <Loader className="mr-2 size-4 animate-spin" />}
                 Save
               </Button>
             </div>

@@ -44,7 +44,7 @@ export default function ProfileCard() {
             router.push("/profile");
           }}
         >
-          <ProfileIcon className="ml-12 h-5 w-5" />
+          <ProfileIcon className="ml-12 size-5" />
           Show profile
         </Button>
 

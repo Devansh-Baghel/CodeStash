@@ -105,7 +105,7 @@ export default function Hamburger() {
               onClick={handleLogout}
             >
               Logout
-              <LogoutIcon className="h-4 w-4" />
+              <LogoutIcon className="size-4" />
             </Button>
           </SheetFooter>
         </SheetContent>

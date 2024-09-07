@@ -63,24 +63,24 @@ export default function PostItem({ post }: { post: PostTypes }) {
         <div className="flex flex-col items-center">
           {userData?.upvotedPosts.includes(post._id) ? (
             <SolidUpvoteIcon
-              className="h-5 w-5 cursor-pointer"
+              className="size-5 cursor-pointer"
               onClick={() => handleInteraction(post._id, "upvote")}
             />
           ) : (
             <UpvoteIcon
-              className="h-5 w-5 cursor-pointer"
+              className="size-5 cursor-pointer"
               onClick={() => handleInteraction(post._id, "upvote")}
             />
           )}
           {upvoteCount}
           {userData?.downvotedPosts.includes(post._id) ? (
             <SolidDownvoteIcon
-              className="h-5 w-5 cursor-pointer"
+              className="size-5 cursor-pointer"
               onClick={() => handleInteraction(post._id, "downvote")}
             />
           ) : (
             <DownvoteIcon
-              className="h-5 w-5 cursor-pointer"
+              className="size-5 cursor-pointer"
               onClick={() => handleInteraction(post._id, "downvote")}
             />
           )}
