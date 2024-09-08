@@ -1,12 +1,22 @@
 import { Button, Input } from "@nextui-org/react";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { IoMdSearch as SearchIcon } from "react-icons/io";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [parent] = useAutoAnimate();
+
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+  }
 
   return (
-    <form className="mx-20 flex w-full max-w-[700px] items-center justify-center gap-4">
+    <form
+      className="mx-20 flex w-full max-w-[700px] items-center gap-4"
+      ref={parent}
+      onSubmit={handleSubmit}
+    >
       <Input
         isClearable
         radius="lg"
@@ -36,7 +46,12 @@ export default function SearchBar() {
         }
       />
 
-      {searchTerm && <Button type="submit">Search</Button>}
+      {searchTerm && (
+        <Button type="submit" color="success" radius="full">
+          <SearchIcon className="size-10" />
+          Search
+        </Button>
+      )}
     </form>
   );
 }
