@@ -2,18 +2,22 @@ import { Button, Input } from "@nextui-org/react";
 import { FormEvent, useState } from "react";
 import { IoMdSearch as SearchIcon } from "react-icons/io";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { useRouter } from "next/navigation";
 
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [parent] = useAutoAnimate();
+  const router = useRouter();
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
+
+    router.push(`/search?query=${searchTerm}`);
   }
 
   return (
     <form
-      className="mx-20 flex w-full max-w-[700px] items-center gap-4"
+      className="mx-20 flex w-full max-w-[670px] items-center gap-4"
       ref={parent}
       onSubmit={handleSubmit}
     >
@@ -22,7 +26,8 @@ export default function SearchBar() {
         radius="lg"
         size="md"
         placeholder="Search through code snippets..."
-        onChange={(event) => setSearchTerm(event.target.value)}
+        value={searchTerm}
+        onValueChange={(value) => setSearchTerm(value)}
         classNames={{
           input: [
             "text-black/90 dark:text-white/90",

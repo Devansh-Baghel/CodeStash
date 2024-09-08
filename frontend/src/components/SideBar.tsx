@@ -23,8 +23,6 @@ export default function SideBar() {
     loginUser({ email: "test@test.com", password: "test" });
   }
 
-  // TODO: use https://nextui.org/docs/components/link#polymorphic-component this instead of router.push
-
   return (
     <aside className="hidden h-[85vh] min-w-80 pl-2 pr-10 md:sticky md:top-20 md:block">
       <div className="flex h-full flex-col justify-between">
