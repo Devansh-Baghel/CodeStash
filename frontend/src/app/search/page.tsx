@@ -14,7 +14,6 @@ import { TbError404 as NotFoundIcon } from "react-icons/tb";
 export default function SearchPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
-  if (!query) return "Search something here...";
   const {
     data: posts,
     isError,
@@ -31,8 +30,9 @@ export default function SearchPage() {
 
   useEffect(() => {
     refetch();
-  }, [query]);
+  }, [query, refetch]);
 
+  if (!query) return "Search something here...";
   if (isError || !posts) return "Error";
   if (isLoading) return "Loading...";
 
