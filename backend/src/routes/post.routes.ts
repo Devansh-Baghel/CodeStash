@@ -14,6 +14,7 @@ import {
   getUpvotedPosts,
   removeSavedPost,
   savePost,
+  searchPosts,
   updatePost,
   upvotePost,
 } from "../controllers/post.controllers";
@@ -27,6 +28,7 @@ router.route("/get-posts-by-language").post(getPostsByLang);
 router.route("/get-post").post(getPost);
 router.route("/get-posts-by-username").post(getPostsByUsername);
 router.route("/get-posts-by-community").post(getPostsByCommunity);
+router.route("/search").get(searchPosts);
 
 // secure posts
 router.route("/create-post").post(verifyJWT, createPost);

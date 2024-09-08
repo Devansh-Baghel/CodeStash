@@ -405,3 +405,21 @@ export const updatePost = asyncHandler(async (req: UserRequest, res) => {
     .status(200)
     .json(new ApiResponse(200, { post }, "Post updated successfully"));
 });
+
+export const searchPosts = asyncHandler(async (req, res) => {
+  const { query } = req.query;
+
+  // query validation
+  // TODO: do this with zod
+  if (!query || typeof query !== "string") {
+    throw new ApiError(400, "Query is required and must be a string");
+  }
+
+  const posts = await Post.find({
+    $text: { $search: query },
+  });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, posts, "Posts sent successfully"));
+});

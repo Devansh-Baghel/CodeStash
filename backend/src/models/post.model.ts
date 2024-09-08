@@ -75,7 +75,10 @@ const postSchema: Schema<PostTypes> = new Schema(
     upvotes: { type: Number, default: 0 },
     downvotes: { type: Number, default: 0 },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
+
+// to search by title, content and description
+postSchema.index({ title: "text", content: "text", description: "text" });
 
 export const Post = mongoose.model<PostTypes>("Post", postSchema);
