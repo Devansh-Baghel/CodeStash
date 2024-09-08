@@ -40,7 +40,6 @@ const postSchema: Schema<PostTypes> = new Schema(
         type: Schema.Types.ObjectId,
         ref: "User",
         required: true,
-        unique: true,
       },
       fullname: {
         type: String,
@@ -51,7 +50,6 @@ const postSchema: Schema<PostTypes> = new Schema(
         type: String,
         trim: true,
         required: true,
-        unique: true,
       },
     },
     content: {
@@ -79,6 +77,12 @@ const postSchema: Schema<PostTypes> = new Schema(
 );
 
 // to search by title, content and description
-postSchema.index({ title: "text", content: "text", description: "text" });
+postSchema.index(
+  { title: "text", content: "text", description: "text" },
+  { language_override: "none" }
+);
 
-export const Post = mongoose.model<PostTypes>("Post", postSchema);
+const Post = mongoose.model<PostTypes>("Post", postSchema);
+Post.createIndexes();
+
+export { Post };

@@ -15,6 +15,9 @@
 - [x] find a good favicon
 - [x] change upvote downvote icons when clicked, also will have to save the upvotes and downvotes in user's model
 - [x] add useTitle hook to every page
+- [x] add download file option in post/[postID]
+- [x] delete post toast
+- [x] replace all h-5 w-5, h-4 w-4 with size-5, size-4 etc
 
 - [ ] infinite scrolling posts/snippets in homepage
 - [ ] view raw option in each post
@@ -29,7 +32,6 @@
 - [ ] add "remove from downvotes" in /downvotes similar to "remove from saved" in /saved
 - [ ] faq page maybe?
 - [ ] show/hide option for profile card
-- [ ] delete post toast
 - [ ] add more allowed languages
 - [ ] organise all components into folders
 - [ ] only make get current user if the localstorage has userData or loggedIn
@@ -40,6 +42,6 @@
 - [ ] create post from local file
 - [ ] explain this snippet ai feature
 - [ ] upload snippet as github gist
-- [x] add download file option in post/[postID]
 - [ ] paginate / that currently sends all the posts
-- [ ] replace all h-5 w-5, h-4 w-4 with size-5, size-4 etc
+- [ ] search posts controller
+- [ ] search posts ui
