@@ -5,6 +5,7 @@ import { useUserStore } from "@/store/userStore";
 import { Button } from "@nextui-org/react";
 
 import Hamburger from "./Hamburger";
+import SearchBar from "./SearchBar";
 
 // TODO: Make this navbar fixed at the top of the screen all the time
 export default function Navbar() {
@@ -23,6 +24,7 @@ export default function Navbar() {
         <h2 className="mt-1 text-xl font-semibold">CodeStash</h2>
       </Button>
       <Hamburger />
+      <SearchBar />
 
       {isLoggedIn ? (
         // TODO: when user is logged in show them their user icon which opens a menu for lots of actions like reddit does when logged in.
