@@ -11,6 +11,20 @@ import {
 } from "@nextui-org/react";
 import toast from "react-hot-toast";
 import { MdOutlineUploadFile as UploadIcon } from "react-icons/md";
+import { allowedLanguages } from "@/utils/constants";
+
+// Map allowed languages to their file extensions
+const languageExtensions = {
+  javascript: [".js"],
+  python: [".py"],
+  typescript: [".ts"],
+  ruby: [".rb"],
+  java: [".java"],
+  cpp: [".cpp", ".h"],
+  go: [".go"],
+  php: [".php"],
+  swift: [".swift"],
+};
 
 export default function UploadCodeFromFile({
   setCode,
@@ -26,18 +40,31 @@ export default function UploadCodeFromFile({
       return;
     }
 
-    const reader = new FileReader();
+    const fileName = file.name;
+    const fileExtension = fileName
+      .slice(fileName.lastIndexOf("."))
+      .toLowerCase();
 
-    reader.onload = function (e) {
-      if (!e.target) return;
-      if (typeof e.target.result !== "string") {
-        toast.error("Invalid File");
-        return;
+    // Check if the extension is allowed
+    let isAllowed = false;
+    for (const language of allowedLanguages) {
+      if (languageExtensions[language].includes(fileExtension)) {
+        isAllowed = true;
+        break;
       }
-      setCode(e.target.result);
-    };
+    }
 
-    reader.readAsText(file);
+    if (isAllowed) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        if (!e.target) return;
+        if (typeof e.target.result !== "string") return;
+        setCode(e.target.result);
+      };
+      reader.readAsText(file);
+    } else {
+      toast.error("Invalid file type! Please upload a valid code file.");
+    }
   }
 
   return (

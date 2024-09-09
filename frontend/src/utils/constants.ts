@@ -8,4 +8,4 @@ export const allowedLanguages = [
   "go",
   "php",
   "swift",
-];
+] as const;
