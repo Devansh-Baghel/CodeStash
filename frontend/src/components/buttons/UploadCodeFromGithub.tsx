@@ -17,21 +17,30 @@ function parseUrl(url: string) {
   if (!url.startsWith("https://")) {
     url = `https://${url}`;
   }
-  if (url.startsWith("https://gist.github.com")) {
-    toast("Gist is not supported yet :(");
-    return;
+
+  // Do not modify if the URL is already in raw Gist format
+  if (url.startsWith("https://gist.githubusercontent.com")) {
+    return url;
   }
+
+  // Handle Gist URLs
+  if (url.startsWith("https://gist.github.com")) {
+    // Convert the URL to raw Gist format
+    const gistRawLink = url
+      .replace("gist.github.com", "gist.githubusercontent.com")
+      .concat("/raw");
+    return gistRawLink;
+  }
+
   if (
-    !url.startsWith(
-      "https://github.com/" ||
-        "https://raw.githubusercontent.com" ||
-        "https://github.com/",
-    )
+    !url.startsWith("https://github.com/") &&
+    !url.startsWith("https://raw.githubusercontent.com/")
   ) {
-    toast("Please provide a valid github url");
+    toast("Please provide a valid GitHub URL");
     return;
   }
 
+  // Convert regular GitHub URLs to raw format
   const rawLink = url
     .replace("github.com", "raw.githubusercontent.com")
     .replace("/blob/", "/");
@@ -78,7 +87,7 @@ export default function UploadCodeFromGithub({
         type="button"
       >
         <UploadIcon />
-        Upload Code from Github
+        Upload from Github
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="lg">
         <ModalContent>
