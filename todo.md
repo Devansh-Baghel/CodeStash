@@ -38,12 +38,13 @@
 - [ ] organise all components into folders
 - [ ] only make get current user if the localstorage has userData or loggedIn
 - [ ] allow user to import all snippets from github gist
-- [ ] create post from github link
-- [ ] create post from github raw link
-- [ ] create post from github gist link
+- [x] create post from github link
+- [x] create post from github raw link
+- [x] create post from github gist link
 - [ ] create post from local file
 - [ ] explain this snippet ai feature
 - [ ] upload snippet as github gist
 - [ ] paginate / that currently sends all the posts
 - [ ] search button for not logged in user in sidebar (sidebar for not logged in user is empty)
 - [ ] add custom info toasts
+- [ ] draft posts feature

@@ -10,7 +10,8 @@ import {
   Input,
 } from "@nextui-org/react";
 import toast from "react-hot-toast";
-import { MdOutlineUploadFile as UploadIcon } from "react-icons/md";
+import { FaGithub as GithubIcon } from "react-icons/fa";
+
 import axios from "axios";
 
 function parseUrl(url: string) {
@@ -86,7 +87,7 @@ export default function UploadCodeFromGithub({
         size="sm"
         type="button"
       >
-        <UploadIcon />
+        <GithubIcon />
         Upload from Github
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="lg">

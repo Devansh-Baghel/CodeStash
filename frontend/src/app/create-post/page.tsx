@@ -32,6 +32,7 @@ import CodeEditor from "@uiw/react-textarea-code-editor";
 import { allowedLanguages } from "@/utils/constants";
 import useTitle from "@/hooks/useTitle";
 import UploadCodeFromGithub from "@/components/buttons/UploadCodeFromGithub";
+import UploadCodeFromFile from "@/components/buttons/UploadCodeFromFile";
 
 // TODO: if user is trying to create a post in c/community and they haven't joined that community then show them a banner that says to join the community before trying to make the post
 export default function CreatePost() {
@@ -178,7 +179,10 @@ export default function CreatePost() {
             <div className="grid gap-2">
               <div className="flex items-end justify-between gap-4">
                 <Label htmlFor="content">Code</Label>
-                <UploadCodeFromGithub setCode={setCode} />
+                <div className="flex gap-4">
+                  <UploadCodeFromGithub setCode={setCode} />
+                  <UploadCodeFromFile setCode={setCode} />
+                </div>
               </div>
               <CodeEditor
                 value={code}
