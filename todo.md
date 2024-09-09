@@ -18,6 +18,8 @@
 - [x] add download file option in post/[postID]
 - [x] delete post toast
 - [x] replace all h-5 w-5, h-4 w-4 with size-5, size-4 etc
+- [x] search posts controller
+- [x] search posts ui
 
 - [ ] infinite scrolling posts/snippets in homepage
 - [ ] view raw option in each post
@@ -43,5 +45,5 @@
 - [ ] explain this snippet ai feature
 - [ ] upload snippet as github gist
 - [ ] paginate / that currently sends all the posts
-- [ ] search posts controller
-- [ ] search posts ui
+- [ ] search button for not logged in user in sidebar (sidebar for not logged in user is empty)
+- [ ] add custom info toasts

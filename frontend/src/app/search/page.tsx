@@ -1,6 +1,7 @@
 "use client";
 
 import PostItem from "@/components/PostItem";
+import PostsLoading from "@/components/skeletons/PostsLoading";
 import { cn } from "@/lib/utils";
 import { PostTypes } from "@/types/postTypes";
 import fetcher from "@/utils/axios";
@@ -32,9 +33,10 @@ export default function SearchPage() {
     refetch();
   }, [query, refetch]);
 
+  // TODO: better ui for search page when input empty
   if (!query) return "Search something here...";
   if (isError || !posts) return "Error";
-  if (isLoading) return "Loading...";
+  if (isLoading) return <PostsLoading items={2} />;
 
   if (posts.length === 0)
     return (
