@@ -11,7 +11,6 @@ import {
   BiUpvote as UpvoteIcon,
 } from "react-icons/bi";
 import { LuPencilLine as EditIcon } from "react-icons/lu";
-import { BsStars as StarsIcon } from "react-icons/bs";
 import { MdBookmarkAdd as BookmarkAddIcon } from "react-icons/md";
 import { MdBookmarkRemove as BookmarkRemoveIcon } from "react-icons/md";
 import BackButton from "@/components/buttons/BackButton";
@@ -38,6 +37,7 @@ import DeletePostButton from "@/components/buttons/DeletePostButton";
 import VSCodeButton from "@/components/buttons/VSCodeButton";
 import { PostTypes } from "@/types/postTypes";
 import toast from "react-hot-toast";
+import ExplainThisButton from "@/components/buttons/ExplainThis";
 
 export default function Post({ params }: { params: { postId: string } }) {
   const {
@@ -119,15 +119,7 @@ export default function Post({ params }: { params: { postId: string } }) {
             <DeletePostButton postId={post._id} />
           </div>
         )}
-        <Button
-          className="mb-2"
-          color="primary"
-          variant="flat"
-          onClick={() => toast("This feature isn't implemented yet")}
-        >
-          <StarsIcon className="size-5" />
-          Explain this
-        </Button>
+        <ExplainThisButton />
       </div>
       <Card>
         <CardHeader className="flex flex-row items-center gap-4">

@@ -20,6 +20,12 @@
 - [x] replace all h-5 w-5, h-4 w-4 with size-5, size-4 etc
 - [x] search posts controller
 - [x] search posts ui
+- [x] create post from github link
+- [x] create post from github raw link
+- [x] create post from github gist link
+- [x] create post from github gist raw link
+- [x] create post from local file
+- [x] filetype validations in create post from local file
 
 - [ ] infinite scrolling posts/snippets in homepage
 - [ ] view raw option in each post
@@ -38,13 +44,10 @@
 - [ ] organise all components into folders
 - [ ] only make get current user if the localstorage has userData or loggedIn
 - [ ] allow user to import all snippets from github gist
-- [x] create post from github link
-- [x] create post from github raw link
-- [x] create post from github gist link
-- [ ] create post from local file
 - [ ] explain this snippet ai feature
 - [ ] upload snippet as github gist
 - [ ] paginate / that currently sends all the posts
 - [ ] search button for not logged in user in sidebar (sidebar for not logged in user is empty)
 - [ ] add custom info toasts
 - [ ] draft posts feature
+- [ ] forgot password feature
