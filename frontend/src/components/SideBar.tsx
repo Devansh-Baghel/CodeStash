@@ -7,7 +7,6 @@ import {
 } from "react-icons/fa6";
 import { LuLogOut as LogoutIcon } from "react-icons/lu";
 import { RiHome6Fill as HomeIcon } from "react-icons/ri";
-
 import { useUserStore } from "@/store/userStore";
 import { Button, Card } from "@nextui-org/react";
 
