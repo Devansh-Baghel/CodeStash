@@ -2,6 +2,7 @@
 
 import ChangePassword from "@/components/ChangePassword";
 import NotLoggedIn from "@/components/NotLoggedIn";
+import SetDownloadPath from "@/components/SetDownloadPath";
 import UpdateUsername from "@/components/UpdateUsername";
 import useTitle from "@/hooks/useTitle";
 import { cn } from "@/lib/utils";
@@ -27,6 +28,7 @@ export default function AccountSettings() {
       <h1 className="mb-4 text-2xl font-bold text-gray-600">
         Account Settings
       </h1>
+      <SetDownloadPath />
       <UpdateUsername />
       <ChangePassword />
     </section>
