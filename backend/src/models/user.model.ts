@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface UserTypes extends Document {
+  _id: string;
   username: string;
   email: string;
   password: string;

@@ -84,7 +84,7 @@ export const loginUser = asyncHandler(
     if (!isPasswordValid) throw new ApiError(401, "Invalid Password");
 
     const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
-      user._id!
+      user._id
     );
 
     const loggedInUser = await User.findById(user._id).select(
@@ -268,6 +268,12 @@ export const setUserDownloadPath = asyncHandler(
 
     return res
       .status(200)
-      .json(new ApiResponse(200, {}, "Download path set sucessfully"));
+      .json(
+        new ApiResponse(
+          200,
+          { updatedUser: user },
+          "Download path set sucessfully"
+        )
+      );
   }
 );
