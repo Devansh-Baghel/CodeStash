@@ -24,6 +24,7 @@ interface UserState {
     verifyCode?: string;
     verifyCodeExpiry?: Date;
     isVerified: boolean;
+    downloadPath: string;
   };
   setUserData: (userData: UserState["userData"]) => void;
   getCurrentUser: () => void;

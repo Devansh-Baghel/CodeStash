@@ -18,4 +18,5 @@ export type UserTypes = {
   verifyCode?: string;
   verifyCodeExpiry?: Date;
   isVerified: boolean;
+  downloadPath: string;
 };

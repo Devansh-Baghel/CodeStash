@@ -11,6 +11,7 @@ import {
   useDisclosure,
 } from "@nextui-org/modal";
 import toast from "react-hot-toast";
+import { useUserStore } from "@/store/userStore";
 
 type VSCodeButtonProps = {
   snippet: string;
@@ -49,8 +50,9 @@ export default function VSCodeButton({
   fileType,
 }: VSCodeButtonProps) {
   const fileExtension = getFileExtension(fileType);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [filePath, setFilePath] = useState<File>();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const [hasDownloaded, setHasDownloaded] = useState(false);
+  const { userData } = useUserStore();
 
   function downloadFile() {
     const blob = new Blob([snippet], { type: `text/${fileType}` });
@@ -64,16 +66,27 @@ export default function VSCodeButton({
     window.URL.revokeObjectURL(url);
 
     toast.success("File downloaded successfully");
+    setHasDownloaded(true);
   }
 
-  function openInVSCode(e: FormEvent) {
-    e.preventDefault();
-    if (!filePath) {
-      toast.error("File path is required to open the snippet in VS Code");
+  function openInVSCode() {
+    if (!userData?.downloadPath) {
+      toast.error(
+        "You need to set the downlaod path first in Account Settings",
+      );
       return;
     }
-    console.log(filePath);
-    // window.location.href = `vscode://file${filePath}`;
+    if (!hasDownloaded) {
+      toast.error("You need to download the file first");
+      return;
+    }
+    if (userData.downloadPath.endsWith("/")) {
+      window.location.href = `vscode://file${userData.downloadPath}/${fileName}.${fileExtension}`;
+    } else if (userData.downloadPath.endsWith("\\")) {
+      window.location.href = `vscode://file${userData.downloadPath}\\${fileName}.${fileExtension}`;
+    } else {
+      window.location.href = `vscode://file${userData.downloadPath}/${fileName}.${fileExtension}`;
+    }
   }
 
   //  TODO: better ui for this button
@@ -96,14 +109,14 @@ export default function VSCodeButton({
         radius="full"
         variant="flat"
         size="sm"
-        // onPress={onOpen}
-        onClick={() => toast("This feature isn't implemented yet")}
+        onPress={onOpen}
+        // onClick={() => toast("This feature isn't implemented yet")}
       >
         <VSCodeIcon className="size-6" />
         Open in VS Code
       </Button>
 
-      {/* <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
@@ -111,38 +124,35 @@ export default function VSCodeButton({
                 <VSCodeIcon className="size-6 text-primary" />
                 Download & Open in VS Code
               </ModalHeader>
-              <form onSubmit={openInVSCode}>
-                <ModalBody>
-                  <Button color="success" radius="md" onClick={downloadFile}>
-                    <DownloadIcon className="size-6" />
-                    Download File
-                  </Button>
-                  <p>Select the file that you just downloaded.</p>
-                  <Input
-                    color="primary"
-                    type="file"
-                    id="code"
-                    name="code"
-                    required
-                    onChange={(e) => {
-                      if (!e.target.files) return;
-                      setFilePath(e.target.files[0]);
-                    }}
-                  />
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="danger" variant="light" onPress={onClose}>
-                    Close
-                  </Button>
-                  <Button color="primary" onPress={onClose} type="submit">
-                    Open in VS Code
-                  </Button>
-                </ModalFooter>
-              </form>
+              <ModalBody>
+                <p>You have to download the file before opening.</p>
+                <Button
+                  color={hasDownloaded ? "default" : "success"}
+                  radius="md"
+                  onClick={downloadFile}
+                  disabled={hasDownloaded}
+                >
+                  <DownloadIcon className="size-6" />
+                  {hasDownloaded ? "Downloaded!" : "Download File"}
+                </Button>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                <Button
+                  color={hasDownloaded ? "primary" : "default"}
+                  onClick={openInVSCode}
+                  type="submit"
+                  disabled={!hasDownloaded}
+                >
+                  Open in VS Code
+                </Button>
+              </ModalFooter>
             </>
           )}
         </ModalContent>
-      </Modal> */}
+      </Modal>
     </div>
   );
 }

@@ -52,3 +52,4 @@
 - [ ] draft posts feature
 - [ ] forgot password feature
 - [ ] remove all ts ignore and fix all userTypes errors with !
+- [ ] add error toast if github link is a private repo, and returns 404
