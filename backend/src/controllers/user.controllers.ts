@@ -255,3 +255,19 @@ export const changeCurrentPassword = asyncHandler(
       .json(new ApiResponse(200, {}, "Password changed successfully"));
   }
 );
+
+export const setUserDownloadPath = asyncHandler(
+  async (req: UserRequest, res) => {
+    const { downloadPath } = req.body;
+    const user = req.user!;
+
+    if (!downloadPath) throw new ApiError(400, "Download path is required");
+
+    user.downloadPath = downloadPath;
+    await user?.save();
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, {}, "Download path set sucessfully"));
+  }
+);

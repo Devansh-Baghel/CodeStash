@@ -51,3 +51,4 @@
 - [ ] add custom info toasts
 - [ ] draft posts feature
 - [ ] forgot password feature
+- [ ] remove all ts ignore and fix all userTypes errors with !

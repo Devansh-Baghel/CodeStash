@@ -7,6 +7,7 @@ import {
   loginUser,
   logoutUser,
   registerUser,
+  setUserDownloadPath,
   updateUsername,
   uploadAvatar,
 } from "../controllers/user.controllers";
@@ -27,5 +28,6 @@ router.route("/update-password").patch(verifyJWT, changeCurrentPassword);
 router
   .route("/upload-avatar")
   .post(verifyJWT, upload.single("avatar"), uploadAvatar);
+router.route("/set-download-path").patch(verifyJWT, setUserDownloadPath);
 
 export default router;

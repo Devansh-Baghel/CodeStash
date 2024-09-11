@@ -7,7 +7,8 @@ import { BsStars as StarsIcon } from "react-icons/bs";
 export default function ExplainThisButton({ post }: { post: PostTypes }) {
   function getAiAnswer() {
     const toastId = toast.loading("Requesting AI...");
-    axios.post(webApiUrl, { headers: { Authorization: `Bearer ${tokenStr}` } });
+    // TODO: add this feature of ai answer
+    // axios.post(webApiUrl, { headers: { Authorization: `Bearer ${tokenStr}` } });
   }
 
   return (
