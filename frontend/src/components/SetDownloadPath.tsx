@@ -52,8 +52,8 @@ export default function SetDownloadPath() {
           {userData?.downloadPath ? "Change" : "Set"} Download Path for VS Code
         </CardTitle>
         <CardDescription>
-          This is required to open files in VS Code. Make sure the folder
-          exists.
+          Enter the absolute download path of your browser. This is required to
+          open files in VS Code. Make sure the folder exists.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -62,9 +62,8 @@ export default function SetDownloadPath() {
             <Label htmlFor="email">Download Path</Label>
             <div className="flex items-center justify-center gap-4">
               <Input
-                id="username"
+                id="download-path"
                 placeholder="Enter absolute folder path (e.g., C:/Users/...)"
-                autoComplete="username"
                 required
                 value={downloadPath}
                 onChange={(e) => setDownloadPath(e.target.value)}
