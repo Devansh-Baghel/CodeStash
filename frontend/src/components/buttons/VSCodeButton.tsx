@@ -12,6 +12,7 @@ import {
 } from "@nextui-org/modal";
 import toast from "react-hot-toast";
 import { useUserStore } from "@/store/userStore";
+import { useRouter } from "next/navigation";
 
 type VSCodeButtonProps = {
   snippet: string;
@@ -53,6 +54,7 @@ export default function VSCodeButton({
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [hasDownloaded, setHasDownloaded] = useState(false);
   const { userData } = useUserStore();
+  const router = useRouter();
 
   function downloadFile() {
     const blob = new Blob([snippet], { type: `text/${fileType}` });
@@ -69,10 +71,47 @@ export default function VSCodeButton({
     setHasDownloaded(true);
   }
 
+  function handleModalOpen() {
+    if (!userData?.downloadPath) {
+      // TODO: maybe make all toasts custom
+      toast.custom(
+        (t) => (
+          <div
+            className={`${t.visible ? "animate-enter" : "animate-leave"} flex items-center justify-center gap-4 rounded-xl bg-white px-6 py-2 shadow-xl`}
+          >
+            <span>
+              <span className="mr-4">📌</span> You need to set the download path
+              first in Account Settings
+            </span>
+            <Button
+              onClick={() => router.push("/settings")}
+              size="sm"
+              color="primary"
+              radius="full"
+            >
+              Account Settings
+            </Button>
+          </div>
+        ),
+        {
+          id: "download-path-not-set",
+        },
+      );
+      return;
+    }
+    onOpen();
+  }
+
   function openInVSCode() {
     if (!userData?.downloadPath) {
-      toast.error(
-        "You need to set the downlaod path first in Account Settings",
+      // TODO: in this toast add a link to /settings
+      toast.custom(
+        <div>
+          You need to set the download path first in Account Settings
+          <Button onClick={() => router.push("/settings")}>
+            Account Settings
+          </Button>
+        </div>,
       );
       return;
     }
@@ -89,7 +128,6 @@ export default function VSCodeButton({
     }
   }
 
-  //  TODO: better ui for this button
   return (
     <div className="flex gap-2 self-end">
       <Button
@@ -100,7 +138,6 @@ export default function VSCodeButton({
         onClick={downloadFile}
       >
         <DownloadIcon className="size-6" />
-        {/* <VSCodeIcon className="size-6" /> */}
         Download
       </Button>
 
@@ -109,8 +146,7 @@ export default function VSCodeButton({
         radius="full"
         variant="flat"
         size="sm"
-        onPress={onOpen}
-        // onClick={() => toast("This feature isn't implemented yet")}
+        onPress={handleModalOpen}
       >
         <VSCodeIcon className="size-6" />
         Open in VS Code

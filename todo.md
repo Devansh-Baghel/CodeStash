@@ -53,3 +53,9 @@
 - [ ] forgot password feature
 - [ ] remove all ts ignore and fix all userTypes errors with !
 - [ ] add error toast if github link is a private repo, and returns 404
+- [ ] add react window to unload all components that aren't visible
+- [ ] add toast to tell user to set the download path before they try to open in vscode
+- [ ] test open in vs code feature in windows
+- [ ] test open in vs code feature without vs code install
+- [ ] add id in all toasts so that they don't reapeat on multiple clicks
+- [ ] add react-query proper way, so queries don't refetch every time
