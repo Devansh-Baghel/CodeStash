@@ -10,7 +10,7 @@ import {
   CardDescription,
   CardFooter,
 } from "@/components/ui/card";
-import { Avatar } from "@nextui-org/react";
+import { Avatar, Button } from "@nextui-org/react";
 import { Tabs, Tab } from "@nextui-org/react";
 import UserPosts from "@/components/UserPosts";
 import UploadAvatar from "@/components/UploadAvatar";
@@ -19,12 +19,15 @@ import SavedPosts from "@/components/SavedPosts";
 import UpvotedPosts from "@/components/UpvotedPosts";
 import DownvotedPosts from "@/components/DownvotedPosts";
 import useTitle from "@/hooks/useTitle";
+import { useRouter } from "next/navigation";
+import { MdOutlineDriveFileRenameOutline as UpdateUsernameIcon } from "react-icons/md";
+import { RiLockPasswordLine as UpdatePasswordIcon } from "react-icons/ri";
 
 // TODO: This page should show the user's personal details, saved posts, etc (i.e. everything that is publically visible + everything that is NOT publically visible)
 export default function Profile() {
   useTitle("Profile");
-
   const { isLoggedIn, userData } = useUserStore();
+  const router = useRouter();
 
   if (!isLoggedIn) {
     return (
@@ -56,11 +59,31 @@ export default function Profile() {
             <h3>Downvoted Posts: {userData?.downvotedPosts.length}</h3>
           </div>
         </CardContent>
-        <CardFooter className="px-10">
+        <CardFooter className="flex gap-4 px-10">
           <UploadAvatar
             buttonText={userData?.avatar ? "Update Avatar" : "Upload Avatar"}
             type="user"
           />
+          <Button
+            onClick={() => router.push("/settings#change-username")}
+            color="primary"
+            radius="md"
+            size="sm"
+            variant="flat"
+          >
+            <UpdateUsernameIcon className="size-4" />
+            Change Username
+          </Button>
+          <Button
+            onClick={() => router.push("/settings#change-password")}
+            color="primary"
+            radius="md"
+            size="sm"
+            variant="flat"
+          >
+            <UpdatePasswordIcon className="size-4" />
+            Change Password
+          </Button>
         </CardFooter>
       </Card>
       <div className="flex w-full flex-col">

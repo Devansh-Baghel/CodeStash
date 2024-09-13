@@ -24,7 +24,7 @@ export default function AccountSettings() {
   }
 
   return (
-    <section className={cn(cardLayout)}>
+    <section className={cn(cardLayout, "mb-56")}>
       <h1 className="mb-4 text-2xl font-bold text-gray-600">
         Account Settings
       </h1>

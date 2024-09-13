@@ -58,7 +58,7 @@ export default function SetDownloadPath() {
       </CardHeader>
       <CardContent>
         <form onSubmit={setPath}>
-          <div className="grid gap-2">
+          <div className="grid gap-2" id="change-username">
             <Label htmlFor="email">Download Path</Label>
             <div className="flex items-center justify-center gap-4">
               <Input

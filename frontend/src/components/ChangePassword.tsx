@@ -53,7 +53,7 @@ export default function ChangePassword() {
   }
 
   return (
-    <Card className="mx-auto">
+    <Card className="mx-auto" id="change-password">
       <CardHeader>
         <CardTitle className="text-xl">Change Password</CardTitle>
         <CardDescription>

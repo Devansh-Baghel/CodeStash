@@ -61,3 +61,7 @@
 body {
   padding: 1rem !important;
 }
+
+html {
+  scroll-behavior: smooth !important;
+}

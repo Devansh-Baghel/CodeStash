@@ -59,3 +59,5 @@
 - [ ] test open in vs code feature without vs code install
 - [ ] add id in all toasts so that they don't reapeat on multiple clicks
 - [ ] add react-query proper way, so queries don't refetch every time
+- [ ] create a preview/banner image for codestash to add in github
+- [ ] responsive
