@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { CodeBlock, dracula } from "react-code-blocks";
+import CodeEditor from "@uiw/react-textarea-code-editor";
 import {
   BiDownvote as DownvoteIcon,
   BiSolidDownvote as SolidDownvoteIcon,
@@ -17,7 +17,6 @@ import BackButton from "@/components/buttons/BackButton";
 import Comments from "@/components/Comments";
 import CopyCodeButton from "@/components/buttons/CopyCodeButton";
 import PostSkeleton from "@/components/skeletons/PostSkeleton";
-
 import { Button as ShadButton } from "@/components/ui/button";
 import {
   Card,
@@ -166,11 +165,18 @@ export default function Post({ params }: { params: { postId: string } }) {
             fileName={post.title}
             fileType={post.language}
           />
-          <CodeBlock
-            text={post.content}
+          <CodeEditor
+            value={post.content}
             language={post.language}
-            theme={dracula}
-            showLineNumbers={false}
+            className="cursor-text rounded-xl"
+            required
+            disabled
+            data-color-mode="dark"
+            padding={15}
+            style={{
+              fontFamily:
+                "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
+            }}
           />
           <div className="flex gap-2">
             {isLoggedIn && (

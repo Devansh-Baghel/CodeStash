@@ -198,6 +198,7 @@ export default function CreatePost() {
                 onChange={(evn) => setCode(evn.target.value)}
                 className="rounded-xl"
                 required
+                data-color-mode="dark"
                 padding={15}
                 style={{
                   fontFamily:

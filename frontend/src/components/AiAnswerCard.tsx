@@ -15,7 +15,7 @@ export default function AiAnswerCard({ aiAnswer }: { aiAnswer?: string }) {
       <CardHeader className="flex flex-col text-center">
         <CardTitle className="text-xl">✨ AI Explanation ✨</CardTitle>
       </CardHeader>
-      <CardContent className="max-w-[700px]">
+      <CardContent className="max-w-[700px]" data-color-mode="light">
         {/* TODO: show button to get ai explanation here */}
         {aiAnswer ? (
           //   <Markdown>{aiAnswer}</Markdown>

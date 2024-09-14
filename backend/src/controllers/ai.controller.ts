@@ -59,7 +59,6 @@ export const getAiAnswer = asyncHandler(async (req: UserRequest, res) => {
   const prompt = `I am providing you a code snippet, please explain me this code snippet, only give small and consice explanation, only give answers in valid markdown format, make sure to use markdown format extensively, if possible use indenting in the markdown in bullet points etc. Make sure to include EXACTLY ONE (choose between NOTE, TIP, IMPORTANT, WARNING, CAUTION depending on your explanation of the code, only use CAUTION and WARNING when there is a severe problem in the code) of the following github alerts at the top of your response, in this exact format including > symbol: ${githubAlerts}. The code snippet is: ${post.content}`;
 
   const result = await chatSession.sendMessage(prompt);
-  console.log(result.response.text());
   const aiAnswer = result.response.text();
 
   return res
