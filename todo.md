@@ -74,3 +74,6 @@
 - [ ] tell gemini to give small and consice answers
 - [ ] move copy to code and save post button at the top of the code content
 - [ ] add explain this button in in AiAnswerCard when user hasn't gotten ai answer yet.
+- [ ] check text encoding 004 model if users hit 15rpm or token limit.
+- [ ] better code display component in /post/postId
+- [ ] fix: theme inside create-post and update-post code editors has changed to light mode because of markdown parsing being done by the same library

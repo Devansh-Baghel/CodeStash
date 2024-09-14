@@ -5,6 +5,24 @@ import { ApiResponse } from "../utils/apiResponse";
 import { asyncHandler } from "../utils/asyncHandler";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+const githubAlerts = `
+> 
+> [!NOTE]
+> Useful information that users should know, even when skimming content.
+
+> [!TIP]
+> Helpful advice for doing things better or more easily.
+
+> [!IMPORTANT]
+> Key information users need to know to achieve their goal.
+
+> [!WARNING]
+> Urgent info that needs immediate user attention to avoid problems.
+
+> [!CAUTION]
+> Advises about risks or negative outcomes of certain actions.
+`;
+
 export const getAiAnswer = asyncHandler(async (req: UserRequest, res) => {
   const { postId } = req.query;
 
@@ -38,7 +56,7 @@ export const getAiAnswer = asyncHandler(async (req: UserRequest, res) => {
     history: [],
   });
 
-  const prompt = `I am providing you a code snippet, please explain me this code snippet: ${post.content}`;
+  const prompt = `I am providing you a code snippet, please explain me this code snippet, only give small and consice explanation, only give answers in valid markdown format, make sure to use markdown format extensively, if possible use indenting in the markdown in bullet points etc. Make sure to include the following github alerts at the top of your response, in this exact format including > symbol: ${githubAlerts}. The code snippet is: ${post.content}`;
 
   const result = await chatSession.sendMessage(prompt);
   console.log(result.response.text());
