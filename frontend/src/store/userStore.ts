@@ -55,7 +55,7 @@ interface UserState {
 
 export const useUserStore = create<UserState>()((set, get) => ({
   isLoggedIn: false,
-  showProfileCard: true,
+  showProfileCard: false,
   setShowProfileCard: (state) => {
     set(() => ({ showProfileCard: state }));
   },
@@ -69,6 +69,7 @@ export const useUserStore = create<UserState>()((set, get) => ({
       .then((res) => {
         set(() => ({ userData: res.data.data.user }));
         set(() => ({ isLoggedIn: true }));
+        set(() => ({ showProfileCard: true }));
       })
       .catch((error) => {
         if (error.status === 401) {
@@ -100,6 +101,7 @@ export const useUserStore = create<UserState>()((set, get) => ({
       .then((res) => {
         set(() => ({ userData: res.user }));
         set(() => ({ isLoggedIn: true }));
+        set(() => ({ showProfileCard: true }));
       });
 
     toast.promise(loginToastPromise, {
@@ -112,6 +114,7 @@ export const useUserStore = create<UserState>()((set, get) => ({
     const logoutToastPromise = fetcher.post("/users/logout").then(() => {
       set(() => ({ isLoggedIn: false }));
       set(() => ({ userData: null }));
+      set(() => ({ showProfileCard: false }));
     });
 
     toast.promise(logoutToastPromise, {

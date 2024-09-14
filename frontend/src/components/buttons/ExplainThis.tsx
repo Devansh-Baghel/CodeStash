@@ -14,9 +14,17 @@ export default function ExplainThisButton({
   postId: string;
   setAiAnswer: React.Dispatch<React.SetStateAction<string | undefined>>;
 }) {
+  const { isLoggedIn } = useUserStore();
   const router = useRouter();
   function getAiAnswer() {
-    // TODO: add this feature of ai answer
+    if (!isLoggedIn) {
+      toast.error(
+        "You must be logged in to use AI features. Login as a demo user to test this feature.",
+        { icon: "📌" },
+      );
+      return;
+    }
+
     const aiAnswerPromise = axiosInstance
       .get("/ai/explain", { params: { postId } })
       .then((res) => {
