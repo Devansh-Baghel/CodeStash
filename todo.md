@@ -26,6 +26,7 @@
 - [x] create post from github gist raw link
 - [x] create post from local file
 - [x] filetype validations in create post from local file
+- [x] add toast to tell user to set the download path before they try to open in vscode
 
 - [ ] infinite scrolling posts/snippets in homepage
 - [ ] view raw option in each post
@@ -54,10 +55,13 @@
 - [ ] remove all ts ignore and fix all userTypes errors with !
 - [ ] add error toast if github link is a private repo, and returns 404
 - [ ] add react window to unload all components that aren't visible
-- [ ] add toast to tell user to set the download path before they try to open in vscode
 - [ ] test open in vs code feature in windows
 - [ ] test open in vs code feature without vs code install
 - [ ] add id in all toasts so that they don't reapeat on multiple clicks
 - [ ] add react-query proper way, so queries don't refetch every time
 - [ ] create a preview/banner image for codestash to add in github
 - [ ] responsive
+- [x] add a limit on the number of characters that a user can enter into a post in /create-post
+- [x] add a limit on the number of characters that a user can enter into a post in /update-post
+- [x] add upload from github and upload local file features in /update-post
+- [x] redirect user to /post/postid after updating a post

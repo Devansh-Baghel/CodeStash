@@ -1,9 +1,7 @@
 import { useRouter } from "next/navigation";
 import { VscGitStash as CodeStashIcon } from "react-icons/vsc";
-
 import { useUserStore } from "@/store/userStore";
 import { Button } from "@nextui-org/react";
-
 import Hamburger from "./Hamburger";
 import SearchBar from "./SearchBar";
 

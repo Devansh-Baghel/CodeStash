@@ -32,6 +32,9 @@ import { Button } from "@nextui-org/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { allowedLanguages } from "@/utils/constants";
+import { toast as rhToast } from "react-hot-toast";
+import UploadCodeFromGithub from "@/components/buttons/UploadCodeFromGithub";
+import UploadCodeFromFile from "@/components/buttons/UploadCodeFromFile";
 
 export default function UpdatePost() {
   const searchParams = useSearchParams();
@@ -78,6 +81,8 @@ export default function UpdatePost() {
             title: "Post Updated",
             description: `You post in c/${post?.community} has been updated successfully`,
           });
+
+          router.push(`/post/${post?._id}`);
         });
     },
   });
@@ -94,6 +99,11 @@ export default function UpdatePost() {
         title: "Programming language not selected",
         description: "Please select a programming language to update this post",
       });
+      return;
+    }
+
+    if (code.length > 9_000) {
+      rhToast.error("Code is too long. Please keep it under 9,000 characters.");
       return;
     }
 
@@ -184,7 +194,13 @@ export default function UpdatePost() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="content">Code</Label>
+              <div className="flex items-end justify-between gap-4">
+                <Label htmlFor="content">Code</Label>
+                <div className="flex gap-4">
+                  <UploadCodeFromGithub setCode={setCode} />
+                  <UploadCodeFromFile setCode={setCode} />
+                </div>
+              </div>
               <CodeEditor
                 value={code}
                 language={language || "python"}

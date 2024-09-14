@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
-
 import NotLoggedIn from "@/components/NotLoggedIn";
 import {
   Card,
@@ -33,6 +32,7 @@ import { allowedLanguages } from "@/utils/constants";
 import useTitle from "@/hooks/useTitle";
 import UploadCodeFromGithub from "@/components/buttons/UploadCodeFromGithub";
 import UploadCodeFromFile from "@/components/buttons/UploadCodeFromFile";
+import { toast as rhToast } from "react-hot-toast";
 
 // TODO: if user is trying to create a post in c/community and they haven't joined that community then show them a banner that says to join the community before trying to make the post
 export default function CreatePost() {
@@ -60,6 +60,11 @@ export default function CreatePost() {
         title: "Programming language not selected",
         description: "Please select a programming language to create a post",
       });
+      return;
+    }
+
+    if (code.length > 9_000) {
+      rhToast.error("Code is too long. Please keep it under 9,000 characters.");
       return;
     }
 
