@@ -34,6 +34,7 @@
 - [x] ai controllers
 - [x] ai routes
 - [x] ai works in backend
+- [x] ai works in frontend
 
 - [ ] infinite scrolling posts/snippets in homepage
 - [ ] view raw option in each post
@@ -68,4 +69,8 @@
 - [ ] add react-query proper way, so queries don't refetch every time
 - [ ] create a preview/banner image for codestash to add in github
 - [ ] responsive
-- [ ] ai works in frontend
+- [ ] save ai answer in post model for future requests, if post model doesn't have ai answer then generate the ai answer (this is to save tokens + reduce ai requests)
+- [ ] show parsed markdown in the ai answer on frontend
+- [ ] tell gemini to give small and consice answers
+- [ ] move copy to code and save post button at the top of the code content
+- [ ] add explain this button in in AiAnswerCard when user hasn't gotten ai answer yet.

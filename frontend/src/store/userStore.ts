@@ -4,6 +4,8 @@ import toast from "react-hot-toast";
 
 interface UserState {
   isLoggedIn: boolean;
+  showProfileCard: boolean;
+  setShowProfileCard: (state: boolean) => void;
   userData: null | {
     _id: string;
     firstName: string;
@@ -53,6 +55,10 @@ interface UserState {
 
 export const useUserStore = create<UserState>()((set, get) => ({
   isLoggedIn: false,
+  showProfileCard: true,
+  setShowProfileCard: (state) => {
+    set(() => ({ showProfileCard: state }));
+  },
   userData: null,
   setUserData: (userData) => {
     set(() => ({ userData }));

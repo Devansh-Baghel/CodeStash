@@ -38,6 +38,7 @@ import VSCodeButton from "@/components/buttons/VSCodeButton";
 import { PostTypes } from "@/types/postTypes";
 import toast from "react-hot-toast";
 import ExplainThisButton from "@/components/buttons/ExplainThis";
+import AiAnswerCard from "@/components/AiAnswerCard";
 
 export default function Post({ params }: { params: { postId: string } }) {
   const {
@@ -65,6 +66,7 @@ export default function Post({ params }: { params: { postId: string } }) {
         });
     },
   });
+  const [aiAnswer, setAiAnswer] = useState<string | undefined>();
 
   // TODO: Create a custom hook to do this
   function handleInteraction(postId: string, action: "upvote" | "downvote") {
@@ -119,7 +121,7 @@ export default function Post({ params }: { params: { postId: string } }) {
             <DeletePostButton postId={post._id} />
           </div>
         )}
-        <ExplainThisButton />
+        <ExplainThisButton postId={post._id} setAiAnswer={setAiAnswer} />
       </div>
       <Card>
         <CardHeader className="flex flex-row items-center gap-4">
@@ -213,7 +215,7 @@ export default function Post({ params }: { params: { postId: string } }) {
           </p>
 
           {/* FIXME: make this a badge, label or chip that a user can click */}
-          <p>
+          <p id="ai-explanation">
             Written in{" "}
             <Link href={`/?language=${post.language}`} className="underline">
               {post.language}
@@ -221,6 +223,7 @@ export default function Post({ params }: { params: { postId: string } }) {
           </p>
         </CardFooter>
       </Card>
+      <AiAnswerCard aiAnswer={aiAnswer} />
       {/* TODO: add a card that displays some stats about the community that this post is posted in */}
       <Comments postId={params.postId} madeBy={post.madeBy.username} />
     </section>
