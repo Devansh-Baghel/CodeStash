@@ -27,7 +27,7 @@ export default function ExplainThisButton({
     toast.promise(aiAnswerPromise, {
       loading: "Generating AI Explanation...",
       success: "Generated AI Explanation",
-      error: "Failed to get AI explanation",
+      error: "Our AI is currently under heavy load. Please try again later.",
     });
   }
 

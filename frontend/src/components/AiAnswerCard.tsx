@@ -1,5 +1,11 @@
 import { Button } from "@nextui-org/react";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 import Markdown from "markdown-to-jsx";
 import MarkdownPreview from "@uiw/react-markdown-preview";
 
@@ -18,6 +24,9 @@ export default function AiAnswerCard({ aiAnswer }: { aiAnswer?: string }) {
           "Generating AI Explanation..."
         )}
       </CardContent>
+      <CardFooter className="flex justify-center text-sm font-semibold">
+        Note that AI models are not perfect and may make mistakes.
+      </CardFooter>
     </Card>
   );
 }
