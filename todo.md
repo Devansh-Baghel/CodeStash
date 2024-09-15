@@ -46,6 +46,9 @@
 - [x] add avatar dropdown menu from nextui
 - [x] auto animate when hiding/showing profile card
 - [x] fix: toasts animating weirdly because of auto animate
+- [x] paginate in backend
+- [x] paginate in frontend
+- [x] paginate posts-by-lang endpoint
 
 - [ ] infinite scrolling posts/snippets in homepage
 - [ ] view raw option in each post
@@ -86,5 +89,4 @@
 - [ ] better font for the title "CodeStash"
 - [ ] add made with love by devansh baghel at the end of every section
 - [ ] add page heading when components loading screens are present
-- [ ] paginate in backend
-- [ ] paginate in frontend
+- [ ] paginate posts-by-username endpoint

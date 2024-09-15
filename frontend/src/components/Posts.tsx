@@ -3,21 +3,21 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { TbError404 as NotFoundIcon } from "react-icons/tb";
-
 import { cn } from "@/lib/utils";
 import { PostTypes } from "@/types/postTypes";
 import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
-
 import PostItem from "./PostItem";
 import PostsLoading from "./skeletons/PostsLoading";
+import { Pagination } from "@nextui-org/react";
 
 export default function Posts() {
   const searchParams = useSearchParams();
   const language = searchParams.get("language");
   const router = useRouter();
+  const page = parseInt(searchParams.get("page") || "1");
 
   const {
     data,
@@ -27,16 +27,21 @@ export default function Posts() {
     refetch,
     isRefetchError,
     isRefetching,
-  } = useQuery<PostTypes[]>({
-    queryKey: ["posts"],
+  } = useQuery<{
+    posts: PostTypes[];
+    totalPages: number;
+    totalPosts: number;
+    currentPage: number;
+  }>({
+    queryKey: [`posts - page=${page} ${language}`],
     queryFn: async () => {
       if (!language) {
-        return await fetcher.get("/posts/get-posts");
+        return await fetcher.get(`/posts/get-posts?page=${page}`);
       } else {
         return await fetcher.post("/posts/get-posts-by-language", { language });
       }
     },
-    retry: 1,
+    retry: 0,
   });
 
   // This is cause when user clicks on homepage icon to go to / , then it refetches the query
@@ -60,7 +65,7 @@ export default function Posts() {
       <h1 className="-mb-4 text-2xl font-bold text-gray-600">
         {language ? `Posts written in ${language}` : "All Posts"}
       </h1>
-      {data.length === 0 ? (
+      {data.posts.length === 0 ? (
         <div className="mt-10 flex flex-col items-center justify-center gap-4">
           <NotFoundIcon className="text-[200px] text-secondary" />
           <p>Currenly there are no posts for {language}</p>
@@ -73,7 +78,24 @@ export default function Posts() {
           </Button>
         </div>
       ) : (
-        data.map((post) => <PostItem post={post} key={post._id} />)
+        <>
+          {data.posts.map((post) => (
+            <PostItem post={post} key={post._id} />
+          ))}
+          <Pagination
+            total={data.totalPages}
+            showControls
+            page={page}
+            className="mx-auto"
+            onChange={(page) => {
+              if (language) {
+                router.push(`/?language=${language}&page=${page}`);
+              } else {
+                router.push(`/?page=${page}`);
+              }
+            }}
+          />
+        </>
       )}
     </div>
   );
