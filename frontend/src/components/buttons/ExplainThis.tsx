@@ -1,5 +1,4 @@
 import { useUserStore } from "@/store/userStore";
-import { PostTypes } from "@/types/postTypes";
 import { axiosInstance } from "@/utils/axios";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";

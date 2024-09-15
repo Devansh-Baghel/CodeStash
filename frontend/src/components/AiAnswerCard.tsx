@@ -6,10 +6,54 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import Markdown from "markdown-to-jsx";
 import MarkdownPreview from "@uiw/react-markdown-preview";
+import toast from "react-hot-toast";
+import { useUserStore } from "@/store/userStore";
+import { axiosInstance } from "@/utils/axios";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { BiLoaderAlt as Loader } from "react-icons/bi";
+import { BsStars as StarsIcon } from "react-icons/bs";
 
-export default function AiAnswerCard({ aiAnswer }: { aiAnswer?: string }) {
+export default function AiAnswerCard({
+  aiAnswer,
+  setAiAnswer,
+  postId,
+}: {
+  postId: string;
+  aiAnswer?: string;
+  setAiAnswer: React.Dispatch<React.SetStateAction<string | undefined>>;
+}) {
+  const { isLoggedIn } = useUserStore();
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  function getAiAnswer() {
+    if (!isLoggedIn) {
+      toast.error(
+        "You must be logged in to use AI features. Login as a demo user to test this feature.",
+        { icon: "📌" },
+      );
+      return;
+    }
+
+    setIsLoading(true);
+
+    const aiAnswerPromise = axiosInstance
+      .get("/ai/explain", { params: { postId } })
+      .then((res) => {
+        setAiAnswer(res.data.data.aiAnswer);
+        setIsLoading(false);
+        router.push(`#ai-explanation`);
+      });
+
+    toast.promise(aiAnswerPromise, {
+      loading: "Generating AI Explanation...",
+      success: "Generated AI Explanation",
+      error: "Our AI is currently under heavy load. Please try again later.",
+    });
+  }
+
   return (
     <Card className="mt-8">
       <CardHeader className="flex flex-col text-center">
@@ -21,12 +65,24 @@ export default function AiAnswerCard({ aiAnswer }: { aiAnswer?: string }) {
           //   <Markdown>{aiAnswer}</Markdown>
           <MarkdownPreview source={aiAnswer} />
         ) : (
-          "Generating AI Explanation..."
+          <div className="flex w-full items-center justify-center">
+            <Button
+              color={isLoading ? "default" : "primary"}
+              onClick={getAiAnswer}
+              disabled={isLoading}
+            >
+              {isLoading && <Loader className="mr-2 size-4 animate-spin" />}
+              {isLoading ? "Getting" : "Get"} AI Explanation
+              <StarsIcon className="size-5" />
+            </Button>
+          </div>
         )}
       </CardContent>
-      <CardFooter className="flex justify-center text-sm font-semibold">
-        Note that AI models are not perfect and may make mistakes.
-      </CardFooter>
+      {aiAnswer && (
+        <CardFooter className="flex justify-center text-sm font-semibold">
+          Note that AI models are not perfect and may make mistakes.
+        </CardFooter>
+      )}
     </Card>
   );
 }

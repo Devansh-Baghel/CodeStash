@@ -49,6 +49,7 @@
 - [x] paginate in backend
 - [x] paginate in frontend
 - [x] paginate posts-by-lang endpoint
+- [x] add explain this button in in AiAnswerCard when user hasn't gotten ai answer yet.
 
 - [ ] infinite scrolling posts/snippets in homepage
 - [ ] view raw option in each post
@@ -82,7 +83,6 @@
 - [ ] responsive
 - [ ] save ai answer in post model for future requests, if post model doesn't have ai answer then generate the ai answer (this is to save tokens + reduce ai requests)
 - [ ] move copy to code and save post button at the top of the code content
-- [ ] add explain this button in in AiAnswerCard when user hasn't gotten ai answer yet.
 - [ ] check text encoding 004 model if users hit 15rpm or token limit.
 - [ ] remove unneccacary packages from backend
 - [ ] Suspense or loading.tsx components for instant feedback when user clicks to go on a route
@@ -90,3 +90,7 @@
 - [ ] add made with love by devansh baghel at the end of every section
 - [ ] add page heading when components loading screens are present
 - [ ] paginate posts-by-username endpoint
+- [ ] add code embed feature
+- [ ] add code share feature, share code on various platforms
+- [ ] add feature to convert code snippet into a github gist post.
+- [ ] in search page add tabs for "All matches", "Title", "Code", "Description"

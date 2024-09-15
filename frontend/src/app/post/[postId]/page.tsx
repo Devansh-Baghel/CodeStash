@@ -229,7 +229,11 @@ export default function Post({ params }: { params: { postId: string } }) {
           </p>
         </CardFooter>
       </Card>
-      <AiAnswerCard aiAnswer={aiAnswer} />
+      <AiAnswerCard
+        aiAnswer={aiAnswer}
+        setAiAnswer={setAiAnswer}
+        postId={post._id}
+      />
       {/* TODO: add a card that displays some stats about the community that this post is posted in */}
       <Comments postId={params.postId} madeBy={post.madeBy.username} />
     </section>
