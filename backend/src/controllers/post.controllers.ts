@@ -14,13 +14,11 @@ export const getPosts = asyncHandler(async (req: Request, res: Response) => {
   const limit = 3; // Send 3 posts at a time
   const skip = (page - 1) * limit;
 
-  // TODO: don't send the post.content to client, cause the coed can be very large
   const posts = await Post.find()
     .sort({ createdAt: -1 })
     .skip(skip)
     .limit(limit);
 
-  // FIXME: use zod verification here
   if (!posts || posts.length === 0)
     throw new ApiError(404, "There aren't any posts");
 
@@ -54,18 +52,39 @@ export const getPost = asyncHandler(async (req, res) => {
 export const getPostsByLang = asyncHandler(
   async (req: UserRequest, res: Response) => {
     const { language } = req.body;
+    const page = parseInt(req.query.page as string) || 1; // Default to page 1 if not provided
+    const limit = 3; // Send 3 posts at a time
+    const skip = (page - 1) * limit;
+
     if (!language) throw new ApiError(400, "Language is required");
 
     if (!allowedLanguages.includes(language)) {
       throw new ApiError(404, "This language isn't supported yet");
     }
 
-    const posts = await Post.find({ language });
-    if (!posts) throw new ApiError(404, "There aren't any posts");
+    const posts = await Post.find({ language })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
 
-    return res
-      .status(200)
-      .json(new ApiResponse(200, posts, "Posts got successfully"));
+    if (!posts || posts.length === 0)
+      throw new ApiError(404, "There aren't any posts");
+
+    const totalPosts = await Post.countDocuments({ language });
+    const totalPages = Math.ceil(totalPosts / limit);
+
+    return res.status(200).json(
+      new ApiResponse(
+        200,
+        {
+          posts,
+          currentPage: page,
+          totalPages,
+          totalPosts,
+        },
+        "Posts got successfully"
+      )
+    );
   }
 );
 
