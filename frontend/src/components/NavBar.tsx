@@ -27,7 +27,7 @@ export default function Navbar() {
 
       {isLoggedIn ? (
         // TODO: when user is logged in show them their user icon which opens a menu for lots of actions like reddit does when logged in.
-        <div className="hidden gap-4 sm:flex">
+        <div className="hidden sm:flex">
           {/* <Button
             variant="solid"
             radius="full"

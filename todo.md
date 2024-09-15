@@ -42,10 +42,13 @@
 - [x] must be logged in user to use the ai features
 - [x] remove unneccacary packages from frontend
 - [x] better code display component in /post/postId from @uiwjs
+- [x] show/hide option for profile card
+- [x] add avatar dropdown menu from nextui
+- [x] auto animate when hiding/showing profile card
+- [x] fix: toasts animating weirdly because of auto animate
 
 - [ ] infinite scrolling posts/snippets in homepage
 - [ ] view raw option in each post
-- [ ] make a generic Posts component that takes posts[] as a prop and displays them
 - [ ] add formatting for number of comments, posts, upvotes, downvotes, etc like 1k, 2k, 3k, 1M, 2M, 3M etc
 - [ ] create list feature for users to create a list of snippets etc.
 - [ ] add loading user data loader in generic component to fetch the current user and block all rendering until then
@@ -55,7 +58,6 @@
 - [ ] add "remove from upvotes" in /upvotes similar to "remove from saved" in /saved
 - [ ] add "remove from downvotes" in /downvotes similar to "remove from saved" in /saved
 - [ ] faq page maybe?
-- [ ] show/hide option for profile card
 - [ ] add more allowed languages
 - [ ] organise all components into folders
 - [ ] only make get current user if the localstorage has userData or loggedIn
@@ -81,3 +83,8 @@
 - [ ] check text encoding 004 model if users hit 15rpm or token limit.
 - [ ] remove unneccacary packages from backend
 - [ ] Suspense or loading.tsx components for instant feedback when user clicks to go on a route
+- [ ] better font for the title "CodeStash"
+- [ ] add made with love by devansh baghel at the end of every section
+- [ ] add page heading when components loading screens are present
+- [ ] paginate in backend
+- [ ] paginate in frontend

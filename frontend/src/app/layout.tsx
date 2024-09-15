@@ -48,9 +48,9 @@ export default function RootLayout({
             <NextUIProvider>
               <Dashboard>
                 <main className="h-full w-full">{children}</main>
-                <Toaster />
-                <RHToaster />
               </Dashboard>
+              <Toaster />
+              <RHToaster />
             </NextUIProvider>
             <ReactQueryDevtools initialIsOpen={false} />
           </ReactQueryProvider>

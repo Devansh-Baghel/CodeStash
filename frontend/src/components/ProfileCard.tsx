@@ -20,7 +20,7 @@ export default function ProfileCard() {
 
   return (
     <Card
-      className="sticky top-20 z-50 mr-0 hidden max-h-[85vh] w-full max-w-64 p-4 lg:block"
+      className="sticky top-20 z-50 mr-0 hidden max-h-[85vh] w-full max-w-72 p-4 lg:block"
       shadow="sm"
     >
       <CardHeader className="flex flex-col text-center">
@@ -42,7 +42,7 @@ export default function ProfileCard() {
             router.push("/profile");
           }}
         >
-          <ProfileIcon className="ml-12 size-5" />
+          <ProfileIcon className="ml-6 size-5" />
           Show profile
         </Button>
 

@@ -4,12 +4,18 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-  Avatar,
   User,
 } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 
 export default function AvatarDropdown() {
-  const { userData } = useUserStore();
+  const { userData, logoutUser, showProfileCard, setShowProfileCard } =
+    useUserStore();
+  const router = useRouter();
+
+  function switchProfileCardStatus() {
+    setShowProfileCard(!showProfileCard);
+  }
 
   return (
     <Dropdown>
@@ -26,17 +32,26 @@ export default function AvatarDropdown() {
         />
       </DropdownTrigger>
       <DropdownMenu aria-label="User Actions" variant="flat">
-        <DropdownItem key="profile" className="h-14 gap-2">
+        <DropdownItem
+          key="profile"
+          className="h-14 gap-2"
+          onClick={() => router.push("/profile")}
+        >
           <p className="font-bold">Signed in as</p>
           <p className="font-bold">@{userData?.username}</p>
         </DropdownItem>
-        <DropdownItem key="settings">My Settings</DropdownItem>
-        <DropdownItem key="team_settings">Team Settings</DropdownItem>
-        <DropdownItem key="analytics">Analytics</DropdownItem>
-        <DropdownItem key="system">System</DropdownItem>
-        <DropdownItem key="configurations">Configurations</DropdownItem>
-        <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-        <DropdownItem key="logout" color="danger">
+        <DropdownItem key="settings" onClick={() => router.push("/settings")}>
+          My Settings
+        </DropdownItem>
+        <DropdownItem key="saved" onClick={() => router.push("/saved")}>
+          Saved Posts
+        </DropdownItem>
+        <DropdownItem key="profile-card" onClick={switchProfileCardStatus}>
+          {showProfileCard ? "Hide Profile Card" : "Show Profile Card"}
+        </DropdownItem>
+        {/* <DropdownItem key="configurations">Configurations</DropdownItem> */}
+        {/* <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem> */}
+        <DropdownItem key="logout" color="danger" onClick={logoutUser}>
           Log Out
         </DropdownItem>
       </DropdownMenu>

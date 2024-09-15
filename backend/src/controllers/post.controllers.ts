@@ -24,7 +24,7 @@ export const getPosts = asyncHandler(async (req: Request, res: Response) => {
   if (!posts || posts.length === 0)
     throw new ApiError(404, "There aren't any posts");
 
-  const totalPosts = await Post.countDocuments(); // Get the total number of posts
+  const totalPosts = await Post.countDocuments();
   const totalPages = Math.ceil(totalPosts / limit);
 
   return res

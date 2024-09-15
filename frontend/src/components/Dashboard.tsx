@@ -5,9 +5,11 @@ import { useUserStore } from "@/store/userStore";
 import Navbar from "./NavBar";
 import ProfileCard from "./ProfileCard";
 import SideBar from "./SideBar";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export default function Dashboard({ children }: { children: React.ReactNode }) {
   const { getCurrentUser, isLoggedIn, showProfileCard } = useUserStore();
+  const [parent] = useAutoAnimate();
 
   // TODO: add Loading user data... screen like monkeytype
   // FIXME: only run this if accessToken and refreshToken exist
@@ -18,11 +20,9 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto max-w-[1400px]">
       <Navbar />
-      <div className="flex">
+      <div className="flex" ref={parent}>
         <SideBar />
         {children}
-        {/* TODO: add some other card here when user isn't logged in */}
-        {/* Maybe make the avatar of the profile card to be this image https://i.seadn.io/gcs/files/ccb8c81826526eb68f002bd3fabaa05c.png?auto=format&dpr=1&w=1000 */}
         {isLoggedIn && showProfileCard && <ProfileCard />}
       </div>
     </div>
