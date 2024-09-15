@@ -17,7 +17,7 @@ export default function SearchBar() {
 
   return (
     <form
-      className="mx-20 flex w-full max-w-[670px] items-center gap-4"
+      className="mr-20 flex w-full max-w-[700px] items-center gap-4"
       ref={parent}
       onSubmit={handleSubmit}
     >

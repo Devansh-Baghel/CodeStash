@@ -20,7 +20,7 @@ export default function ProfileCard() {
 
   return (
     <Card
-      className="sticky top-20 z-50 mr-0 hidden max-h-[85vh] w-full max-w-80 p-4 lg:block"
+      className="sticky top-20 z-50 mr-0 hidden max-h-[85vh] w-full max-w-64 p-4 lg:block"
       shadow="sm"
     >
       <CardHeader className="flex flex-col text-center">

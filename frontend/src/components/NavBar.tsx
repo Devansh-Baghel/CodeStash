@@ -4,6 +4,7 @@ import { useUserStore } from "@/store/userStore";
 import { Button } from "@nextui-org/react";
 import Hamburger from "./Hamburger";
 import SearchBar from "./SearchBar";
+import AvatarDropdown from "./AvatarDropdown";
 
 // TODO: Make this navbar fixed at the top of the screen all the time
 export default function Navbar() {
@@ -26,8 +27,8 @@ export default function Navbar() {
 
       {isLoggedIn ? (
         // TODO: when user is logged in show them their user icon which opens a menu for lots of actions like reddit does when logged in.
-        <div className="hidden gap-2 sm:flex">
-          <Button
+        <div className="hidden gap-4 sm:flex">
+          {/* <Button
             variant="solid"
             radius="full"
             className="bg-primary text-white"
@@ -36,9 +37,9 @@ export default function Navbar() {
             }}
           >
             Show profile
-          </Button>
+          </Button> */}
 
-          <Button
+          {/* <Button
             variant="flat"
             radius="full"
             color="primary"
@@ -47,7 +48,9 @@ export default function Navbar() {
             }}
           >
             Saved Posts
-          </Button>
+          </Button> */}
+
+          <AvatarDropdown />
         </div>
       ) : (
         <div className="hidden gap-2 sm:flex">

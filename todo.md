@@ -35,8 +35,9 @@
 - [x] ai routes
 - [x] ai works in backend
 - [x] ai works in frontend
+- [x] explain this snippet ai feature
 - [x] show parsed markdown in the ai answer on frontend
-- [x] tell gemini to give small and consice answers
+- [x] tell gemini to give small and concise answers
 - [x] fix: theme inside create-post and update-post code editors has changed to light mode because of markdown parsing being done by the same library
 - [x] must be logged in user to use the ai features
 - [x] remove unneccacary packages from frontend
@@ -59,7 +60,6 @@
 - [ ] organise all components into folders
 - [ ] only make get current user if the localstorage has userData or loggedIn
 - [ ] allow user to import all snippets from github gist
-- [ ] explain this snippet ai feature
 - [ ] upload snippet as github gist
 - [ ] paginate / that currently sends all the posts
 - [ ] search button for not logged in user in sidebar (sidebar for not logged in user is empty)
@@ -71,7 +71,7 @@
 - [ ] add react window to unload all components that aren't visible
 - [ ] test open in vs code feature in windows
 - [ ] test open in vs code feature without vs code install
-- [ ] add id in all toasts so that they don't reapeat on multiple clicks
+- [ ] add id in all toasts so that they don't repeat on multiple clicks
 - [ ] add react-query proper way, so queries don't refetch every time
 - [ ] create a preview/banner image for codestash to add in github
 - [ ] responsive
