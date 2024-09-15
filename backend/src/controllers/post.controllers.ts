@@ -10,17 +10,32 @@ import { User } from "../models/user.model";
 import { Community } from "../models/community.model";
 
 export const getPosts = asyncHandler(async (req: Request, res: Response) => {
-  // TODO: don't send the post.content to client, cause the coed can be very large
-  let posts = await Post.find();
+  const page = parseInt(req.query.page as string) || 1; // Default to page 1 if not provided
+  const limit = 3; // Send 3 posts at a time
+  const skip = (page - 1) * limit;
 
-  posts = posts.reverse();
+  // TODO: don't send the post.content to client, cause the coed can be very large
+  const posts = await Post.find()
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit);
 
   // FIXME: use zod verification here
-  if (!posts) throw new ApiError(404, "There aren't any posts");
+  if (!posts || posts.length === 0)
+    throw new ApiError(404, "There aren't any posts");
+
+  const totalPosts = await Post.countDocuments(); // Get the total number of posts
+  const totalPages = Math.ceil(totalPosts / limit);
 
   return res
     .status(200)
-    .json(new ApiResponse(200, posts, "Posts sent successfully"));
+    .json(
+      new ApiResponse(
+        200,
+        { posts, currentPage: page, totalPages, totalPosts },
+        "Posts sent successfully"
+      )
+    );
 });
 
 export const getPost = asyncHandler(async (req, res) => {
