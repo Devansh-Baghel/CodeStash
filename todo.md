@@ -118,3 +118,4 @@
 - [ ] message another user option
 - [ ] follow user option
 - [ ] Loading screen in /u/username
+- [ ] add og/meta tags for SEO

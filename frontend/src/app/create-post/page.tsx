@@ -33,6 +33,9 @@ import useTitle from "@/hooks/useTitle";
 import UploadCodeFromGithub from "@/components/buttons/UploadCodeFromGithub";
 import UploadCodeFromFile from "@/components/buttons/UploadCodeFromFile";
 import { toast as rhToast } from "react-hot-toast";
+import { BiLoaderAlt as Loader } from "react-icons/bi";
+import { useMutation } from "@tanstack/react-query";
+import MutationButton from "@/components/MutationButton";
 
 // TODO: if user is trying to create a post in c/community and they haven't joined that community then show them a banner that says to join the community before trying to make the post
 export default function CreatePost() {
@@ -49,6 +52,32 @@ export default function CreatePost() {
   const { isLoggedIn, userData } = useUserStore();
   const [community, setCommunity] = useState(searchParams.get("community"));
   const router = useRouter();
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["create-post"],
+    mutationFn: () => {
+      return fetcher
+        .post("/posts/create-post", {
+          content: code,
+          language,
+          description,
+          title,
+          community,
+        })
+        .then((res) => {
+          console.log(res);
+          setTitle("");
+          setCode("");
+          setDescription("");
+
+          toast({
+            title: "Post Created",
+            description: `Your post in c/${community} written in ${language} was created successfully.`,
+          });
+
+          router.push(`/post/${res._id}`);
+        });
+    },
+  });
 
   if (!community) setCommunity("all");
 
@@ -78,27 +107,7 @@ export default function CreatePost() {
       return;
     }
 
-    fetcher
-      .post("/posts/create-post", {
-        content: code,
-        language,
-        description,
-        title,
-        community,
-      })
-      .then((res) => {
-        console.log(res);
-        setTitle("");
-        setCode("");
-        setDescription("");
-
-        toast({
-          title: "Post Created",
-          description: `Your post in c/${community} written in ${language} was created successfully.`,
-        });
-
-        router.push(`/post/${res._id}`);
-      });
+    mutate();
   }
 
   if (!isLoggedIn) {
@@ -206,9 +215,9 @@ export default function CreatePost() {
                 }}
               />
             </div>
-            <Button type="submit" className="w-full" color="primary">
+            <MutationButton type="submit" isPending={isPending}>
               Create post in c/{community}
-            </Button>
+            </MutationButton>
           </div>
         </form>
       </CardContent>

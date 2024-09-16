@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-
 import { allowedLanguages, Post } from "../models/post.model";
 import { postSchema } from "../schemas/postSchema";
 import { UserRequest } from "../types/userTypes";
@@ -11,7 +10,7 @@ import { Community } from "../models/community.model";
 
 export const getPosts = asyncHandler(async (req: Request, res: Response) => {
   const page = parseInt(req.query.page as string) || 1; // Default to page 1 if not provided
-  const limit = 3; // Send 3 posts at a time
+  const limit = 10; // Send 10 posts at a time
   const skip = (page - 1) * limit;
 
   const posts = await Post.find()
@@ -53,7 +52,7 @@ export const getPostsByLang = asyncHandler(
   async (req: UserRequest, res: Response) => {
     const { language } = req.body;
     const page = parseInt(req.query.page as string) || 1; // Default to page 1 if not provided
-    const limit = 3; // Send 3 posts at a time
+    const limit = 10; // Send 10 posts at a time
     const skip = (page - 1) * limit;
 
     if (!language) throw new ApiError(400, "Language is required");
