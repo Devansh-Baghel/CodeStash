@@ -18,7 +18,7 @@ export default function PostsLoading({ items }: { items?: number }) {
         <Card className={cn("mb-8", cardLayout)} key={index}>
           <CardHeader className="flex flex-row gap-4">
             <CardTitle>
-              <Skeleton className="h-10 w-80 rounded-2xl" />
+              <Skeleton className="h-10 w-52 rounded-2xl md:w-80" />
             </CardTitle>
           </CardHeader>
           <CardContent>

@@ -80,7 +80,6 @@
 - [ ] add id in all toasts so that they don't repeat on multiple clicks
 - [ ] add react-query proper way, so queries don't refetch every time
 - [ ] create a preview/banner image for codestash to add in github
-- [ ] responsive
 - [ ] save ai answer in post model for future requests, if post model doesn't have ai answer then generate the ai answer (this is to save tokens + reduce ai requests)
 - [ ] move copy to code and save post button at the top of the code content
 - [ ] check text encoding 004 model if users hit 15rpm or token limit.
@@ -94,3 +93,28 @@
 - [ ] add code share feature, share code on various platforms
 - [ ] add feature to convert code snippet into a github gist post.
 - [ ] in search page add tabs for "All matches", "Title", "Code", "Description"
+- [ ] responsive
+  1. [x] /
+  2. [x] /profile
+  3. [x] /saved
+  4. [x] /upvoted
+  5. [x] /downvoted
+  6. [x] /u/username
+  7. [x] /c/community
+  8. [x] /languages
+  9. [x] /settings
+  10. [x] /login
+  11. [x] /register
+  12. [x] /communities
+  13. [ ] /create-post
+  14. [x] /create-community
+  15. [ ] /update-post
+  16. [ ] /post/postid
+- [ ] add option to create-post in hamburger menu
+- [ ] add option to create-community in hamburger menu
+- [ ] add option to popular-languages in hamburger menu
+- [ ] add option to account-settings in hamburger menu
+- [ ] search another user option
+- [ ] message another user option
+- [ ] follow user option
+- [ ] Loading screen in /u/username

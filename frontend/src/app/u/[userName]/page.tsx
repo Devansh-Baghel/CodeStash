@@ -72,7 +72,7 @@ export default function UserProfile({
         Profile of <span className="underline">u/{user.username}</span>
       </h1>
       <Card className="mx-auto mb-8">
-        <CardContent className="flex gap-10 p-10">
+        <CardContent className="flex flex-col gap-10 p-10 sm:flex-row">
           <Link target="_blank" href={user.avatar!}>
             <Avatar src={user.avatar} size="lg" className="h-32 w-32" />
           </Link>

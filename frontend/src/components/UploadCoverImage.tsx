@@ -76,14 +76,7 @@ export default function UploadCoverImage({
               </ModalHeader>
               <form onSubmit={uploadCoverImage}>
                 <ModalBody>
-                  <Link
-                    className="text-primary underline"
-                    target="_blank"
-                    href="https://cdn.prod.website-files.com/616e938268c8f0a92cb2b540/650c62a94f0c738a7bd61397_Info.png"
-                  >
-                    Follow this guide for the best results.
-                    <LinkIcon className="ml-1 inline" />
-                  </Link>
+                  <p>4 : 1 image ratio recommended.</p>
                   <Input
                     color="primary"
                     type="file"

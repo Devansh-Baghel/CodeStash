@@ -42,9 +42,13 @@ export default function Profile() {
     <section className={cn(cardLayout)}>
       <h1 className="mb-4 text-2xl font-bold text-gray-600">Your Profile</h1>
       <Card className="mx-auto mb-8">
-        <CardContent className="flex gap-10 p-10">
+        <CardContent className="flex flex-col gap-4 p-10 sm:flex-row md:gap-10">
           <Link target="_blank" href={userData?.avatar!}>
-            <Avatar src={userData?.avatar} size="lg" className="h-32 w-32" />
+            <Avatar
+              src={userData?.avatar}
+              size="lg"
+              className="size-14 sm:size-20 lg:size-32"
+            />
           </Link>
           <div>
             <h2 className="text-grey-900 text-2xl font-medium">
@@ -59,7 +63,7 @@ export default function Profile() {
             <h3>Downvoted Posts: {userData?.downvotedPosts.length}</h3>
           </div>
         </CardContent>
-        <CardFooter className="flex gap-4 px-10">
+        <CardFooter className="flex flex-col items-start gap-4 px-10 sm:flex-row">
           <UploadAvatar
             buttonText={userData?.avatar ? "Update Avatar" : "Upload Avatar"}
             type="user"

@@ -89,9 +89,9 @@ export default function Posts() {
             className="mx-auto"
             onChange={(page) => {
               if (language) {
-                router.push(`/?language=${language}&page=${page}`);
+                router.push(`?language=${language}&page=${page}`);
               } else {
-                router.push(`/?page=${page}`);
+                router.push(`?page=${page}`);
               }
             }}
           />

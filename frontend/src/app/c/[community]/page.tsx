@@ -82,11 +82,11 @@ export default function Page({ params }: { params: { community: string } }) {
           <img
             src={data.coverImage}
             alt={`Cover image of c/${data.name}`}
-            className="-mb-4 max-h-40 w-full rounded-xl drop-shadow-lg"
+            className="-mb-4 aspect-[4/1] w-full rounded-xl drop-shadow-lg"
           />
         )}
         <Card className="border-t-5 border-primary">
-          <CardHeader className="flex flex-row items-start justify-between">
+          <CardHeader className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-0">
             <div className="ml-1 flex gap-4">
               <Avatar
                 src={data.avatar}
@@ -121,7 +121,7 @@ export default function Page({ params }: { params: { community: string } }) {
             )}
           </CardHeader>
           <CardContent>
-            <div className="mb-4 flex justify-end gap-2">
+            <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:justify-end">
               {hasJoinedCommunity && (
                 <Button
                   color="danger"
