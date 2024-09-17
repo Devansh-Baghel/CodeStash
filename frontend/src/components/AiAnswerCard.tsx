@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { BiLoaderAlt as Loader } from "react-icons/bi";
 import { BsStars as StarsIcon } from "react-icons/bs";
+import MutationButton from "./MutationButton";
 
 export default function AiAnswerCard({
   aiAnswer,
@@ -66,15 +67,10 @@ export default function AiAnswerCard({
           <MarkdownPreview source={aiAnswer} />
         ) : (
           <div className="flex w-full items-center justify-center">
-            <Button
-              color={isLoading ? "default" : "primary"}
-              onClick={getAiAnswer}
-              disabled={isLoading}
-            >
-              {isLoading && <Loader className="mr-2 size-4 animate-spin" />}
+            <MutationButton onClick={getAiAnswer} isPending={isLoading}>
               {isLoading ? "Getting" : "Get"} AI Explanation
               <StarsIcon className="size-5" />
-            </Button>
+            </MutationButton>
           </div>
         )}
       </CardContent>

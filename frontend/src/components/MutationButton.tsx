@@ -9,7 +9,7 @@ export default function MutationButton({
   className,
 }: {
   type?: "button" | "submit";
-  onClick?: () => Promise<void>;
+  onClick?: () => void;
   isPending: boolean;
   children: React.ReactNode;
   className?: string;

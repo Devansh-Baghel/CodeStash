@@ -1,4 +1,3 @@
-import { useRouter } from "next/navigation";
 import { AiFillCode as LangIcon } from "react-icons/ai";
 import { FaPlus as PlusIcon } from "react-icons/fa";
 import {
@@ -9,13 +8,12 @@ import { LuLogOut as LogoutIcon } from "react-icons/lu";
 import { RiHome6Fill as HomeIcon } from "react-icons/ri";
 import { useUserStore } from "@/store/userStore";
 import { Button, Card } from "@nextui-org/react";
-
+import Link from "next/link";
 import JoinedCommunities from "./JoinedCommunities";
 import { CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 export default function SideBar() {
   const { isLoggedIn, logoutUser, loginUser } = useUserStore();
-  const router = useRouter();
 
   // FIXME: add a better demo user
   function loginDemoUser() {
@@ -30,9 +28,10 @@ export default function SideBar() {
             <Button
               className="mb-2 flex w-full justify-normal py-4 pl-14 drop-shadow-md 2xl:py-7"
               radius="full"
+              as={Link}
+              href="/create-post"
               size="lg"
               color="primary"
-              onClick={() => router.push("/create-post")}
             >
               <PlusIcon className="ml-4 text-lg" />
               Create Post
@@ -43,7 +42,8 @@ export default function SideBar() {
             className="flex w-full justify-normal"
             radius="md"
             color="primary"
-            onClick={() => router.push("/")}
+            as={Link}
+            href="/"
           >
             <HomeIcon className="ml-4 text-lg" />
             Home
@@ -53,7 +53,8 @@ export default function SideBar() {
             className="flex w-full justify-normal"
             radius="md"
             color="primary"
-            onClick={() => router.push("/communities")}
+            as={Link}
+            href="/communities"
           >
             <PeopleIcon className="ml-4 text-lg" />
             Communities
@@ -63,7 +64,8 @@ export default function SideBar() {
             className="flex w-full justify-normal"
             radius="md"
             color="primary"
-            onClick={() => router.push("/languages")}
+            as={Link}
+            href="/languages"
           >
             <LangIcon className="ml-4 text-lg" />
             Popular languages
@@ -75,7 +77,8 @@ export default function SideBar() {
                 color="primary"
                 className="flex w-full justify-normal"
                 aria-label="create community"
-                onClick={() => router.push("/create-community")}
+                as={Link}
+                href="/create-community"
               >
                 <UserPlusIcon className="ml-4 text-lg" />
                 Create Community
