@@ -16,7 +16,6 @@ import Link from "next/link";
 
 export default function ProfileCard() {
   const { userData } = useUserStore();
-  const router = useRouter();
 
   return (
     <Card
@@ -38,9 +37,8 @@ export default function ProfileCard() {
           radius="full"
           color="primary"
           className="flex w-full justify-normal"
-          onClick={() => {
-            router.push("/profile");
-          }}
+          as={Link}
+          href="/profile"
         >
           <ProfileIcon className="ml-6 size-5" />
           Show profile
@@ -52,9 +50,8 @@ export default function ProfileCard() {
           size="md"
           color="primary"
           className="flex w-full justify-normal pl-8"
-          onClick={() => {
-            router.push("/saved");
-          }}
+          as={Link}
+          href="/saved"
         >
           <SaveIcon />
           Saved Posts
@@ -66,9 +63,8 @@ export default function ProfileCard() {
           size="md"
           color="primary"
           className="flex w-full justify-normal pl-8"
-          onClick={() => {
-            router.push("/upvoted");
-          }}
+          as={Link}
+          href="/upvoted"
         >
           <SolidUpvoteIcon />
           Upvoted Posts
@@ -80,9 +76,8 @@ export default function ProfileCard() {
           radius="md"
           color="primary"
           className="flex w-full justify-normal pl-8"
-          onClick={() => {
-            router.push("/downvoted");
-          }}
+          as={Link}
+          href="/downvoted"
         >
           <SolidDownvoteIcon />
           Downvoted Posts
@@ -94,7 +89,8 @@ export default function ProfileCard() {
           className="flex w-full justify-normal"
           radius="md"
           color="primary"
-          onClick={() => router.push("/settings")}
+          as={Link}
+          href="/settings"
         >
           <SettingsIcon className="ml-4 text-lg" />
           Account Settings

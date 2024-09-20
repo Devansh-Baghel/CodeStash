@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
-
 import NotLoggedIn from "@/components/NotLoggedIn";
 import {
   Card,
@@ -46,7 +45,7 @@ export default function UpdatePost() {
   const [description, setDescription] = useState("");
   const [code, setCode] = useState("");
   const { toast } = useToast();
-  const { isLoggedIn, userData } = useUserStore();
+  const { isLoggedIn } = useUserStore();
   const router = useRouter();
   const {
     data: post,

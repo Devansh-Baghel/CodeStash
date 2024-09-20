@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
 import NotLoggedIn from "@/components/NotLoggedIn";
 import PostsNotFound from "@/components/PostsNotFound";
 import PostsLoading from "@/components/skeletons/PostsLoading";
