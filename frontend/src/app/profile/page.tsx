@@ -19,7 +19,6 @@ import SavedPosts from "@/components/SavedPosts";
 import UpvotedPosts from "@/components/UpvotedPosts";
 import DownvotedPosts from "@/components/DownvotedPosts";
 import useTitle from "@/hooks/useTitle";
-import { useRouter } from "next/navigation";
 import { MdOutlineDriveFileRenameOutline as UpdateUsernameIcon } from "react-icons/md";
 import { RiLockPasswordLine as UpdatePasswordIcon } from "react-icons/ri";
 
@@ -27,7 +26,6 @@ import { RiLockPasswordLine as UpdatePasswordIcon } from "react-icons/ri";
 export default function Profile() {
   useTitle("Profile");
   const { isLoggedIn, userData } = useUserStore();
-  const router = useRouter();
 
   if (!isLoggedIn) {
     return (
@@ -69,7 +67,8 @@ export default function Profile() {
             type="user"
           />
           <Button
-            onClick={() => router.push("/settings#change-username")}
+            as={Link}
+            href="/settings#change-username"
             color="primary"
             radius="md"
             size="sm"
@@ -79,7 +78,8 @@ export default function Profile() {
             Change Username
           </Button>
           <Button
-            onClick={() => router.push("/settings#change-password")}
+            as={Link}
+            href="/settings#change-password"
             color="primary"
             radius="md"
             size="sm"

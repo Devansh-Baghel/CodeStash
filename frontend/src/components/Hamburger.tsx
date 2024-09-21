@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoMenu as MenuIcon } from "react-icons/io5";
 import { LuLogOut as LogoutIcon } from "react-icons/lu";
-
 import {
   Sheet,
   SheetContent,
@@ -16,6 +15,7 @@ import {
 } from "@/components/ui/sheet";
 import { useUserStore } from "@/store/userStore";
 import { Avatar, Button } from "@nextui-org/react";
+import Link from "next/link";
 
 // TODO: add all the new routes here for mobile users
 export default function Hamburger() {
@@ -48,8 +48,9 @@ export default function Hamburger() {
               variant="solid"
               radius="full"
               className="bg-primary text-white"
+              as={Link}
+              href="/profile"
               onClick={() => {
-                router.push("/profile");
                 setOpen(false);
               }}
             >
@@ -60,8 +61,9 @@ export default function Hamburger() {
               variant="flat"
               radius="full"
               color="primary"
+              as={Link}
+              href="/saved"
               onClick={() => {
-                router.push("/saved");
                 setOpen(false);
               }}
             >
@@ -72,8 +74,9 @@ export default function Hamburger() {
               variant="flat"
               radius="full"
               color="primary"
+              as={Link}
+              href="/upvoted"
               onClick={() => {
-                router.push("/upvoted");
                 setOpen(false);
               }}
             >
@@ -84,8 +87,9 @@ export default function Hamburger() {
               variant="flat"
               radius="full"
               color="primary"
+              as={Link}
+              href="/downvoted"
               onClick={() => {
-                router.push("/downvoted");
                 setOpen(false);
               }}
             >
@@ -117,8 +121,9 @@ export default function Hamburger() {
               <Button
                 variant="flat"
                 radius="full"
+                as={Link}
+                href="/login"
                 onClick={() => {
-                  router.push("/login");
                   setOpen(false);
                 }}
               >
@@ -128,8 +133,9 @@ export default function Hamburger() {
                 variant="solid"
                 radius="full"
                 className="bg-primary text-white"
+                as={Link}
+                href="/register"
                 onClick={() => {
-                  router.push("/register");
                   setOpen(false);
                 }}
               >

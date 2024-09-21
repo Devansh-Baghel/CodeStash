@@ -1,4 +1,3 @@
-import { useRouter } from "next/navigation";
 import {
   BiSolidDownvote as SolidDownvoteIcon,
   BiSolidUpvote as SolidUpvoteIcon,

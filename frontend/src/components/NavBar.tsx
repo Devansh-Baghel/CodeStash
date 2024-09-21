@@ -5,10 +5,10 @@ import { Button } from "@nextui-org/react";
 import Hamburger from "./Hamburger";
 import SearchBar from "./SearchBar";
 import AvatarDropdown from "./AvatarDropdown";
+import Link from "next/link";
 
 // TODO: Make this navbar fixed at the top of the screen all the time
 export default function Navbar() {
-  const router = useRouter();
   const { isLoggedIn } = useUserStore();
 
   return (
@@ -17,7 +17,8 @@ export default function Navbar() {
         className="flex gap-2 font-bold text-primary"
         radius="full"
         variant="light"
-        onClick={() => router.push("/")}
+        as={Link}
+        href="/"
       >
         <CodeStashIcon className="h-8 w-8" />
         <h2 className="mt-1 text-xl font-semibold">CodeStash</h2>
@@ -28,28 +29,6 @@ export default function Navbar() {
       {isLoggedIn ? (
         // TODO: when user is logged in show them their user icon which opens a menu for lots of actions like reddit does when logged in.
         <div className="hidden sm:flex">
-          {/* <Button
-            variant="solid"
-            radius="full"
-            className="bg-primary text-white"
-            onClick={() => {
-              router.push("/profile");
-            }}
-          >
-            Show profile
-          </Button> */}
-
-          {/* <Button
-            variant="flat"
-            radius="full"
-            color="primary"
-            onClick={() => {
-              router.push("/saved");
-            }}
-          >
-            Saved Posts
-          </Button> */}
-
           <AvatarDropdown />
         </div>
       ) : (
@@ -58,9 +37,8 @@ export default function Navbar() {
             variant="flat"
             color="primary"
             radius="full"
-            onClick={() => {
-              router.push("/login");
-            }}
+            as={Link}
+            href="/login"
           >
             Login
           </Button>
@@ -68,9 +46,8 @@ export default function Navbar() {
             variant="solid"
             radius="full"
             className="bg-primary text-white"
-            onClick={() => {
-              router.push("/register");
-            }}
+            as={Link}
+            href="/register"
           >
             Sign up
           </Button>

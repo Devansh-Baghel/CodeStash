@@ -6,12 +6,11 @@ import {
   DropdownItem,
   User,
 } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function AvatarDropdown() {
   const { userData, logoutUser, showProfileCard, setShowProfileCard } =
     useUserStore();
-  const router = useRouter();
 
   function switchProfileCardStatus() {
     setShowProfileCard(!showProfileCard);
@@ -35,15 +34,16 @@ export default function AvatarDropdown() {
         <DropdownItem
           key="profile"
           className="h-14 gap-2"
-          onClick={() => router.push("/profile")}
+          as={Link}
+          href="/profile"
         >
           <p className="font-bold">Signed in as</p>
           <p className="font-bold">@{userData?.username}</p>
         </DropdownItem>
-        <DropdownItem key="settings" onClick={() => router.push("/settings")}>
+        <DropdownItem key="settings" as={Link} href="/settings">
           My Settings
         </DropdownItem>
-        <DropdownItem key="saved" onClick={() => router.push("/saved")}>
+        <DropdownItem key="saved" as={Link} href="/saved">
           Saved Posts
         </DropdownItem>
         <DropdownItem key="profile-card" onClick={switchProfileCardStatus}>
