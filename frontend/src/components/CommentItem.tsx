@@ -10,7 +10,6 @@ import {
 } from "react-icons/bi";
 import { LuPencilLine as EditIcon } from "react-icons/lu";
 import { MdDelete as DeleteIcon } from "react-icons/md";
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,10 +26,10 @@ import { Comment } from "@/types/commentTypes";
 import fetcher from "@/utils/axios";
 import { Textarea } from "@nextui-org/react";
 import { useMutation } from "@tanstack/react-query";
-
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { toast } from "./ui/use-toast";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 type CommentItemPropTypes = {
   comment: Comment;
@@ -47,6 +46,7 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
   const [updatedContent, setUpdatedContent] = useState(comment.content);
   const [isUpdating, setIsUpdating] = useState(false);
   const router = useRouter();
+  const [parent] = useAutoAnimate();
 
   const { mutate, isPending } = useMutation({
     mutationKey: [`comment - ${comment._id}`],
@@ -135,7 +135,7 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
 
   return (
     <li className="flex gap-2 rounded-xl bg-primary-50 p-2">
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center" ref={parent}>
         {userData?.upvotedComments.includes(comment._id) ? (
           <SolidUpvoteIcon
             className="size-5 cursor-pointer"
