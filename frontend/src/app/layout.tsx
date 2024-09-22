@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import ReactQueryProvider from "@/utils/providers/ReactQueryProvider";
 import { NextUIProvider } from "@nextui-org/react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Providers from "./providers";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -46,9 +47,11 @@ export default function RootLayout({
         >
           <ReactQueryProvider>
             <NextUIProvider>
-              <Dashboard>
-                <main className="h-full w-full">{children}</main>
-              </Dashboard>
+              <Providers>
+                <Dashboard>
+                  <main className="h-full w-full">{children}</main>
+                </Dashboard>
+              </Providers>
               <Toaster />
               <RHToaster />
             </NextUIProvider>
