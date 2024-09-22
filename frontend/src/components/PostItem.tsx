@@ -19,9 +19,11 @@ import {
 import { useUserStore } from "@/store/userStore";
 import { PostTypes } from "@/types/postTypes";
 import { Button } from "@nextui-org/react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export default function PostItem({ post }: { post: PostTypes }) {
   const router = useRouter();
+  const [parent] = useAutoAnimate();
   const { isLoggedIn, upvotePost, userData, downvotePost } = useUserStore();
   const [upvoteCount, setUpvoteCount] = useState(post.upvotes - post.downvotes);
 
@@ -60,7 +62,7 @@ export default function PostItem({ post }: { post: PostTypes }) {
   return (
     <Card className="border-none drop-shadow-lg">
       <CardHeader className="flex flex-row gap-4">
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center" ref={parent}>
           {userData?.upvotedPosts.includes(post._id) ? (
             <SolidUpvoteIcon
               className="size-5 cursor-pointer"
@@ -109,9 +111,9 @@ export default function PostItem({ post }: { post: PostTypes }) {
         </p>
         <Button
           color="primary"
-          // variant="flat"
           className="w-full rounded-[20px]"
-          onClick={() => router.push(`/post/${post._id}`)}
+          as={Link}
+          href={`/post/${post._id}`}
         >
           Show code
         </Button>

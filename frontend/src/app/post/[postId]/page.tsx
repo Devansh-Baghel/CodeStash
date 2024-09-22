@@ -17,7 +17,7 @@ import BackButton from "@/components/buttons/BackButton";
 import Comments from "@/components/Comments";
 import CopyCodeButton from "@/components/buttons/CopyCodeButton";
 import PostSkeleton from "@/components/skeletons/PostSkeleton";
-import { Button as ShadButton } from "@/components/ui/button";
+import { linkButtonStyle, Button as ShadButton } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -38,6 +38,7 @@ import { PostTypes } from "@/types/postTypes";
 import toast from "react-hot-toast";
 import ExplainThisButton from "@/components/buttons/ExplainThis";
 import AiAnswerCard from "@/components/AiAnswerCard";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export default function Post({ params }: { params: { postId: string } }) {
   const {
@@ -50,6 +51,7 @@ export default function Post({ params }: { params: { postId: string } }) {
   } = useUserStore();
   const router = useRouter();
   const [upvoteCount, setUpvoteCount] = useState(0);
+  const [parent] = useAutoAnimate();
   const {
     data: post,
     isError,
@@ -108,15 +110,13 @@ export default function Post({ params }: { params: { postId: string } }) {
         <BackButton />
         {post.madeBy.userId === userData?._id && (
           <div>
-            <ShadButton
-              className="text-sm text-black hover:text-primary"
-              variant="link"
-              size="sm"
-              onClick={() => router.push(`/update-post?postId=${post._id}`)}
+            <Link
+              className={cn(linkButtonStyle, "hover:text-primary")}
+              href={`/update-post?postId=${post._id}`}
             >
               <EditIcon className="mr-1 size-4" />
               Update Post
-            </ShadButton>
+            </Link>
             <DeletePostButton postId={post._id} />
           </div>
         )}
@@ -124,7 +124,7 @@ export default function Post({ params }: { params: { postId: string } }) {
       </div>
       <Card>
         <CardHeader className="flex flex-row items-center gap-4">
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center" ref={parent}>
             {userData?.upvotedPosts.includes(post._id) ? (
               <SolidUpvoteIcon
                 className="size-5 cursor-pointer"

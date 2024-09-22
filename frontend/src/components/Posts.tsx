@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import PostItem from "./PostItem";
 import PostsLoading from "./skeletons/PostsLoading";
 import { Pagination } from "@nextui-org/react";
+import Link from "next/link";
 
 export default function Posts() {
   const searchParams = useSearchParams();
@@ -70,7 +71,8 @@ export default function Posts() {
           <NotFoundIcon className="text-[200px] text-secondary" />
           <p>Currenly there are no posts for {language}</p>
           <Button
-            onClick={() => router.push(`/create-post?language=${language}`)}
+            as={Link}
+            href={`/create-post?language=${language}`}
             color="primary"
             className="drop-shadow-xl"
           >

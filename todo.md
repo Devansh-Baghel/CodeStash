@@ -129,3 +129,5 @@
 - [ ] use nextui block links instead of the button as a link https://nextui.org/docs/components/link#block-link
 - [ ] use router.prefetch to prefetch the links that can't be converted to next/link
 - [ ] display language tags with skillicons.dev
+- [ ] create a custom useEffect wrapper hook that prefetches a page
+- [ ] update post doesn't work
