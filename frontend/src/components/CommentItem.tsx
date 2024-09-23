@@ -243,7 +243,7 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
                 radius="lg"
                 type="submit"
               >
-                Save changes
+                {isPending ? "Saving" : "Save"} changes
               </MutationButton>
               {!isPending && (
                 <ShadButton

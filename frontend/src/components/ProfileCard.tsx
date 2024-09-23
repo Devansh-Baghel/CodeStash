@@ -18,8 +18,8 @@ export default function ProfileCard() {
 
   return (
     <Card
-      className="sticky top-20 z-50 mr-0 hidden max-h-[85vh] w-full max-w-72 p-4 lg:block"
       shadow="sm"
+      className="sticky top-20 z-50 mr-0 hidden max-h-[85vh] w-full max-w-72 p-4 lg:block"
     >
       <CardHeader className="flex flex-col text-center">
         <Link target="_blank" href={userData?.avatar!}>
