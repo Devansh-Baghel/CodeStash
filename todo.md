@@ -56,6 +56,8 @@
 - [x] better client side navigation without router.push()
 - [x] use Links instead of router.push, because router.push does not prefetch any page
 - [x] fix nextui ui Links doing a full page reload
+- [x] add custom info toasts
+- [x] change shadcn alert to nextui modal, animations aren't working in shadcn in DeletePostButton and CommentItem
 
 ## Not Done
 
@@ -77,7 +79,6 @@
 - [ ] upload snippet as github gist
 - [ ] paginate / that currently sends all the posts
 - [ ] search button for not logged in user in sidebar (sidebar for not logged in user is empty)
-- [ ] add custom info toasts
 - [ ] draft posts feature
 - [ ] forgot password feature
 - [ ] remove all ts ignore and fix all userTypes errors with !

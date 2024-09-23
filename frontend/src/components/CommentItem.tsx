@@ -11,25 +11,26 @@ import {
 import { LuPencilLine as EditIcon } from "react-icons/lu";
 import { MdDelete as DeleteIcon } from "react-icons/md";
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+  Button,
+} from "@nextui-org/react";
 import { useUserStore } from "@/store/userStore";
 import { Comment } from "@/types/commentTypes";
 import fetcher from "@/utils/axios";
 import { Textarea } from "@nextui-org/react";
 import { useMutation } from "@tanstack/react-query";
 import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
-import { toast } from "./ui/use-toast";
+import { Button as ShadButton } from "./ui/button";
+// import { toast } from "./ui/use-toast";
+import toast from "react-hot-toast";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import MutationButton from "./MutationButton";
+import { infoToast } from "@/utils/constants";
 
 type CommentItemPropTypes = {
   comment: Comment;
@@ -44,6 +45,7 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
     comment.upvotes - comment.downvotes,
   );
   const [updatedContent, setUpdatedContent] = useState(comment.content);
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [isUpdating, setIsUpdating] = useState(false);
   const router = useRouter();
   const [parent] = useAutoAnimate();
@@ -51,18 +53,23 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
   const { mutate, isPending } = useMutation({
     mutationKey: [`comment - ${comment._id}`],
     mutationFn: async () => {
-      await fetcher
+      const updateCommentPromise = fetcher
         .patch("/comments/update-comment", {
           commentId: comment._id,
           content: updatedContent,
         })
         .then(() => {
-          toast({
-            description: "Updated comment successfully!",
-          });
           setIsUpdating(false);
           refetch();
         });
+
+      toast.promise(updateCommentPromise, {
+        loading: "Updating comment...",
+        success: "Comment updated successfully",
+        error: "Failed to update comment",
+      });
+
+      return updateCommentPromise;
     },
   });
 
@@ -105,16 +112,12 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
     e.preventDefault();
 
     if (!updatedContent) {
-      toast({
-        description: "Comment can't be empty",
-      });
+      infoToast("Comment can't be empty");
       return;
     }
 
     if (updatedContent === comment.content) {
-      toast({
-        description: "You haven't made any changes",
-      });
+      infoToast("You haven't made any changes");
       return;
     }
 
@@ -122,15 +125,19 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
   }
 
   function deleteComment() {
-    fetcher
+    const deleteCommentPromise = fetcher
       .post("/comments/delete-comment", { commentId: comment._id })
       .then(() => {
-        toast({
-          description: "Comment deleted successfully",
-        });
-
         refetch();
       });
+
+    toast.promise(deleteCommentPromise, {
+      loading: "Deleting comment...",
+      success: "Comment deleted successfully",
+      error: "Failed to delete comment",
+    });
+
+    onClose();
   }
 
   return (
@@ -182,29 +189,40 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
                   Update
                 </Badge>
               </button>
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <button>
-                    <DeleteIcon className="size-5 hover:cursor-pointer hover:text-red-500" />
-                  </button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>
-                      Are you sure about deleting this comment?
-                    </AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This will permanently delete your comment.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={deleteComment}>
-                      Continue
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
+
+              <button onClick={onOpen}>
+                <DeleteIcon className="size-5 hover:cursor-pointer hover:text-red-500" />
+              </button>
+              <Modal
+                isOpen={isOpen}
+                onOpenChange={onOpenChange}
+                backdrop="blur"
+              >
+                <ModalContent>
+                  {(onClose) => (
+                    <>
+                      <ModalHeader className="flex flex-col gap-1">
+                        Are you sure about deleting this comment?
+                      </ModalHeader>
+                      <ModalBody>
+                        <p>This will permanently delete your comment.</p>
+                      </ModalBody>
+                      <ModalFooter>
+                        <Button
+                          color="danger"
+                          variant="light"
+                          onPress={onClose}
+                        >
+                          Close
+                        </Button>
+                        <Button color="primary" onClick={deleteComment}>
+                          Delete Comment
+                        </Button>
+                      </ModalFooter>
+                    </>
+                  )}
+                </ModalContent>
+              </Modal>
             </div>
           )}
         </div>
@@ -219,25 +237,31 @@ function CommentItem({ comment, madeBy, refetch }: CommentItemPropTypes) {
               onChange={(e) => setUpdatedContent(e.target.value)}
             />
             <div className="flex gap-2">
-              <Button size="sm" disabled={isPending}>
-                {isPending && <Loader className="mr-2 size-4 animate-spin" />}
-                Save changes
-              </Button>
-              <Button
+              <MutationButton
+                isPending={isPending}
                 size="sm"
-                variant="outline"
-                type="button"
-                onClick={() => {
-                  setIsUpdating(false);
-                  setUpdatedContent(comment.content);
-                }}
+                radius="lg"
+                type="submit"
               >
-                Cancel
-              </Button>
+                Save changes
+              </MutationButton>
+              {!isPending && (
+                <ShadButton
+                  size="sm"
+                  variant="outline"
+                  type="button"
+                  onClick={() => {
+                    setIsUpdating(false);
+                    setUpdatedContent(comment.content);
+                  }}
+                >
+                  Cancel
+                </ShadButton>
+              )}
             </div>
           </form>
         ) : (
-          <p>{updatedContent}</p>
+          <p className="whitespace-pre-wrap">{updatedContent}</p>
         )}
         {comment.isEdited && (
           <span className="mr-1 flex items-center gap-1 self-end text-xs text-slate-500">
