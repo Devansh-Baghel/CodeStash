@@ -12,7 +12,7 @@ import {
 } from "@nextui-org/modal";
 import toast from "react-hot-toast";
 import { useUserStore } from "@/store/userStore";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type VSCodeButtonProps = {
   snippet: string;
@@ -54,7 +54,6 @@ export default function VSCodeButton({
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [hasDownloaded, setHasDownloaded] = useState(false);
   const { userData } = useUserStore();
-  const router = useRouter();
 
   function downloadFile() {
     const blob = new Blob([snippet], { type: `text/${fileType}` });
@@ -84,7 +83,8 @@ export default function VSCodeButton({
               first in Account Settings
             </span>
             <Button
-              onClick={() => router.push("/settings")}
+              as={Link}
+              href="/settings"
               size="sm"
               color="primary"
               radius="full"
@@ -108,7 +108,7 @@ export default function VSCodeButton({
       toast.custom(
         <div>
           You need to set the download path first in Account Settings
-          <Button onClick={() => router.push("/settings")}>
+          <Button as={Link} href="/settings">
             Account Settings
           </Button>
         </div>,

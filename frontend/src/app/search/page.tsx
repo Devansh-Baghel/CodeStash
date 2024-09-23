@@ -8,6 +8,7 @@ import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { TbError404 as NotFoundIcon } from "react-icons/tb";
@@ -48,7 +49,8 @@ export default function SearchPage() {
           <NotFoundIcon className="text-[200px] text-secondary" />
           <p>Currenly there are no posts for: {query}</p>
           <Button
-            onClick={() => router.push("/create-post")}
+            as={Link}
+            href="/create-post"
             color="primary"
             className="drop-shadow-xl"
           >

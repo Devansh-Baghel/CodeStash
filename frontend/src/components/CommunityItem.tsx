@@ -91,7 +91,8 @@ export default function CommunityItem({
         <Button
           className="w-full"
           color="primary"
-          onClick={() => router.push(`/c/${community.name}`)}
+          as={Link}
+          href={`/c/${community.name}`}
         >
           View Community
         </Button>

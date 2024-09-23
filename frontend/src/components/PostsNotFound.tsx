@@ -6,6 +6,7 @@ import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 
 import { Card, CardContent, CardHeader } from "./ui/card";
+import Link from "next/link";
 
 function PostsNotFound({ description }: { description: string }) {
   const router = useRouter();
@@ -22,7 +23,7 @@ function PostsNotFound({ description }: { description: string }) {
         <h1>{description}</h1>
       </CardHeader>
       <CardContent>
-        <Button color="primary" onClick={() => router.push("/")}>
+        <Button color="primary" as={Link} href="/">
           Go to homepage
         </Button>
       </CardContent>

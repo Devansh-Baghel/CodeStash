@@ -88,7 +88,8 @@ export default function DownvotedPosts({ hasTitle = true }) {
               <Button
                 variant="solid"
                 className="w-full rounded-[20px] bg-primary text-white"
-                onClick={() => router.push(`/post/${post._id}`)}
+                as={Link}
+                href={`/post/${post._id}`}
               >
                 Show code
               </Button>

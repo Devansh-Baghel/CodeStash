@@ -12,6 +12,7 @@ import { cardLayout } from "@/utils/classnames";
 import { Button } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import useTitle from "@/hooks/useTitle";
+import Link from "next/link";
 
 export type CommunityTypes = {
   madeBy: {
@@ -50,7 +51,8 @@ export default function Communities() {
             color="primary"
             className="h-14 text-lg"
             variant="flat"
-            onClick={() => router.push("/create-community")}
+            as={Link}
+            href="/create-community"
           >
             <PlusIcon />
             Create your own community

@@ -5,6 +5,7 @@ import { FaUserGroup as PeopleIcon } from "react-icons/fa6";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useUserStore } from "@/store/userStore";
 import { Accordion, AccordionItem, Button } from "@nextui-org/react";
+import Link from "next/link";
 
 function JoinedCommunities() {
   const { userData } = useUserStore();
@@ -31,7 +32,8 @@ function JoinedCommunities() {
               color="primary"
               className="mb-1 flex h-8 w-60 items-center justify-normal gap-2 pl-6 text-sm"
               aria-label={`c/${community}}`}
-              onClick={() => router.push(`/c/${community}`)}
+              as={Link}
+              href={`/c/${community}`}
             >
               <MessageIcon className="mt-1" />
               c/{community}
