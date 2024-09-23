@@ -50,6 +50,7 @@ export const registerUser = asyncHandler(
       username,
       email,
       password,
+      communitiesJoined: ["all"],
     });
 
     const createdUser = await User.findById(user._id).select(

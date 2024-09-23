@@ -41,13 +41,21 @@ export default function Profile() {
       <h1 className="mb-4 text-2xl font-bold text-gray-600">Your Profile</h1>
       <Card className="mx-auto mb-8">
         <CardContent className="flex flex-col gap-4 p-10 sm:flex-row md:gap-10">
-          <Link target="_blank" href={userData?.avatar!}>
+          {userData?.avatar ? (
+            <Link target="_blank" href={userData?.avatar!}>
+              <Avatar
+                src={userData?.avatar}
+                size="lg"
+                className="size-14 sm:size-20 lg:size-32"
+              />
+            </Link>
+          ) : (
             <Avatar
               src={userData?.avatar}
               size="lg"
               className="size-14 sm:size-20 lg:size-32"
             />
-          </Link>
+          )}
           <div>
             <h2 className="text-grey-900 text-2xl font-medium">
               {userData?.firstName} {userData?.lastName}

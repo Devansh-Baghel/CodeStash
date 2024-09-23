@@ -159,7 +159,7 @@ export default function Post({ params }: { params: { postId: string } }) {
           </div>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
-          <p>{post.description}</p>
+          <p className="whitespace-pre-wrap">{post.description}</p>
           <VSCodeButton
             snippet={post.content}
             fileName={post.title}

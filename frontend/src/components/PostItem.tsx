@@ -99,7 +99,7 @@ export default function PostItem({ post }: { post: PostTypes }) {
         </div>
       </CardHeader>
       <CardContent>
-        <p>{post.description}</p>
+        <p className="whitespace-pre-wrap">{post.description}</p>
       </CardContent>
       <CardFooter className="flex flex-col gap-2">
         <p>

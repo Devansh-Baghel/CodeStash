@@ -19,7 +19,6 @@ import { useQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { cardLayout } from "@/utils/classnames";
 import { FilterTypes } from "@/app/c/[community]/page";
-import { useEffect } from "react";
 
 export default function CommunityPosts({
   communityName,
@@ -30,7 +29,7 @@ export default function CommunityPosts({
 }) {
   const { userData } = useUserStore();
   const { data, isError, isLoading, isRefetching } = useQuery<PostTypes[]>({
-    queryKey: [`c/${communityName}/posts`],
+    queryKey: [`c/${communityName}/posts - ${filter}`],
     queryFn: async () => {
       return await fetcher.post("/posts/get-posts-by-community", {
         community: communityName,

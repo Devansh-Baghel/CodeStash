@@ -17,7 +17,7 @@ export default function SideBar() {
 
   // FIXME: add a better demo user
   function loginDemoUser() {
-    loginUser({ email: "test@test.com", password: "test" });
+    loginUser({ email: "test@test.com", password: "test123" });
   }
 
   return (
