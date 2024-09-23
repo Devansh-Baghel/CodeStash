@@ -52,10 +52,10 @@ export default function UpdatePost() {
     isError,
     isLoading,
   } = useQuery<PostTypes>({
-    queryKey: [postId],
+    queryKey: [`update-post: ${postId}`],
     queryFn: async () => {
       return await fetcher.post("/posts/get-post", { postId }).then((res) => {
-        console.log(res);
+        console.log(res, postId);
         setCode(res.content);
         setDescription(res.description);
         setTitle(res.title);

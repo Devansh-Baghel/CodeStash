@@ -1,3 +1,5 @@
+## Done
+
 - [x] login page
 - [x] register page
 - [x] restructure project
@@ -51,6 +53,11 @@
 - [x] paginate posts-by-lang endpoint
 - [x] add explain this button in in AiAnswerCard when user hasn't gotten ai answer yet.
 - [x] add mutation button component
+- [x] better client side navigation without router.push()
+- [x] use Links instead of router.push, because router.push does not prefetch any page
+- [x] fix nextui ui Links doing a full page reload
+
+## Not Done
 
 - [ ] infinite scrolling posts/snippets in homepage
 - [ ] view raw option in each post
@@ -123,11 +130,9 @@
 - [ ] replace all mutations with mutation button component
 - [ ] remove demo user download path
 - [ ] add CodeRabbit in github
-- [ ] better client side navigation withtout router.push()
-- [ ] use Links instead of router.push, because router.push does not prefetch any page
-- [ ] fix nextui ui Links doing a full page reload
+
 - [ ] use nextui block links instead of the button as a link https://nextui.org/docs/components/link#block-link
 - [ ] use router.prefetch to prefetch the links that can't be converted to next/link
 - [ ] display language tags with skillicons.dev
 - [ ] create a custom useEffect wrapper hook that prefetches a page
-- [ ] update post doesn't work
+- [ ] update post doesn't work, react query caching issue / nextjs caching issue.

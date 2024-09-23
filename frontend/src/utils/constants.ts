@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 export const allowedLanguages = [
   "javascript",
   "python",
@@ -9,3 +11,7 @@ export const allowedLanguages = [
   "php",
   "swift",
 ] as const;
+
+export const infoToast = (toastMessage: string) => {
+  toast.error(toastMessage, { icon: "📌" });
+};

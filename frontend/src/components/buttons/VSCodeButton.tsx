@@ -13,6 +13,7 @@ import {
 import toast from "react-hot-toast";
 import { useUserStore } from "@/store/userStore";
 import Link from "next/link";
+import { infoToast } from "@/utils/constants";
 
 type VSCodeButtonProps = {
   snippet: string;

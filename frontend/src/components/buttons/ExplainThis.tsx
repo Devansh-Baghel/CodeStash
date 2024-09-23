@@ -1,5 +1,6 @@
 import { useUserStore } from "@/store/userStore";
 import { axiosInstance } from "@/utils/axios";
+import { infoToast } from "@/utils/constants";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -17,9 +18,8 @@ export default function ExplainThisButton({
   const router = useRouter();
   function getAiAnswer() {
     if (!isLoggedIn) {
-      toast.error(
+      infoToast(
         "You must be logged in to use AI features. Login as a demo user to test this feature.",
-        { icon: "📌" },
       );
       return;
     }

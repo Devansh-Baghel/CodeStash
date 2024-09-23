@@ -15,6 +15,7 @@ import { useState } from "react";
 import { BiLoaderAlt as Loader } from "react-icons/bi";
 import { BsStars as StarsIcon } from "react-icons/bs";
 import MutationButton from "./MutationButton";
+import { infoToast } from "@/utils/constants";
 
 export default function AiAnswerCard({
   aiAnswer,
@@ -31,9 +32,8 @@ export default function AiAnswerCard({
 
   function getAiAnswer() {
     if (!isLoggedIn) {
-      toast.error(
+      infoToast(
         "You must be logged in to use AI features. Login as a demo user to test this feature.",
-        { icon: "📌" },
       );
       return;
     }
