@@ -72,6 +72,10 @@ export default function VSCodeButton({
   }
 
   function handleModalOpen() {
+    if (localStorage.getItem("downloadPath")) {
+      userData!.downloadPath = localStorage.getItem("downloadPath")!;
+    }
+
     if (!userData?.downloadPath) {
       // TODO: maybe make all toasts custom
       toast.custom(
@@ -105,7 +109,6 @@ export default function VSCodeButton({
 
   function openInVSCode() {
     if (!userData?.downloadPath) {
-      // TODO: in this toast add a link to /settings
       toast.custom(
         <div>
           You need to set the download path first in Account Settings

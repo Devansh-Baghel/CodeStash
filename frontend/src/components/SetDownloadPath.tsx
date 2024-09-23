@@ -16,8 +16,10 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 export default function SetDownloadPath() {
-  const [downloadPath, setDownloadPath] = useState("");
   const { userData, setUserData } = useUserStore();
+  const [downloadPath, setDownloadPath] = useState(
+    localStorage.getItem("downloadPath") || userData?.downloadPath || "",
+  );
   const { mutate, isPending } = useMutation({
     mutationKey: ["set-download-path"],
     mutationFn: () => {
@@ -42,6 +44,14 @@ export default function SetDownloadPath() {
 
   function setPath(e: FormEvent) {
     e.preventDefault();
+
+    // If user is demo user, store download path in local storage
+    if (userData?.email === "test@test.com") {
+      localStorage.setItem("downloadPath", downloadPath);
+      toast.success("Download path updated successfully");
+      return;
+    }
+
     mutate();
   }
 

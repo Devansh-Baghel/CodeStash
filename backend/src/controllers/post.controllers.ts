@@ -66,9 +66,6 @@ export const getPostsByLang = asyncHandler(
       .skip(skip)
       .limit(limit);
 
-    if (!posts || posts.length === 0)
-      throw new ApiError(404, "There aren't any posts");
-
     const totalPosts = await Post.countDocuments({ language });
     const totalPages = Math.ceil(totalPosts / limit);
 

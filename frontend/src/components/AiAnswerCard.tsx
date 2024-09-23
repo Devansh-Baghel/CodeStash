@@ -1,4 +1,3 @@
-import { Button } from "@nextui-org/react";
 import {
   Card,
   CardContent,
@@ -12,7 +11,6 @@ import { useUserStore } from "@/store/userStore";
 import { axiosInstance } from "@/utils/axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BiLoaderAlt as Loader } from "react-icons/bi";
 import { BsStars as StarsIcon } from "react-icons/bs";
 import MutationButton from "./MutationButton";
 import { infoToast } from "@/utils/constants";
@@ -61,9 +59,7 @@ export default function AiAnswerCard({
         <CardTitle className="text-xl">✨ AI Explanation ✨</CardTitle>
       </CardHeader>
       <CardContent className="max-w-[700px]" data-color-mode="light">
-        {/* TODO: show button to get ai explanation here */}
         {aiAnswer ? (
-          //   <Markdown>{aiAnswer}</Markdown>
           <MarkdownPreview source={aiAnswer} />
         ) : (
           <div className="flex w-full items-center justify-center">

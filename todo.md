@@ -58,6 +58,7 @@
 - [x] fix nextui ui Links doing a full page reload
 - [x] add custom info toasts
 - [x] change shadcn alert to nextui modal, animations aren't working in shadcn in DeletePostButton and CommentItem
+- [x] remove demo user download path
 
 ## Not Done
 
@@ -129,9 +130,7 @@
 - [ ] Loading screen in /u/username
 - [ ] add og/meta tags for SEO
 - [ ] replace all mutations with mutation button component
-- [ ] remove demo user download path
 - [ ] add CodeRabbit in github
-
 - [ ] use nextui block links instead of the button as a link https://nextui.org/docs/components/link#block-link
 - [ ] use router.prefetch to prefetch the links that can't be converted to next/link
 - [ ] display language tags with skillicons.dev
