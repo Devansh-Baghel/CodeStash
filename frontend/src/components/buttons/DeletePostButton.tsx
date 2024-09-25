@@ -12,26 +12,31 @@ import {
   Button,
   useDisclosure,
 } from "@nextui-org/react";
+import { useMutation } from "@tanstack/react-query";
 
 export default function DeletePostButton({ postId }: { postId: string }) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const router = useRouter();
+  const { mutate: deletePost } = useMutation({
+    mutationKey: ["delete-post"],
+    mutationFn: async () => {
+      const deletePostPromise = fetcher
+        .post("/posts/delete-post", { postId })
+        .then(() => {
+          router.push("/");
+        });
 
-  function deletePost() {
-    const deletePostPromise = fetcher
-      .post("/posts/delete-post", { postId })
-      .then(() => {
-        router.push("/");
+      toast.promise(deletePostPromise, {
+        loading: "Deleting post...",
+        success: "Deleted post successfully",
+        error: "Failed to delete post",
       });
 
-    toast.promise(deletePostPromise, {
-      loading: "Deleting post...",
-      success: "Deleted post successfully",
-      error: "Failed to delete post",
-    });
+      onClose();
 
-    onClose();
-  }
+      return deletePostPromise;
+    },
+  });
 
   return (
     <>
@@ -61,7 +66,7 @@ export default function DeletePostButton({ postId }: { postId: string }) {
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" onClick={deletePost}>
+                <Button color="primary" onClick={() => deletePost()}>
                   Delete Post
                 </Button>
               </ModalFooter>
