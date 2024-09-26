@@ -8,9 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as RHToaster } from "react-hot-toast";
 import { cn } from "@/lib/utils";
-import ReactQueryProvider from "@/utils/providers/ReactQueryProvider";
 import { NextUIProvider } from "@nextui-org/react";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Providers from "./providers";
 
 const fontSans = FontSans({
@@ -45,7 +43,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ReactQueryProvider>
             <NextUIProvider>
               <Providers>
                 <Dashboard>
@@ -55,8 +52,6 @@ export default function RootLayout({
               <Toaster />
               <RHToaster />
             </NextUIProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </ReactQueryProvider>
         </ThemeProvider>
       </body>
     </html>

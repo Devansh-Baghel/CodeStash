@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { FaPlus as PlusIcon } from "react-icons/fa";
-
 import CommunityItem from "@/components/CommunityItem";
 import CommunitiesSkeleton from "@/components/skeletons/CommunitiesSkeleton";
 import { cn } from "@/lib/utils";
