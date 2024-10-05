@@ -1,18 +1,16 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
-import { TbError404 as NotFoundIcon } from "react-icons/tb";
 import { cn } from "@/lib/utils";
 import { PostTypes } from "@/types/postTypes";
 import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
-import { Button } from "@nextui-org/react";
+import { Button, Pagination } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { TbError404 as NotFoundIcon } from "react-icons/tb";
 import PostItem from "./PostItem";
 import PostsLoading from "./skeletons/PostsLoading";
-import { Pagination } from "@nextui-org/react";
-import Link from "next/link";
 
 export default function Posts() {
   const searchParams = useSearchParams();
@@ -34,21 +32,20 @@ export default function Posts() {
     totalPosts: number;
     currentPage: number;
   }>({
-    queryKey: [`posts - page=${page} ${language}`],
-    queryFn: async () => {
+    queryKey: ["posts", page],
+    queryFn: () => {
       if (!language) {
-        return await fetcher.get(`/posts/get-posts?page=${page}`);
+        return fetcher.get(`/posts/get-posts?page=${page}`);
       } else {
-        return await fetcher.post("/posts/get-posts-by-language", { language });
+        return fetcher.post("/posts/get-posts-by-language", { language });
       }
     },
-    retry: 0,
   });
 
   // This is cause when user clicks on homepage icon to go to / , then it refetches the query
-  useEffect(() => {
-    refetch();
-  }, [refetch, searchParams]);
+  // useEffect(() => {
+  //   refetch();
+  // }, [refetch, searchParams]);
 
   if (isPending || isRefetching) return <PostsLoading />;
   if (isError || isRefetchError) {

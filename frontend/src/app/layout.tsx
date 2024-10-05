@@ -6,9 +6,9 @@ import { Inter as FontSans } from "next/font/google";
 import Dashboard from "@/components/Dashboard";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
-import { Toaster as RHToaster } from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { NextUIProvider } from "@nextui-org/react";
+import { Toaster as RHToaster } from "react-hot-toast";
 import Providers from "./providers";
 
 const fontSans = FontSans({
@@ -43,15 +43,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-            <NextUIProvider>
-              <Providers>
-                <Dashboard>
-                  <main className="h-full w-full">{children}</main>
-                </Dashboard>
-              </Providers>
-              <Toaster />
-              <RHToaster />
-            </NextUIProvider>
+          <NextUIProvider>
+            <Providers>
+              <Dashboard>
+                <main className="h-full w-full">{children}</main>
+              </Dashboard>
+            </Providers>
+            <Toaster />
+            <RHToaster />
+          </NextUIProvider>
         </ThemeProvider>
       </body>
     </html>

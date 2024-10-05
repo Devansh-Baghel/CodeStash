@@ -1,6 +1,7 @@
-import { create } from "zustand";
+import { queryClient } from "@/app/providers";
 import fetcher, { axiosInstance } from "@/utils/axios";
 import toast from "react-hot-toast";
+import { create } from "zustand";
 
 interface UserState {
   isLoggedIn: boolean;
@@ -127,12 +128,14 @@ export const useUserStore = create<UserState>()((set, get) => ({
     await fetcher.patch(`/posts/upvote`, { postId }).then((res) => {
       console.log(res);
       set(() => ({ userData: res.user }));
+      queryClient.invalidateQueries({ queryKey: [postId] });
     });
   },
   downvotePost: async (postId) => {
     await fetcher.patch(`/posts/downvote`, { postId }).then((res) => {
       console.log(res);
       set(() => ({ userData: res.user }));
+      queryClient.invalidateQueries({ queryKey: [postId] });
     });
   },
   upvoteComment: async (commentId) => {
@@ -180,6 +183,7 @@ export const useUserStore = create<UserState>()((set, get) => ({
       .post("/posts/save", { postId })
       .then((res) => {
         set(() => ({ userData: res.user }));
+        queryClient.invalidateQueries({ queryKey: ["saved-posts"] });
       });
 
     toast.promise(savePostToastPromise, {
@@ -192,8 +196,8 @@ export const useUserStore = create<UserState>()((set, get) => ({
     const removeSavedPostPromise = fetcher
       .patch("/posts/remove-saved-post", { postId })
       .then((res) => {
-        console.log(res);
         set(() => ({ userData: res.user }));
+        queryClient.invalidateQueries({ queryKey: ["saved-posts"] });
       });
 
     toast.promise(removeSavedPostPromise, {

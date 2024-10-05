@@ -1,30 +1,31 @@
+import { queryClient } from "@/app/providers";
 import { Button as ShadButton } from "@/components/ui/button";
-import { MdDelete as DeleteIcon } from "react-icons/md";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import fetcher from "@/utils/axios";
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { MdDelete as DeleteIcon } from "react-icons/md";
 
 export default function DeletePostButton({ postId }: { postId: string }) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const router = useRouter();
   const { mutate: deletePost } = useMutation({
     mutationKey: ["delete-post"],
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      router.push("/");
+    },
     mutationFn: async () => {
-      const deletePostPromise = fetcher
-        .post("/posts/delete-post", { postId })
-        .then(() => {
-          router.push("/");
-        });
+      const deletePostPromise = fetcher.post("/posts/delete-post", { postId });
 
       toast.promise(deletePostPromise, {
         loading: "Deleting post...",

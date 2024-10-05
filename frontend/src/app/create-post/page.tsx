@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useState } from "react";
+import UploadCodeFromFile from "@/components/buttons/UploadCodeFromFile";
+import UploadCodeFromGithub from "@/components/buttons/UploadCodeFromGithub";
+import MutationButton from "@/components/MutationButton";
 import NotLoggedIn from "@/components/NotLoggedIn";
 import {
   Card,
@@ -22,22 +22,20 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import useTitle from "@/hooks/useTitle";
 import { cn } from "@/lib/utils";
 import { useUserStore } from "@/store/userStore";
 import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
-import { Button } from "@nextui-org/react";
-import CodeEditor from "@uiw/react-textarea-code-editor";
 import { allowedLanguages } from "@/utils/constants";
-import useTitle from "@/hooks/useTitle";
-import UploadCodeFromGithub from "@/components/buttons/UploadCodeFromGithub";
-import UploadCodeFromFile from "@/components/buttons/UploadCodeFromFile";
-import { toast as rhToast } from "react-hot-toast";
-import { BiLoaderAlt as Loader } from "react-icons/bi";
 import { useMutation } from "@tanstack/react-query";
-import MutationButton from "@/components/MutationButton";
+import CodeEditor from "@uiw/react-textarea-code-editor";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { FormEvent, useState } from "react";
+import { toast as rhToast } from "react-hot-toast";
+import { queryClient } from "../providers";
 
-// TODO: if user is trying to create a post in c/community and they haven't joined that community then show them a banner that says to join the community before trying to make the post
 export default function CreatePost() {
   useTitle("Create Post");
 
@@ -54,28 +52,29 @@ export default function CreatePost() {
   const router = useRouter();
   const { mutate, isPending } = useMutation({
     mutationKey: ["create-post"],
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["user-posts"] });
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+
+      setTitle("");
+      setCode("");
+      setDescription("");
+
+      toast({
+        title: "Post Created",
+        description: `Your post in c/${community} written in ${language} was created successfully.`,
+      });
+
+      router.push(`/post/${data._id}`);
+    },
     mutationFn: () => {
-      return fetcher
-        .post("/posts/create-post", {
-          content: code,
-          language,
-          description,
-          title,
-          community,
-        })
-        .then((res) => {
-          console.log(res);
-          setTitle("");
-          setCode("");
-          setDescription("");
-
-          toast({
-            title: "Post Created",
-            description: `Your post in c/${community} written in ${language} was created successfully.`,
-          });
-
-          router.push(`/post/${res._id}`);
-        });
+      return fetcher.post("/posts/create-post", {
+        content: code,
+        language,
+        description,
+        title,
+        community,
+      });
     },
   });
 
