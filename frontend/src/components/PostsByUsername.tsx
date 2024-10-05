@@ -1,16 +1,13 @@
-import { useRouter } from "next/navigation";
-import { TbError404 as NotFoundIcon } from "react-icons/tb";
 import { PostTypes } from "@/types/postTypes";
 import fetcher from "@/utils/axios";
 import { useQuery } from "@tanstack/react-query";
+import { TbError404 as NotFoundIcon } from "react-icons/tb";
 import PostItem from "./PostItem";
 import PostsLoading from "./skeletons/PostsLoading";
 
 export default function PostsByUsername({ username }: { username: string }) {
-  const router = useRouter();
-
   const { data, isError, isPending } = useQuery<PostTypes[]>({
-    queryKey: ["posts"],
+    queryKey: ["posts/username", username],
     queryFn: async () => {
       return await fetcher.post("/posts/get-posts-by-username", { username });
     },

@@ -86,14 +86,24 @@ export default function PostItem({ post }: { post: PostTypes }) {
             <Link href={`/post/${post._id}`}>{post.title}</Link>
           </CardTitle>
           <CardDescription>
-            <Link href={`/u/${post.madeBy.username}`}>
+            <Link
+              href={
+                post.madeBy.username === userData?.username
+                  ? "/profile"
+                  : `/u/${post.madeBy.username}`
+              }
+            >
               u/{post.madeBy.username}
             </Link>
           </CardDescription>
         </div>
       </CardHeader>
       <CardContent>
-        <p className="whitespace-pre-wrap">{post.description}</p>
+        <p className="whitespace-pre-wrap">
+          {post.description.length > 100
+            ? post.description.slice(0, 400) + "..."
+            : post.description}
+        </p>
       </CardContent>
       <CardFooter className="flex flex-col gap-2">
         <p>

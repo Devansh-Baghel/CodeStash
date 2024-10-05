@@ -155,7 +155,13 @@ export default function Post({ params }: { params: { postId: string } }) {
           <div>
             <CardTitle className="text-lg">{post.title}</CardTitle>
             <CardDescription>
-              <Link href={`/u/${post.madeBy.username}`}>
+              <Link
+                href={
+                  post.madeBy.username === userData?.username
+                    ? "/profile"
+                    : `/u/${post.madeBy.username}`
+                }
+              >
                 u/{post.madeBy.username}
               </Link>
             </CardDescription>

@@ -1,30 +1,17 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import PostsByUsername from "@/components/PostsByUsername";
+import { Card, CardContent, CardDescription } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { useUserStore } from "@/store/userStore";
+import { UserTypes } from "@/types/userTypes";
 import fetcher from "@/utils/axios";
+import { cardLayout } from "@/utils/classnames";
 import { Avatar } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
-import { cn } from "@/lib/utils";
-import { cardLayout } from "@/utils/classnames";
-import { Tabs, Tab } from "@nextui-org/react";
-import UserPosts from "@/components/UserPosts";
-import UploadAvatar from "@/components/UploadAvatar";
 import Link from "next/link";
-import UpvotedPosts from "@/components/UpvotedPosts";
-import DownvotedPosts from "@/components/DownvotedPosts";
-import useTitle from "@/hooks/useTitle";
-import { UserTypes } from "@/types/userTypes";
-import PostsByUsername from "@/components/PostsByUsername";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function UserProfile({
   params,
@@ -45,14 +32,13 @@ export default function UserProfile({
         username: params.userName,
       });
     },
-    retry: 0,
   });
 
   useEffect(() => {
     if (params.userName === userData?.username) {
       router.push("/profile");
     }
-  });
+  }, []);
 
   if (isLoading) return "Loading...";
   // TODO: user doesn't exist error
@@ -73,9 +59,21 @@ export default function UserProfile({
       </h1>
       <Card className="mx-auto mb-8">
         <CardContent className="flex flex-col gap-10 p-10 sm:flex-row">
-          <Link target="_blank" href={user.avatar!}>
-            <Avatar src={user.avatar} size="lg" className="h-32 w-32" />
-          </Link>
+          {user?.avatar ? (
+            <Link target="_blank" href={user?.avatar!}>
+              <Avatar
+                src={user?.avatar}
+                size="lg"
+                className="size-14 sm:size-20 lg:size-32"
+              />
+            </Link>
+          ) : (
+            <Avatar
+              src={user?.avatar}
+              size="lg"
+              className="size-14 sm:size-20 lg:size-32"
+            />
+          )}
           <div>
             <h2 className="text-grey-900 text-2xl font-medium">
               {user.firstName} {user.lastName}
