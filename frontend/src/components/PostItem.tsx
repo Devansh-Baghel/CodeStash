@@ -1,12 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import {
-  BiDownvote as DownvoteIcon,
-  BiSolidDownvote as SolidDownvoteIcon,
-  BiSolidUpvote as SolidUpvoteIcon,
-  BiUpvote as UpvoteIcon,
-} from "react-icons/bi";
 
 import {
   Card,
@@ -18,8 +12,8 @@ import {
 } from "@/components/ui/card";
 import { useUserStore } from "@/store/userStore";
 import { PostTypes } from "@/types/postTypes";
-import { Button } from "@nextui-org/react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { Button } from "@nextui-org/react";
 
 export default function PostItem({ post }: { post: PostTypes }) {
   const router = useRouter();
@@ -62,7 +56,7 @@ export default function PostItem({ post }: { post: PostTypes }) {
   return (
     <Card className="border-none drop-shadow-lg">
       <CardHeader className="flex flex-row gap-4">
-        <div className="flex flex-col items-center" ref={parent}>
+        {/* <div className="flex flex-col items-center" ref={parent}>
           {userData?.upvotedPosts.includes(post._id) ? (
             <SolidUpvoteIcon
               className="size-5 cursor-pointer"
@@ -86,7 +80,7 @@ export default function PostItem({ post }: { post: PostTypes }) {
               onClick={() => handleInteraction(post._id, "downvote")}
             />
           )}
-        </div>
+        </div> */}
         <div>
           <CardTitle className="">
             <Link href={`/post/${post._id}`}>{post.title}</Link>

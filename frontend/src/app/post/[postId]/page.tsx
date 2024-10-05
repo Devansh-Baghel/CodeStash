@@ -1,23 +1,14 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import CodeEditor from "@uiw/react-textarea-code-editor";
-import {
-  BiDownvote as DownvoteIcon,
-  BiSolidDownvote as SolidDownvoteIcon,
-  BiSolidUpvote as SolidUpvoteIcon,
-  BiUpvote as UpvoteIcon,
-} from "react-icons/bi";
-import { LuPencilLine as EditIcon } from "react-icons/lu";
-import { MdBookmarkAdd as BookmarkAddIcon } from "react-icons/md";
-import { MdBookmarkRemove as BookmarkRemoveIcon } from "react-icons/md";
+import AiAnswerCard from "@/components/AiAnswerCard";
 import BackButton from "@/components/buttons/BackButton";
-import Comments from "@/components/Comments";
 import CopyCodeButton from "@/components/buttons/CopyCodeButton";
+import DeletePostButton from "@/components/buttons/DeletePostButton";
+import ExplainThisButton from "@/components/buttons/ExplainThis";
+import VSCodeButton from "@/components/buttons/VSCodeButton";
+import Comments from "@/components/Comments";
 import PostSkeleton from "@/components/skeletons/PostSkeleton";
-import { linkButtonStyle, Button as ShadButton } from "@/components/ui/button";
+import { linkButtonStyle } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -28,17 +19,27 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useUserStore } from "@/store/userStore";
+import { PostTypes } from "@/types/postTypes";
 import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Button } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
-import DeletePostButton from "@/components/buttons/DeletePostButton";
-import VSCodeButton from "@/components/buttons/VSCodeButton";
-import { PostTypes } from "@/types/postTypes";
-import toast from "react-hot-toast";
-import ExplainThisButton from "@/components/buttons/ExplainThis";
-import AiAnswerCard from "@/components/AiAnswerCard";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
+import CodeEditor from "@uiw/react-textarea-code-editor";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import {
+  BiDownvote as DownvoteIcon,
+  BiSolidDownvote as SolidDownvoteIcon,
+  BiSolidUpvote as SolidUpvoteIcon,
+  BiUpvote as UpvoteIcon,
+} from "react-icons/bi";
+import { LuPencilLine as EditIcon } from "react-icons/lu";
+import {
+  MdBookmarkAdd as BookmarkAddIcon,
+  MdBookmarkRemove as BookmarkRemoveIcon,
+} from "react-icons/md";
 
 export default function Post({ params }: { params: { postId: string } }) {
   const {
@@ -50,7 +51,6 @@ export default function Post({ params }: { params: { postId: string } }) {
     downvotePost,
   } = useUserStore();
   const router = useRouter();
-  const [upvoteCount, setUpvoteCount] = useState(0);
   const [parent] = useAutoAnimate();
   const {
     data: post,
@@ -67,6 +67,9 @@ export default function Post({ params }: { params: { postId: string } }) {
         });
     },
   });
+  const [upvoteCount, setUpvoteCount] = useState(
+    post ? post.upvotes - post.downvotes : 0,
+  );
   const [aiAnswer, setAiAnswer] = useState<string | undefined>();
 
   // TODO: Create a custom hook to do this

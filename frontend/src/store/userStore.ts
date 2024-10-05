@@ -126,27 +126,27 @@ export const useUserStore = create<UserState>()((set, get) => ({
   },
   upvotePost: async (postId) => {
     await fetcher.patch(`/posts/upvote`, { postId }).then((res) => {
-      console.log(res);
       set(() => ({ userData: res.user }));
       queryClient.invalidateQueries({ queryKey: [postId] });
+      queryClient.invalidateQueries({ queryKey: ["upvoted-posts"] });
+      queryClient.invalidateQueries({ queryKey: ["downvoted-posts"] });
     });
   },
   downvotePost: async (postId) => {
     await fetcher.patch(`/posts/downvote`, { postId }).then((res) => {
-      console.log(res);
       set(() => ({ userData: res.user }));
       queryClient.invalidateQueries({ queryKey: [postId] });
+      queryClient.invalidateQueries({ queryKey: ["upvoted-posts"] });
+      queryClient.invalidateQueries({ queryKey: ["downvoted-posts"] });
     });
   },
   upvoteComment: async (commentId) => {
     await fetcher.patch(`/comments/upvote`, { commentId }).then((res) => {
-      console.log(res);
       set(() => ({ userData: res.user }));
     });
   },
   downvoteComment: async (commentId) => {
     await fetcher.patch(`/comments/downvote`, { commentId }).then((res) => {
-      console.log(res);
       set(() => ({ userData: res.user }));
     });
   },
@@ -168,7 +168,6 @@ export const useUserStore = create<UserState>()((set, get) => ({
     const leaveCommunityPromise = fetcher
       .post("/community/leave", { community: name })
       .then((res) => {
-        console.log(res);
         set(() => ({ userData: res.user }));
       });
 
