@@ -136,7 +136,7 @@
 - [ ] display language tags with skillicons.dev
 - [ ] create a custom useEffect wrapper hook that prefetches a page
 - [ ] update post doesn't work, react query caching issue / nextjs caching issue.
-- [ ] invalidate your posts /profile when create post, delete post, update post
+- [x] invalidate your posts /profile when create post, delete post, update post
 - [ ] tell user to not enter spaces in communities name, parse community name to be url friendly
 - [ ] add auto crop option for avatars and cover images, https://www.npmjs.com/package/smartcrop
 - [ ] reloading /c/community doesn't show admin options

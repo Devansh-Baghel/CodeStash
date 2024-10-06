@@ -1,4 +1,6 @@
+import { z } from "zod";
 import { Community } from "../models/community.model";
+import { communityNameSchema } from "../schemas/communitySchema";
 import { UserRequest } from "../types/userTypes";
 import { ApiError } from "../utils/apiError";
 import { ApiResponse } from "../utils/apiResponse";
@@ -7,12 +9,24 @@ import { uploadOnCloudinary } from "../utils/cloudinary";
 
 // TODO: Add extra validation for name of cummunity, it cant contain whitespace for example
 export const createCommunity = asyncHandler(async (req: UserRequest, res) => {
-  const { name, description } = req.body;
+  let { name, description } = req.body;
   const user = req.user;
 
   if (!name) throw new ApiError(400, "Name of community is required");
   if (!description)
     throw new ApiError(400, "Description of community is required");
+
+  name = name.trim();
+  name = name.replaceAll(" ", "-");
+
+  try {
+    name = communityNameSchema.parse(name);
+  } catch (error) {
+    throw new ApiError(
+      400,
+      (error as z.ZodError).errors[0]?.message || "Invalid subreddit name"
+    );
+  }
 
   const doesCommunityExist = await Community.findOne({ name });
   if (doesCommunityExist)
