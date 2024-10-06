@@ -24,7 +24,7 @@ export default function LoginForm() {
   async function submitForm(e: FormEvent) {
     e.preventDefault();
     loginUser({ email, password });
-    router.push("/");
+    // router.push("/");
   }
 
   function loginDemoUser() {

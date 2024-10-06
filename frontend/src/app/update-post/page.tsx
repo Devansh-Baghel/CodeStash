@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useState } from "react";
+import UploadCodeFromFile from "@/components/buttons/UploadCodeFromFile";
+import UploadCodeFromGithub from "@/components/buttons/UploadCodeFromGithub";
 import NotLoggedIn from "@/components/NotLoggedIn";
 import {
   Card,
@@ -27,23 +26,18 @@ import { useUserStore } from "@/store/userStore";
 import { PostTypes } from "@/types/postTypes";
 import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
+import { allowedLanguages } from "@/utils/constants";
 import { Button } from "@nextui-org/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { allowedLanguages } from "@/utils/constants";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { FormEvent, useState } from "react";
 import { toast as rhToast } from "react-hot-toast";
-import UploadCodeFromGithub from "@/components/buttons/UploadCodeFromGithub";
-import UploadCodeFromFile from "@/components/buttons/UploadCodeFromFile";
 
 export default function UpdatePost() {
   const searchParams = useSearchParams();
   const postId = searchParams.get("postId");
-  const [title, setTitle] = useState("");
-  const [language, setLanguage] = useState(
-    searchParams.get("language") ? searchParams.get("language") : "",
-  );
-  const [description, setDescription] = useState("");
-  const [code, setCode] = useState("");
   const { toast } = useToast();
   const { isLoggedIn } = useUserStore();
   const router = useRouter();
@@ -52,20 +46,19 @@ export default function UpdatePost() {
     isError,
     isLoading,
   } = useQuery<PostTypes>({
-    queryKey: [`update-post: ${postId}`],
-    queryFn: async () => {
-      return await fetcher.post("/posts/get-post", { postId }).then((res) => {
-        console.log(res, postId);
-        setCode(res.content);
-        setDescription(res.description);
+    queryKey: ["get-post-to-update", postId],
+    queryFn: () => {
+      return fetcher.post("/posts/get-post", { postId }).then((res) => {
         setTitle(res.title);
+        setDescription(res.description);
+        setCode(res.content);
         setLanguage(res.language);
         return res;
       });
     },
   });
   const { mutate, isPending } = useMutation({
-    mutationKey: [postId],
+    mutationKey: ["update-post", postId],
     mutationFn: async () => {
       return await fetcher
         .patch("/posts/update-post", {
@@ -85,6 +78,10 @@ export default function UpdatePost() {
         });
     },
   });
+  const [title, setTitle] = useState(post?.title || "");
+  const [language, setLanguage] = useState(post?.language || "");
+  const [description, setDescription] = useState(post?.description || "");
+  const [code, setCode] = useState(post?.content || "");
 
   if (!postId) {
     router.push("/create-post");

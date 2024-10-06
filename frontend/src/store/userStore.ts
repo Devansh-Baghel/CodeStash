@@ -96,20 +96,30 @@ export const useUserStore = create<UserState>()((set, get) => ({
       error: "Failed to sign up",
     });
   },
-  loginUser: ({ email, password }) => {
-    const loginToastPromise = fetcher
+  loginUser: async ({ email, password }) => {
+    toast.loading("Logging in...", { id: "login" });
+
+    await fetcher
       .post("/users/login", { email, password })
       .then((res) => {
         set(() => ({ userData: res.user }));
         set(() => ({ isLoggedIn: true }));
         set(() => ({ showProfileCard: true }));
+        toast.success("Logged in successfully", { id: "login" });
+      })
+      .catch((err) => {
+        switch (err.response.status) {
+          case 401:
+            toast.error("Invalid email or password", { id: "login" });
+            break;
+          case 404:
+            toast.error("User not found", { id: "login" });
+            break;
+          default:
+            toast.error("Something went wrong", { id: "login" });
+            break;
+        }
       });
-
-    toast.promise(loginToastPromise, {
-      loading: "Logging in...",
-      success: "Logged in successfully",
-      error: "Failed to login",
-    });
   },
   logoutUser: () => {
     const logoutToastPromise = fetcher.post("/users/logout").then(() => {
