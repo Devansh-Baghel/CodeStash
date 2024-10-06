@@ -53,7 +53,11 @@ export default function CommunityItem({
       <CardHeader className="flex flex-row items-center justify-between gap-4">
         <Link href={`c/${community.name}`}>
           <CardTitle className="mb-2 text-lg">c/{community.name}</CardTitle>
-          <CardDescription>{community.description}</CardDescription>
+          <CardDescription>
+            {community.description.length > 200
+              ? community.description.slice(0, 200) + "..."
+              : community.description}
+          </CardDescription>
         </Link>
         <div className="flex flex-col items-center">
           <p className="text-sm">{members} members</p>

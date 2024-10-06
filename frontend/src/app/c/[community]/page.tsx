@@ -32,8 +32,6 @@ export default function Page({ params }: { params: { community: string } }) {
   const [hasJoinedCommunity, setHasJoinedCommunity] = useState(
     userData?.communitiesJoined.includes(params.community),
   );
-  const [members, setMembers] = useState(0);
-  const [description, setDescription] = useState("");
   const router = useRouter();
   const { data, isLoading, isError, refetch } = useQuery<CommunityTypes>({
     queryKey: [`c/${params.community}`],
@@ -50,6 +48,8 @@ export default function Page({ params }: { params: { community: string } }) {
         });
     },
   });
+  const [members, setMembers] = useState(data?.joinedMembers || 0);
+  const [description, setDescription] = useState(data?.description || "");
 
   if (params.community === "all") router.push("/");
 
@@ -96,7 +96,7 @@ export default function Page({ params }: { params: { community: string } }) {
               />
               <div>
                 <h1 className="text-xl font-semibold">c/{data.name}</h1>
-                <p className="">{description}</p>
+                <p className="max-w-96">{description}</p>
               </div>
             </div>
             {hasJoinedCommunity ? (

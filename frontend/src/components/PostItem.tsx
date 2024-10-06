@@ -100,7 +100,7 @@ export default function PostItem({ post }: { post: PostTypes }) {
       </CardHeader>
       <CardContent>
         <p className="whitespace-pre-wrap">
-          {post.description.length > 100
+          {post.description.length > 400
             ? post.description.slice(0, 400) + "..."
             : post.description}
         </p>

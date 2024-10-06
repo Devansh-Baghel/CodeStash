@@ -79,7 +79,9 @@ export const useUserStore = create<UserState>()((set, get) => ({
       });
   },
   registerUser: async ({ firstName, lastName, email, password }) => {
-    const registerUserPromise = fetcher
+    toast.loading("Signing up...", { id: "register" });
+
+    await fetcher
       .post("/users/register", {
         firstName,
         lastName,
@@ -87,14 +89,19 @@ export const useUserStore = create<UserState>()((set, get) => ({
         password,
       })
       .then(() => {
+        toast.success("Sign up successful", { id: "register" });
         get().loginUser({ email, password });
+      })
+      .catch((err) => {
+        switch (err.response.status) {
+          case 409:
+            toast.error("User already exists", { id: "register" });
+            break;
+          default:
+            toast.error("Something went wrong", { id: "register" });
+            break;
+        }
       });
-
-    toast.promise(registerUserPromise, {
-      loading: "Signing up...",
-      success: "Sign up successful",
-      error: "Failed to sign up",
-    });
   },
   loginUser: async ({ email, password }) => {
     toast.loading("Logging in...", { id: "login" });

@@ -51,6 +51,7 @@
 - [x] paginate in backend
 - [x] paginate in frontend
 - [x] paginate posts-by-lang endpoint
+- [x] paginate / that currently sends all the posts
 - [x] add explain this button in in AiAnswerCard when user hasn't gotten ai answer yet.
 - [x] add mutation button component
 - [x] better client side navigation without router.push()
@@ -58,12 +59,18 @@
 - [x] fix nextui ui Links doing a full page reload
 - [x] add custom info toasts
 - [x] change shadcn alert to nextui modal, animations aren't working in shadcn in DeletePostButton and CommentItem
+- [x] remove unneccacary packages from backend
 - [x] remove demo user download path
+- [x] add react-query proper way, so queries don't refetch every time
+- [x] proper login page errors
+- [x] proper register page errors
+- [x] shorten long post descriptions on PostItem view
+- [x] shorten long community descriptions on CommunityItem view
+- [x] invalidate your posts /profile when create post, delete post, update post
+- [x] tell user to not enter spaces in communities name, parse community name to be url friendly
 
 ## Not Done
 
-- [ ] infinite scrolling posts/snippets in homepage
-- [ ] view raw option in each post
 - [ ] add formatting for number of comments, posts, upvotes, downvotes, etc like 1k, 2k, 3k, 1M, 2M, 3M etc
 - [ ] create list feature for users to create a list of snippets etc.
 - [ ] add loading user data loader in generic component to fetch the current user and block all rendering until then
@@ -78,7 +85,6 @@
 - [ ] only make get current user if the localstorage has userData or loggedIn
 - [ ] allow user to import all snippets from github gist
 - [ ] upload snippet as github gist
-- [ ] paginate / that currently sends all the posts
 - [ ] search button for not logged in user in sidebar (sidebar for not logged in user is empty)
 - [ ] draft posts feature
 - [ ] forgot password feature
@@ -88,12 +94,10 @@
 - [ ] test open in vs code feature in windows
 - [ ] test open in vs code feature without vs code install
 - [ ] add id in all toasts so that they don't repeat on multiple clicks
-- [ ] add react-query proper way, so queries don't refetch every time
 - [ ] create a preview/banner image for codestash to add in github
 - [ ] save ai answer in post model for future requests, if post model doesn't have ai answer then generate the ai answer (this is to save tokens + reduce ai requests)
 - [ ] move copy to code and save post button at the top of the code content
 - [ ] check text encoding 004 model if users hit 15rpm or token limit.
-- [ ] remove unneccacary packages from backend
 - [ ] Suspense or loading.tsx components for instant feedback when user clicks to go on a route
 - [ ] better font for the title "CodeStash"
 - [ ] add made with love by devansh baghel at the end of every section
@@ -136,9 +140,6 @@
 - [ ] display language tags with skillicons.dev
 - [ ] create a custom useEffect wrapper hook that prefetches a page
 - [ ] update post doesn't work, react query caching issue / nextjs caching issue.
-- [x] invalidate your posts /profile when create post, delete post, update post
-- [x] tell user to not enter spaces in communities name, parse community name to be url friendly
+
 - [ ] add auto crop option for avatars and cover images, https://www.npmjs.com/package/smartcrop
 - [ ] reloading /c/community doesn't show admin options
-- [x] proper login page errors
-- [ ] proper register page errors
