@@ -1,6 +1,8 @@
-![2024-10-08_19-39](https://github.com/user-attachments/assets/1d4cc0f8-091f-4308-8305-2f031a4214fe)
+<a href="https://codestash.baghel.dev" target="_blank">![2024-10-08_19-39](https://github.com/user-attachments/assets/1d4cc0f8-091f-4308-8305-2f031a4214fe)</a>
 
 # CodeStash 📝💻
+
+[Deployed Site](https://codestash.baghel.dev)
 
 Codestash is a full-stack web app where developers can share, store, and discover code snippets. With community-driven features and AI-powered enhancements, Codestash blends the social dynamics of Reddit with the technical expertise of Stack Overflow.
 
