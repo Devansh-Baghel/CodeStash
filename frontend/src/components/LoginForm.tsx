@@ -26,13 +26,24 @@ export default function LoginForm() {
     loginUser({ email, password });
   }
 
-  function loginDemoUser() {
-    loginUser({ email: "test@test.com", password: "test" });
-  }
-
   return (
     <form onSubmit={(e) => submitForm(e)}>
       <div className="grid gap-4">
+        <Button
+          variant="default"
+          className="w-full"
+          type="button"
+          onClick={() =>
+            loginUser({ email: "test@test.com", password: "test123" })
+          }
+        >
+          Login as a Demo User
+        </Button>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-transparent px-2 text-muted-foreground">
+            Or continue with
+          </span>
+        </div>
         <div className="grid gap-2">
           <Label htmlFor="email">Email</Label>
           <Input
@@ -67,14 +78,6 @@ export default function LoginForm() {
           Login
         </Button>
         {/* TODO: add login with google */}
-        <Button
-          variant="outline"
-          className="w-full"
-          type="button"
-          onClick={loginDemoUser}
-        >
-          Login as a Demo User
-        </Button>
       </div>
       <div className="mt-4 text-center text-sm">
         Don&apos;t have an account?{" "}
