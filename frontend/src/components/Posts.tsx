@@ -1,32 +1,27 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { useUserStore } from "@/store/userStore";
 import { PostTypes } from "@/types/postTypes";
 import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
-import { Button, Pagination } from "@nextui-org/react";
+import { Button, Card, Pagination } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { TbError404 as NotFoundIcon } from "react-icons/tb";
 import PostItem from "./PostItem";
 import PostsLoading from "./skeletons/PostsLoading";
+import { CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 export default function Posts() {
   const searchParams = useSearchParams();
   const language = searchParams.get("language");
   const router = useRouter();
   const page = parseInt(searchParams.get("page") || "1");
+  const { loginUser, isLoggedIn } = useUserStore();
 
-  const {
-    data,
-    isError,
-    isPending,
-    error,
-    refetch,
-    isRefetchError,
-    isRefetching,
-  } = useQuery<{
+  const { data, isError, isPending, error } = useQuery<{
     posts: PostTypes[];
     totalPages: number;
     totalPosts: number;
@@ -42,13 +37,8 @@ export default function Posts() {
     },
   });
 
-  // This is cause when user clicks on homepage icon to go to / , then it refetches the query
-  // useEffect(() => {
-  //   refetch();
-  // }, [refetch, searchParams]);
-
-  if (isPending || isRefetching) return <PostsLoading />;
-  if (isError || isRefetchError) {
+  if (isPending) return <PostsLoading />;
+  if (isError) {
     // FIXME: fix ts error
     // @ts-ignore
     if (error?.response?.status === 404) {
@@ -60,6 +50,27 @@ export default function Posts() {
 
   return (
     <div className={cn(cardLayout, "flex flex-col gap-8")}>
+      {!isLoggedIn && (
+        <Card className="md:hidden">
+          <CardHeader>
+            <CardTitle className="text-lg">Want to see the full app?</CardTitle>
+            <CardDescription>
+              Login to a demo account to get access to all features of this app
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="w-full">
+            <Button
+              color="primary"
+              className="w-full"
+              onClick={() =>
+                loginUser({ email: "test@test.com", password: "test123" })
+              }
+            >
+              Login as a demo user
+            </Button>
+          </CardContent>
+        </Card>
+      )}
       <h1 className="-mb-4 text-2xl font-bold text-gray-600">
         {language ? `Posts written in ${language}` : "All Posts"}
       </h1>

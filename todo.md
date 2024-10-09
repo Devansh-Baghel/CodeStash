@@ -69,6 +69,7 @@
 - [x] invalidate your posts /profile when create post, delete post, update post
 - [x] tell user to not enter spaces in communities name, parse community name to be url friendly
 - [x] add full page preloader
+- [x] add login as a demo user for mobile screens
 
 ## Not Done
 
@@ -124,7 +125,7 @@
   13. [ ] /create-post
   14. [x] /create-community
   15. [ ] /update-post
-  16. [ ] /post/postid
+  16. [x] /post/postid
 - [ ] add option to create-post in hamburger menu
 - [ ] add option to create-community in hamburger menu
 - [ ] add option to popular-languages in hamburger menu

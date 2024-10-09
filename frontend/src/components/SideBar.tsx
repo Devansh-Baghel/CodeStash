@@ -1,3 +1,6 @@
+import { useUserStore } from "@/store/userStore";
+import { Button, Card } from "@nextui-org/react";
+import Link from "next/link";
 import { AiFillCode as LangIcon } from "react-icons/ai";
 import { FaPlus as PlusIcon } from "react-icons/fa";
 import {
@@ -6,16 +9,12 @@ import {
 } from "react-icons/fa6";
 import { LuLogOut as LogoutIcon } from "react-icons/lu";
 import { RiHome6Fill as HomeIcon } from "react-icons/ri";
-import { useUserStore } from "@/store/userStore";
-import { Button, Card } from "@nextui-org/react";
-import Link from "next/link";
 import JoinedCommunities from "./JoinedCommunities";
 import { CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 export default function SideBar() {
   const { isLoggedIn, logoutUser, loginUser } = useUserStore();
 
-  // FIXME: add a better demo user
   function loginDemoUser() {
     loginUser({ email: "test@test.com", password: "test123" });
   }
