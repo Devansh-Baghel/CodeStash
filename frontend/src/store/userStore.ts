@@ -30,7 +30,7 @@ interface UserState {
     downloadPath: string;
   };
   setUserData: (userData: UserState["userData"]) => void;
-  getCurrentUser: () => void;
+  getCurrentUser: () => Promise<void>;
   registerUser: ({
     firstName,
     lastName,
@@ -64,8 +64,8 @@ export const useUserStore = create<UserState>()((set, get) => ({
   setUserData: (userData) => {
     set(() => ({ userData }));
   },
-  getCurrentUser: async () => {
-    await axiosInstance
+  getCurrentUser: () => {
+    return axiosInstance
       .get("/users/get-current-user")
       .then((res) => {
         set(() => ({ userData: res.data.data.user }));

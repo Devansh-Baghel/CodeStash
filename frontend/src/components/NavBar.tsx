@@ -1,11 +1,10 @@
-import { useRouter } from "next/navigation";
-import { VscGitStash as CodeStashIcon } from "react-icons/vsc";
 import { useUserStore } from "@/store/userStore";
 import { Button } from "@nextui-org/react";
+import Link from "next/link";
+import { VscGitStash as CodeStashIcon } from "react-icons/vsc";
+import AvatarDropdown from "./AvatarDropdown";
 import Hamburger from "./Hamburger";
 import SearchBar from "./SearchBar";
-import AvatarDropdown from "./AvatarDropdown";
-import Link from "next/link";
 
 // TODO: Make this navbar fixed at the top of the screen all the time
 export default function Navbar() {
