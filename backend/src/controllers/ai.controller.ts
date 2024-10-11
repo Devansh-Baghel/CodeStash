@@ -4,6 +4,7 @@ import { ApiError } from "../utils/apiError";
 import { ApiResponse } from "../utils/apiResponse";
 import { asyncHandler } from "../utils/asyncHandler";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { limiter } from "../utils/ratelimit";
 
 const githubAlerts = `
 > 
@@ -25,10 +26,12 @@ const githubAlerts = `
 
 export const getAiAnswer = asyncHandler(async (req: UserRequest, res) => {
   const { postId } = req.query;
+  const identifier = req.ip!;
 
-  if (!postId) {
-    return new ApiError(400, "Post id is required to get comments");
-  }
+  const ratelimit = await limiter.limit(identifier);
+  if (!ratelimit.success) throw new ApiError(429, "Too many requests");
+
+  if (!postId) return new ApiError(400, "Post id is required to get comments");
 
   const post = await Post.findById(postId);
 
