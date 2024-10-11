@@ -53,6 +53,7 @@ Codestash creates a collaborative space for developers, making it easy to find, 
 - **Logging**: [Pino](https://getpino.io) (v9.3.2)
 - **Validation**: [Zod](https://zod.dev) (v3.23.8)
 - **AI-powered Code Explanations**: [Google Generative AI](https://developers.generativeai.google) (v0.19.0)
+- **Rate Limiting**: [Unkey](https://www.unkey.com/)
 
 ### Development Tools:
 - **Frontend**: TypeScript, ESLint, Prettier, Husky
