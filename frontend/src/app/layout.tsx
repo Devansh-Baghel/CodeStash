@@ -3,6 +3,7 @@ import "./globals.css";
 
 import { Inter as FontSans } from "next/font/google";
 
+import FormbricksProvider from "@/app/formbricks";
 import Dashboard from "@/components/Dashboard";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
@@ -37,6 +38,7 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
+        <FormbricksProvider />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

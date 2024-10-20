@@ -379,6 +379,7 @@ export const getDownvotedPosts = asyncHandler(async (req: UserRequest, res) => {
     );
 });
 
+// TODO: when OP deletes post, make sure to remove that post from all the other users upvoted posts, downvoted posts and saved posts.
 export const deletePost = asyncHandler(async (req: UserRequest, res) => {
   const { postId } = req.body;
   const user = req.user;

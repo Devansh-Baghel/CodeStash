@@ -34,7 +34,7 @@ export default function LoginForm() {
           className="w-full"
           type="button"
           onClick={() =>
-            loginUser({ email: "test@test.com", password: "test123" })
+            loginUser({ email: "test@test.com", password: process.env.NEXT_PUBLIC_DEMO_PASS! })
           }
         >
           Login as a Demo User

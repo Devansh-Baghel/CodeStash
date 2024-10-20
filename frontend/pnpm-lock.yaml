@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@formbricks/js':
+        specifier: ^3.0.1
+        version: 3.0.1(zod@3.23.8)
       '@formkit/auto-animate':
         specifier: ^0.8.2
         version: 0.8.2
@@ -209,6 +212,11 @@ packages:
 
   '@formatjs/intl-localematcher@0.5.4':
     resolution: {integrity: sha512-zTwEpWOzZ2CiKcB93BLngUX59hQkuZjT2+SAQEscSm52peDW/getsawMcWF1rGRpMCX6D7nSJA3CzJ8gn13N/g==}
+
+  '@formbricks/js@3.0.1':
+    resolution: {integrity: sha512-DpDod2HL8BbXxT5xvLjdYXtIajf/t8OhwLRkHLxYtMSTnCHqqBNZhNXFb4yf4cy04JIpmP1qyjZeoAUc3xbyCg==}
+    peerDependencies:
+      zod: 3.x
 
   '@formkit/auto-animate@0.8.2':
     resolution: {integrity: sha512-SwPWfeRa5veb1hOIBMdzI+73te5puUBHmqqaF1Bu7FjvxlYSz/kJcZKSa9Cg60zL0uRNeJL2SbRxV6Jp6Q1nFQ==}
@@ -4008,6 +4016,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
+
   zustand@4.5.5:
     resolution: {integrity: sha512-+0PALYNJNgK6hldkgDq2vLrw5f6g/jCInz52n9RTpropGgeAf/ioFUCdtsjCqu4gNhW9D01rUQBROoRjdzyn2Q==}
     engines: {node: '>=12.7.0'}
@@ -4107,6 +4118,10 @@ snapshots:
   '@formatjs/intl-localematcher@0.5.4':
     dependencies:
       tslib: 2.7.0
+
+  '@formbricks/js@3.0.1(zod@3.23.8)':
+    dependencies:
+      zod: 3.23.8
 
   '@formkit/auto-animate@0.8.2': {}
 
@@ -9375,6 +9390,8 @@ snapshots:
   yaml@2.5.0: {}
 
   yocto-queue@0.1.0: {}
+
+  zod@3.23.8: {}
 
   zustand@4.5.5(@types/react@18.3.4)(react@18.3.1):
     dependencies:

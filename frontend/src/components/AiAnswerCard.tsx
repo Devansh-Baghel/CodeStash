@@ -1,3 +1,13 @@
+import { useUserStore } from "@/store/userStore";
+import { axiosInstance } from "@/utils/axios";
+import { infoToast } from "@/utils/constants";
+import formbricks from "@formbricks/js";
+import MarkdownPreview from "@uiw/react-markdown-preview";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { BsStars as StarsIcon } from "react-icons/bs";
+import MutationButton from "./MutationButton";
 import {
   Card,
   CardContent,
@@ -5,15 +15,6 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import MarkdownPreview from "@uiw/react-markdown-preview";
-import toast from "react-hot-toast";
-import { useUserStore } from "@/store/userStore";
-import { axiosInstance } from "@/utils/axios";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { BsStars as StarsIcon } from "react-icons/bs";
-import MutationButton from "./MutationButton";
-import { infoToast } from "@/utils/constants";
 
 export default function AiAnswerCard({
   aiAnswer,
@@ -43,6 +44,7 @@ export default function AiAnswerCard({
       .then((res) => {
         setAiAnswer(res.data.data.aiAnswer);
         setIsLoading(false);
+        formbricks.track("ai_answer");
         router.push(`#ai-explanation`);
       });
 
@@ -63,7 +65,11 @@ export default function AiAnswerCard({
           <MarkdownPreview source={aiAnswer} />
         ) : (
           <div className="flex w-full items-center justify-center">
-            <MutationButton onClick={getAiAnswer} isPending={isLoading}>
+            <MutationButton
+              onClick={getAiAnswer}
+              isPending={isLoading}
+              id="ai-button"
+            >
               {isLoading ? "Getting" : "Get"} AI Explanation
               <StarsIcon className="size-5" />
             </MutationButton>

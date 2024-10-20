@@ -16,7 +16,7 @@ export default function SideBar() {
   const { isLoggedIn, logoutUser, loginUser } = useUserStore();
 
   function loginDemoUser() {
-    loginUser({ email: "test@test.com", password: "test123" });
+    loginUser({ email: "test@test.com", password: process.env.NEXT_PUBLIC_DEMO_PASS! });
   }
 
   return (

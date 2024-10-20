@@ -63,7 +63,10 @@ export default function Posts() {
               color="primary"
               className="w-full"
               onClick={() =>
-                loginUser({ email: "test@test.com", password: "test123" })
+                loginUser({
+                  email: "test@test.com",
+                  password: process.env.NEXT_PUBLIC_DEMO_PASS!,
+                })
               }
             >
               Login as a demo user

@@ -70,6 +70,7 @@
 - [x] tell user to not enter spaces in communities name, parse community name to be url friendly
 - [x] add full page preloader
 - [x] add login as a demo user for mobile screens
+- [x] add api ratelimiting to the /ai/explain endpoint
 
 ## Not Done
 
@@ -144,3 +145,6 @@
 - [ ] update post doesn't work, react query caching issue / nextjs caching issue.
 - [ ] add auto crop option for avatars and cover images, https://www.npmjs.com/package/smartcrop
 - [ ] reloading /c/community doesn't show admin options
+- [ ] proper username parsing, cant contain spaces etc
+- [ ] ask user password again when someone tries to change it
+
