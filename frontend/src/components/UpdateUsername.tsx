@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -5,20 +6,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { BiLoaderAlt as Loader } from "react-icons/bi";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import fetcher from "@/utils/axios";
-import { FormEvent, useState } from "react";
 import { useUserStore } from "@/store/userStore";
+import fetcher from "@/utils/axios";
 import { useMutation } from "@tanstack/react-query";
+import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
+import { BiLoaderAlt as Loader } from "react-icons/bi";
 
 // TODO: check if username is available, if not: send a toast to say "Username taken"
 export default function UpdateUsername() {
   const [newUsername, setNewUsername] = useState("");
   const { setUserData } = useUserStore();
+  const { userData } = useUserStore();
   const { mutate, isPending } = useMutation({
     mutationKey: ["update-username"],
     mutationFn: () => {
@@ -43,6 +44,12 @@ export default function UpdateUsername() {
 
   function updateUsername(e: FormEvent) {
     e.preventDefault();
+
+    if (userData?.email === "test@test.com") {
+      toast.error("You can't change the username of the demo user");
+      return;
+    }
+
     mutate();
   }
 
