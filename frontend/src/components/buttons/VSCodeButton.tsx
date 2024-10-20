@@ -1,19 +1,18 @@
-import { Button, Input } from "@nextui-org/react";
-import { FormEvent, useState } from "react";
-import { IoCodeDownload as DownloadIcon } from "react-icons/io5";
-import { VscVscode as VSCodeIcon } from "react-icons/vsc";
+import { useUserStore } from "@/store/userStore";
 import {
   Modal,
-  ModalContent,
-  ModalHeader,
   ModalBody,
+  ModalContent,
   ModalFooter,
+  ModalHeader,
   useDisclosure,
 } from "@nextui-org/modal";
-import toast from "react-hot-toast";
-import { useUserStore } from "@/store/userStore";
+import { Button } from "@nextui-org/react";
 import Link from "next/link";
-import { infoToast } from "@/utils/constants";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { IoCodeDownload as DownloadIcon } from "react-icons/io5";
+import { VscVscode as VSCodeIcon } from "react-icons/vsc";
 
 type VSCodeButtonProps = {
   snippet: string;
@@ -74,6 +73,11 @@ export default function VSCodeButton({
   function handleModalOpen() {
     if (localStorage.getItem("downloadPath")) {
       userData!.downloadPath = localStorage.getItem("downloadPath")!;
+    }
+
+    if (userData?.email === "test@test.com") {
+      toast.error("Demo user can't use this feature");
+      return;
     }
 
     if (!userData?.downloadPath) {
