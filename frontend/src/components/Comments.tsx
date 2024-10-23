@@ -10,6 +10,7 @@ import fetcher from "@/utils/axios";
 import { Button, Textarea } from "@nextui-org/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import CommentItem from "./CommentItem";
 import CommentsSkeleton from "./skeletons/CommentsSkeleton";
 
@@ -22,6 +23,7 @@ export default function Comments({ postId, madeBy }: CommentProps) {
   const [comment, setComment] = useState("");
   const { isLoggedIn } = useUserStore();
   const router = useRouter();
+  const [parent] = useAutoAnimate();
   const { data, isError, isLoading, refetch, isRefetchError, isRefetching } =
     useQuery<Comment[]>({
       queryKey: [`${postId}/comments`],
@@ -103,7 +105,7 @@ export default function Comments({ postId, madeBy }: CommentProps) {
           // TODO: add better ui for no comments yet.
           <p>No comments yet</p>
         ) : (
-          <ul className="flex flex-col gap-2">
+          <ul className="flex flex-col gap-2" ref={parent}>
             {/* TODO: show "adding comment..." when user adds a new comment */}
             {data?.map((comment) => (
               <CommentItem
