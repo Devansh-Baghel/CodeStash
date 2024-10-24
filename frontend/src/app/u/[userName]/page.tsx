@@ -11,13 +11,14 @@ import { Avatar } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, use } from "react";
 
-export default function UserProfile({
-  params,
-}: {
-  params: { userName: string };
-}) {
+export default function UserProfile(
+  props: {
+    params: Promise<{ userName: string }>;
+  }
+) {
+  const params = use(props.params);
   const router = useRouter();
   const { userData } = useUserStore();
   const {

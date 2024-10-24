@@ -28,7 +28,7 @@ import { useQuery } from "@tanstack/react-query";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, use } from "react";
 import {
   BiDownvote as DownvoteIcon,
   BiSolidDownvote as SolidDownvoteIcon,
@@ -41,7 +41,8 @@ import {
   MdBookmarkRemove as BookmarkRemoveIcon,
 } from "react-icons/md";
 
-export default function Post({ params }: { params: { postId: string } }) {
+export default function Post(props: { params: Promise<{ postId: string }> }) {
+  const params = use(props.params);
   const {
     isLoggedIn,
     userData,

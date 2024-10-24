@@ -14,7 +14,7 @@ import { Avatar, Button, Tab, Tabs } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, use } from "react";
 import toast from "react-hot-toast";
 import { FaPlus as PlusIcon } from "react-icons/fa";
 
@@ -26,7 +26,8 @@ const filters: { name: FilterTypes }[] = [
   { name: "Oldest" },
 ];
 
-export default function Page({ params }: { params: { community: string } }) {
+export default function Page(props: { params: Promise<{ community: string }> }) {
+  const params = use(props.params);
   const { userData, isLoggedIn, joinCommunity, leaveCommunity } =
     useUserStore();
   const [hasJoinedCommunity, setHasJoinedCommunity] = useState(

@@ -11,7 +11,7 @@ export default function Navbar() {
   const { isLoggedIn } = useUserStore();
 
   return (
-    <nav className="sticky top-0 z-50 mt-[-1rem] flex items-center justify-between bg-background pb-6 pt-4">
+    (<nav className="sticky top-0 z-50 mt-[-1rem] flex items-center justify-between bg-background pb-6 pt-4">
       <Button
         className="flex gap-2 font-bold text-primary"
         radius="full"
@@ -24,12 +24,11 @@ export default function Navbar() {
       </Button>
       <Hamburger />
       <SearchBar />
-
       {isLoggedIn ? (
         // TODO: when user is logged in show them their user icon which opens a menu for lots of actions like reddit does when logged in.
-        <div className="hidden sm:flex">
+        (<div className="hidden sm:flex">
           <AvatarDropdown />
-        </div>
+        </div>)
       ) : (
         <div className="hidden gap-2 sm:flex">
           <Button
@@ -52,6 +51,6 @@ export default function Navbar() {
           </Button>
         </div>
       )}
-    </nav>
+    </nav>)
   );
 }

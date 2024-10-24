@@ -55,7 +55,7 @@ export default function Comments({ postId, madeBy }: CommentProps) {
   if (isLoading) return <CommentsSkeleton />;
 
   return (
-    <Card className="my-6">
+    (<Card className="my-6">
       <CardHeader className="">
         <CardTitle>
           {data?.length === 1
@@ -103,7 +103,7 @@ export default function Comments({ postId, madeBy }: CommentProps) {
       <CardContent>
         {data?.length === 0 ? (
           // TODO: add better ui for no comments yet.
-          <p>No comments yet</p>
+          (<p>No comments yet</p>)
         ) : (
           <ul className="flex flex-col gap-2" ref={parent}>
             {/* TODO: show "adding comment..." when user adds a new comment */}
@@ -118,6 +118,6 @@ export default function Comments({ postId, madeBy }: CommentProps) {
           </ul>
         )}
       </CardContent>
-    </Card>
+    </Card>)
   );
 }
