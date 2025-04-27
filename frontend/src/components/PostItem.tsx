@@ -1,7 +1,3 @@
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-
 import {
   Card,
   CardContent,
@@ -13,13 +9,18 @@ import {
 import { useUserStore } from "@/store/userStore";
 import { PostTypes } from "@/types/postTypes";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { BiLoaderAlt as Loader } from "react-icons/bi";
 
 export default function PostItem({ post }: { post: PostTypes }) {
   const router = useRouter();
   const [parent] = useAutoAnimate();
   const { isLoggedIn, upvotePost, userData, downvotePost } = useUserStore();
   const [upvoteCount, setUpvoteCount] = useState(post.upvotes - post.downvotes);
+  const [postLoading, setPostLoading] = useState(false);
 
   // TODO: Create a custom hook to do this
   function handleInteraction(postId: string, action: "upvote" | "downvote") {
@@ -115,11 +116,20 @@ export default function PostItem({ post }: { post: PostTypes }) {
         </p>
         <Button
           color="primary"
+          variant={postLoading ? "flat" : "solid"}
           className="w-full rounded-[20px]"
           as={Link}
           href={`/post/${post._id}`}
+          onClick={() => setPostLoading(true)}
         >
-          Show code
+          {postLoading ? (
+            <span className="flex items-center justify-center">
+              <Loader className="mr-2 size-4 animate-spin" />
+              Loading post...
+            </span>
+          ) : (
+            "Show code"
+          )}
         </Button>
       </CardFooter>
     </Card>
