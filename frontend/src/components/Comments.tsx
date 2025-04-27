@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useUserStore } from "@/store/userStore";
 import { Comment } from "@/types/commentTypes";
 import fetcher from "@/utils/axios";
-import { Button, Textarea } from "@nextui-org/react";
+import { Button, Textarea } from "@heroui/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -55,7 +55,7 @@ export default function Comments({ postId, madeBy }: CommentProps) {
   if (isLoading) return <CommentsSkeleton />;
 
   return (
-    (<Card className="my-6">
+    <Card className="my-6">
       <CardHeader className="">
         <CardTitle>
           {data?.length === 1
@@ -118,6 +118,6 @@ export default function Comments({ postId, madeBy }: CommentProps) {
           </ul>
         )}
       </CardContent>
-    </Card>)
+    </Card>
   );
 }

@@ -7,7 +7,7 @@ import { useUserStore } from "@/store/userStore";
 import { UserTypes } from "@/types/userTypes";
 import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
-import { Avatar } from "@nextui-org/react";
+import { Avatar } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

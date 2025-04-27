@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { useUserStore } from "@/store/userStore";
 import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import useTitle from "@/hooks/useTitle";
 import Link from "next/link";

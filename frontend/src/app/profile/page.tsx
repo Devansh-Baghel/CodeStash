@@ -10,8 +10,8 @@ import {
   CardDescription,
   CardFooter,
 } from "@/components/ui/card";
-import { Avatar, Button } from "@nextui-org/react";
-import { Tabs, Tab } from "@nextui-org/react";
+import { Avatar, Button } from "@heroui/react";
+import { Tabs, Tab } from "@heroui/react";
 import UserPosts from "@/components/UserPosts";
 import UploadAvatar from "@/components/UploadAvatar";
 import Link from "next/link";

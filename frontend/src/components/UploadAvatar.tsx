@@ -8,7 +8,7 @@ import {
   Button,
   useDisclosure,
   Input,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import toast from "react-hot-toast";
 import { axiosInstance } from "@/utils/axios";
 import { useUserStore } from "@/store/userStore";

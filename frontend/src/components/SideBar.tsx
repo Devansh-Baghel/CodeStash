@@ -1,5 +1,5 @@
 import { useUserStore } from "@/store/userStore";
-import { Button, Card } from "@nextui-org/react";
+import { Button, Card } from "@heroui/react";
 import Link from "next/link";
 import { AiFillCode as LangIcon } from "react-icons/ai";
 import { FaPlus as PlusIcon } from "react-icons/fa";

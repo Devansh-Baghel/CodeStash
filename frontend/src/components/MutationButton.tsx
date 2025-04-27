@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { BiLoaderAlt as Loader } from "react-icons/bi";
 
 export default function MutationButton({

@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { PostTypes } from "@/types/postTypes";
 import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";

@@ -1,4 +1,4 @@
-import { Progress } from "@nextui-org/react";
+import { Progress } from "@heroui/react";
 import { VscGitStash as CodeStashIcon } from "react-icons/vsc";
 
 export default function FullPagePreLoader() {

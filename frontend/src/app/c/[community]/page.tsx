@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { useUserStore } from "@/store/userStore";
 import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
-import { Avatar, Button, Tab, Tabs } from "@nextui-org/react";
+import { Avatar, Button, Tab, Tabs } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

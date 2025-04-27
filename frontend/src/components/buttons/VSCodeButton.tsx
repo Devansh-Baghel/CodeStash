@@ -6,8 +6,8 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure,
-} from "@nextui-org/modal";
-import { Button } from "@nextui-org/react";
+} from "@heroui/modal";
+import { Button } from "@heroui/react";
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";

@@ -9,7 +9,7 @@ import {
   useDisclosure,
   Textarea,
   Input,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { FormEvent, useState } from "react";
 import { FaGears as AccountOptionsIcon } from "react-icons/fa6";
 import { Label } from "./ui/label";

@@ -1,7 +1,7 @@
 import { useUserStore } from "@/store/userStore";
 import { axiosInstance } from "@/utils/axios";
 import { infoToast } from "@/utils/constants";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";

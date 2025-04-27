@@ -3,7 +3,7 @@ import React from "react";
 
 import { cn } from "@/lib/utils";
 import { cardLayout } from "@/utils/classnames";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 
 import { Card, CardContent, CardHeader } from "./ui/card";
 import Link from "next/link";

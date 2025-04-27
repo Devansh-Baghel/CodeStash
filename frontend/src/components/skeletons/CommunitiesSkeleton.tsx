@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { cardLayout } from "@/utils/classnames";
-import { Button, Skeleton } from "@nextui-org/react";
+import { Button, Skeleton } from "@heroui/react";
 
 import {
   Card,

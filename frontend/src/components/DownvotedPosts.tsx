@@ -19,7 +19,7 @@ import { useUserStore } from "@/store/userStore";
 import { PostTypes } from "@/types/postTypes";
 import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 
 export default function DownvotedPosts({ hasTitle = true }) {

@@ -1,4 +1,4 @@
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input } from "@heroui/react";
 import { FormEvent, useState } from "react";
 import { IoMdSearch as SearchIcon } from "react-icons/io";
 import { useAutoAnimate } from "@formkit/auto-animate/react";

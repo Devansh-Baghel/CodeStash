@@ -27,7 +27,7 @@ import { PostTypes } from "@/types/postTypes";
 import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
 import { allowedLanguages } from "@/utils/constants";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import Link from "next/link";

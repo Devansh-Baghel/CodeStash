@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton, Textarea } from "@nextui-org/react";
+import { Skeleton, Textarea } from "@heroui/react";
 
 export default function CommentsSkeleton() {
   return (

@@ -5,7 +5,7 @@ import { useUserStore } from "@/store/userStore";
 import { PostTypes } from "@/types/postTypes";
 import fetcher from "@/utils/axios";
 import { cardLayout } from "@/utils/classnames";
-import { Button, Card, Pagination } from "@nextui-org/react";
+import { Button, Card, Pagination } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";

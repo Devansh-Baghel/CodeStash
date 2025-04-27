@@ -4,7 +4,7 @@ import { FaUserGroup as PeopleIcon } from "react-icons/fa6";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useUserStore } from "@/store/userStore";
-import { Accordion, AccordionItem, Button } from "@nextui-org/react";
+import { Accordion, AccordionItem, Button } from "@heroui/react";
 import Link from "next/link";
 
 function JoinedCommunities() {

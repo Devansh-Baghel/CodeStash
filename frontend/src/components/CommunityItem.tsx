@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { toast } from "@/components/ui/use-toast";
 import { useUserStore } from "@/store/userStore";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 
 export default function CommunityItem({
   community,

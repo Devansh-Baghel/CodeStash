@@ -8,8 +8,8 @@ import {
   IoMdSettings as SettingsIcon,
 } from "react-icons/io";
 import { useUserStore } from "@/store/userStore";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { Avatar, Button } from "@nextui-org/react";
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
+import { Avatar, Button } from "@heroui/react";
 import { CardDescription } from "./ui/card";
 import Link from "next/link";
 

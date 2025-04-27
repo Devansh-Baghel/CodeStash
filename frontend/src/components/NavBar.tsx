@@ -1,5 +1,5 @@
 import { useUserStore } from "@/store/userStore";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import Link from "next/link";
 import { VscGitStash as CodeStashIcon } from "react-icons/vsc";
 import AvatarDropdown from "./AvatarDropdown";

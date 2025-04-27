@@ -5,7 +5,7 @@ import {
   LuClipboardCopy as CopyIcon,
 } from "react-icons/lu";
 
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { useCopyToClipboard } from "@uidotdev/usehooks";
 
 export default function CopyCodeButton({ code }: { code: string }) {

@@ -18,11 +18,11 @@ import {
   ModalFooter,
   useDisclosure,
   Button,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useUserStore } from "@/store/userStore";
 import { Comment } from "@/types/commentTypes";
 import fetcher from "@/utils/axios";
-import { Textarea } from "@nextui-org/react";
+import { Textarea } from "@heroui/react";
 import { useMutation } from "@tanstack/react-query";
 import { Badge } from "./ui/badge";
 import { Button as ShadButton } from "./ui/button";

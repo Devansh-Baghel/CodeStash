@@ -7,8 +7,9 @@ import FormbricksProvider from "@/app/formbricks";
 import Dashboard from "@/components/Dashboard";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+
 import { cn } from "@/lib/utils";
-import { NextUIProvider } from "@nextui-org/react";
+import { HeroUIProvider } from "@heroui/react";
 import { Toaster as RHToaster } from "react-hot-toast";
 import Providers from "./providers";
 
@@ -45,7 +46,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NextUIProvider>
+          <HeroUIProvider>
             <Providers>
               <Dashboard>
                 <main className="h-full w-full">{children}</main>
@@ -53,7 +54,7 @@ export default function RootLayout({
             </Providers>
             <Toaster />
             <RHToaster />
-          </NextUIProvider>
+          </HeroUIProvider>
         </ThemeProvider>
       </body>
     </html>

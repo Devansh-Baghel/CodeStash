@@ -14,7 +14,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useUserStore } from "@/store/userStore";
-import { Avatar, Button } from "@nextui-org/react";
+import { Avatar, Button } from "@heroui/react";
 import Link from "next/link";
 
 // TODO: add all the new routes here for mobile users
