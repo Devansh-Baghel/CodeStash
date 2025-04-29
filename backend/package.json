@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch --clear-screen=false -r dotenv/config src/index | pino-pretty",
-    "build": "rimraf dist && tsup",
+    "build": "npx tsup --clean",
     "start": "node -r dotenv/config dist/index.js",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
@@ -47,8 +47,6 @@
     "globals": "^15.9.0",
     "pino-pretty": "^11.2.2",
     "prettier": "^3.3.3",
-    "rimraf": "^5.0.10",
-    "tsup": "^8.2.4",
     "tsx": "^4.17.0",
     "typescript": "^5.5.4",
     "typescript-eslint": "^7.18.0",
