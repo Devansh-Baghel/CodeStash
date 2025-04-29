@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx watch --clear-screen=false -r dotenv/config src/index | pino-pretty",
     "build": "rimraf dist && tsup",
-    "start": "rimraf dist && tsup && node -r dotenv/config dist/index.js",
+    "start": "node -r dotenv/config dist/index.js",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "lint:check": "eslint .",
