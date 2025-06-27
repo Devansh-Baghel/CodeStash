@@ -27,7 +27,7 @@ export default function Posts() {
     totalPosts: number;
     currentPage: number;
   }>({
-    queryKey: ["posts", page],
+    queryKey: ["posts", page, language],
     queryFn: () => {
       if (!language) {
         return fetcher.get(`/posts/get-posts?page=${page}`);
