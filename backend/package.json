@@ -43,7 +43,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/multer": "^1.4.13",
     "@types/node": "^20.19.1",
-    "eslint": "^9.29.0",
+    "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.15.0",
     "pino-pretty": "^11.3.0",
@@ -51,6 +51,6 @@
     "tsx": "^4.20.3",
     "typescript": "^5.8.3",
     "typescript-eslint": "^7.18.0",
-    "vitest": "^2.1.9"
+    "vitest": "^3.2.4"
   }
 }
