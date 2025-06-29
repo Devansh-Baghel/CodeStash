@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { FaPlus as PlusIcon } from "react-icons/fa";
 import CommunityItem from "@/components/CommunityItem";
 import CommunitiesSkeleton from "@/components/skeletons/CommunitiesSkeleton";
@@ -36,7 +35,6 @@ export default function Communities() {
     },
   });
   const { isLoggedIn } = useUserStore();
-  const router = useRouter();
 
   if (isError) return "Error";
   if (isLoading) return <CommunitiesSkeleton />;

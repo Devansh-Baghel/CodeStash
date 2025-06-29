@@ -41,8 +41,7 @@ import {
   MdBookmarkRemove as BookmarkRemoveIcon,
 } from "react-icons/md";
 
-export default function Post(props: { params: Promise<{ postId: string }> }) {
-  const params = use(props.params);
+export default function Post({ params }: { params: { postId: string } }) {
   const {
     isLoggedIn,
     userData,
