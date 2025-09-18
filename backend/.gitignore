@@ -1,5 +1,7 @@
 .env
 .env.local
 
+app.yaml
+
 node_modules/
 dist/
